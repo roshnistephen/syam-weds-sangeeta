@@ -19,6 +19,7 @@ const envBody    = document.querySelector('.envelope-body');
 const music      = document.getElementById('music');
 
 openBtn.addEventListener('click', () => {
+  openBtn.disabled = true;
   // Trigger 3D envelope opening
   envBody.classList.add('opening');
 
@@ -166,7 +167,7 @@ const revealItems = document.querySelectorAll('.reveal-fade');
 
 const revealObserver = new IntersectionObserver(
   entries => {
-    entries.forEach((entry, i) => {
+    entries.forEach(entry => {
       if (entry.isIntersecting) {
         // Stagger within the same parent
         const siblings = [...entry.target.parentElement.querySelectorAll('.reveal-fade')];
