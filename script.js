@@ -1,204 +1,199 @@
 /* =========================================
    LOADER
 ========================================= */
-
-window.addEventListener("load", () => {
-
-    setTimeout(() => {
-
-        document.getElementById("loader").style.display = "none";
-
-    }, 1500);
-
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const loader = document.getElementById('loader');
+    loader.classList.add('hidden');
+    setTimeout(() => { loader.style.display = 'none'; }, 800);
+  }, 1800);
 });
 
 
 /* =========================================
-   OPEN INVITATION
+   ENVELOPE OPENING (3D ANIMATION)
 ========================================= */
+const openBtn    = document.getElementById('openInvitation');
+const opening    = document.getElementById('opening');
+const envBody    = document.querySelector('.envelope-body');
+const music      = document.getElementById('music');
 
-const openBtn = document.getElementById("openInvitation");
-const opening = document.getElementById("opening");
-const music = document.getElementById("music");
+openBtn.addEventListener('click', () => {
+  // Trigger 3D envelope opening
+  envBody.classList.add('opening');
 
-openBtn.addEventListener("click", () => {
+  // After animation completes, fade out the section
+  setTimeout(() => {
+    opening.style.transition = 'opacity 0.8s ease';
+    opening.style.opacity    = '0';
+    setTimeout(() => {
+      opening.style.display = 'none';
+      // Scroll hero into view smoothly
+      document.getElementById('hero').scrollIntoView({ behavior: 'smooth' });
+    }, 800);
+  }, 1400);
 
-    opening.style.display = "none";
-
-    music.play().catch(() => {});
-
+  // Start music
+  music.play().catch(() => {});
 });
 
 
 /* =========================================
    MUSIC BUTTON
 ========================================= */
+const musicBtn  = document.getElementById('musicBtn');
+const musicIcon = musicBtn.querySelector('.music-icon');
 
-const musicBtn = document.getElementById("musicBtn");
-
-musicBtn.addEventListener("click", () => {
-
-    if (music.paused) {
-
-        music.play();
-        musicBtn.innerHTML = "♫";
-
-    } else {
-
-        music.pause();
-        musicBtn.innerHTML = "▶";
-
-    }
-
+musicBtn.addEventListener('click', () => {
+  if (music.paused) {
+    music.play().catch(() => {});
+    musicIcon.textContent = '♫';
+    musicBtn.setAttribute('aria-label', 'Pause music');
+  } else {
+    music.pause();
+    musicIcon.textContent = '▶';
+    musicBtn.setAttribute('aria-label', 'Play music');
+  }
 });
 
 
 /* =========================================
    COUNTDOWN
 ========================================= */
+const weddingDate = new Date('December 19, 2026 08:00:00').getTime();
 
-const weddingDate = new Date("December 19, 2026 08:00:00").getTime();
+function updateCountdown() {
+  const now = Date.now();
+  const gap = Math.max(0, weddingDate - now);
 
-function countdown() {
+  const days    = Math.floor(gap / 864e5);
+  const hours   = Math.floor((gap % 864e5) / 36e5);
+  const minutes = Math.floor((gap % 36e5)  / 6e4);
+  const seconds = Math.floor((gap % 6e4)   / 1e3);
 
-    const now = new Date().getTime();
+  const pad = n => String(n).padStart(2, '0');
 
-    const gap = weddingDate - now;
-
-    const day = 1000 * 60 * 60 * 24;
-    const hour = 1000 * 60 * 60;
-    const minute = 1000 * 60;
-
-    document.getElementById("days").innerHTML =
-        Math.floor(gap / day);
-
-    document.getElementById("hours").innerHTML =
-        Math.floor((gap % day) / hour);
-
-    document.getElementById("minutes").innerHTML =
-        Math.floor((gap % hour) / minute);
-
-    document.getElementById("seconds").innerHTML =
-        Math.floor((gap % minute) / 1000);
-
+  document.getElementById('days').textContent    = pad(days);
+  document.getElementById('hours').textContent   = pad(hours);
+  document.getElementById('minutes').textContent = pad(minutes);
+  document.getElementById('seconds').textContent = pad(seconds);
 }
 
-setInterval(countdown, 1000);
-
-countdown();
+updateCountdown();
+setInterval(updateCountdown, 1000);
 
 
 /* =========================================
-   FALLING PETALS
+   FALLING PETALS (Canvas)
 ========================================= */
-
-const canvas = document.getElementById("petals");
-const ctx = canvas.getContext("2d");
+const canvas = document.getElementById('petals');
+const ctx    = canvas.getContext('2d');
 
 let petals = [];
 
 function resizeCanvas() {
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
 }
 
 resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
 
-window.addEventListener("resize", resizeCanvas);
+// Petal colour palette – soft pastels
+const petalColors = [
+  'rgba(245,184,184,0.75)',
+  'rgba(249,192,160,0.70)',
+  'rgba(245,208,176,0.70)',
+  'rgba(212,200,240,0.65)',
+  'rgba(180,220,200,0.60)',
+  'rgba(255,200,210,0.70)',
+];
 
-for (let i = 0; i < 30; i++) {
+function createPetal() {
+  return {
+    x:     Math.random() * canvas.width,
+    y:     Math.random() * -canvas.height,
+    rx:    Math.random() * 7 + 4,
+    ry:    Math.random() * 4 + 2,
+    rot:   Math.random() * Math.PI * 2,
+    rotV:  (Math.random() - 0.5) * 0.04,
+    speed: Math.random() * 1.2 + 0.6,
+    swing: Math.random() * 2.5 + 0.5,
+    color: petalColors[Math.floor(Math.random() * petalColors.length)],
+    phase: Math.random() * Math.PI * 2,
+  };
+}
 
-    petals.push({
-
-        x: Math.random() * canvas.width,
-
-        y: Math.random() * canvas.height,
-
-        r: Math.random() * 6 + 4,
-
-        speed: Math.random() * 1.5 + 1,
-
-        swing: Math.random() * 2
-
-    });
-
+for (let i = 0; i < 40; i++) {
+  const p = createPetal();
+  p.y = Math.random() * canvas.height; // start spread on screen
+  petals.push(p);
 }
 
 function drawPetals() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  petals.forEach(p => {
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rot);
+    ctx.beginPath();
+    ctx.fillStyle = p.color;
+    ctx.ellipse(0, 0, p.rx, p.ry, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
 
-    petals.forEach(p => {
+    p.y   += p.speed;
+    p.x   += Math.sin(p.phase + p.y * 0.012) * p.swing * 0.5;
+    p.rot += p.rotV;
+    p.phase += 0.012;
 
-        ctx.beginPath();
+    if (p.y > canvas.height + 20) {
+      Object.assign(p, createPetal());
+    }
+  });
 
-        ctx.fillStyle = "rgba(220,170,170,.8)";
-
-        ctx.ellipse(
-            p.x,
-            p.y,
-            p.r,
-            p.r / 2,
-            Math.PI / 4,
-            0,
-            Math.PI * 2
-        );
-
-        ctx.fill();
-
-        p.y += p.speed;
-
-        p.x += Math.sin(p.y * 0.01) * p.swing;
-
-        if (p.y > canvas.height) {
-
-            p.y = -20;
-            p.x = Math.random() * canvas.width;
-
-        }
-
-    });
-
-    requestAnimationFrame(drawPetals);
-
+  requestAnimationFrame(drawPetals);
 }
 
 drawPetals();
 
 
 /* =========================================
-   SCROLL FADE
+   SCROLL REVEAL (IntersectionObserver)
 ========================================= */
+const revealItems = document.querySelectorAll('.reveal-fade');
 
-const sections = document.querySelectorAll("section,header,footer");
-
-const observer = new IntersectionObserver(entries => {
-
-    entries.forEach(entry => {
-
-        if (entry.isIntersecting) {
-
-            entry.target.style.opacity = "1";
-            entry.target.style.transform = "translateY(0)";
-
-        }
-
+const revealObserver = new IntersectionObserver(
+  entries => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        // Stagger within the same parent
+        const siblings = [...entry.target.parentElement.querySelectorAll('.reveal-fade')];
+        const idx = siblings.indexOf(entry.target);
+        entry.target.style.transitionDelay = `${idx * 0.12}s`;
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
     });
+  },
+  { threshold: 0.15 }
+);
 
-}, {
+revealItems.forEach(el => revealObserver.observe(el));
 
-    threshold: 0.2
 
-});
+/* =========================================
+   PARALLAX ON HERO
+========================================= */
+const hero    = document.getElementById('hero');
+const heroArt = hero ? hero.querySelector('.hero-art') : null;
 
-sections.forEach(section => {
-
-    section.style.opacity = "0";
-    section.style.transform = "translateY(60px)";
-    section.style.transition = "1s";
-
-    observer.observe(section);
-
-});
+if (heroArt) {
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    if (scrollY < window.innerHeight * 1.5) {
+      heroArt.style.transform = `translateY(${scrollY * 0.3}px)`;
+    }
+  }, { passive: true });
+}
