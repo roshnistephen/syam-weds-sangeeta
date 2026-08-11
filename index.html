@@ -3,664 +3,426 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sangeeta ❤️ Syam Sundar | Wedding Invitation</title>
-  <meta name="description" content="Premium Wedding Invitation of Sangeeta Khyonshali & Syam Sundar – 19 December 2026" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1e4d34" />
 
-  <!-- Fonts -->
+  <title>Sangeeta &amp; Syam Sundar — Wedding Invitation · 19 December 2026</title>
+  <meta name="description"
+    content="Sangeeta Khyonshali and Syam Sundar invite you to their wedding — Tulasi garland exchange at Guruvayur Temple, Kerala on 19 December 2026, with celebrations from 10 December." />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Sangeeta &amp; Syam Sundar — Wedding Invitation" />
+  <meta property="og:description"
+    content="Together with their families — 19 December 2026, Guruvayur Temple, Kerala." />
+  <meta property="og:url" content="https://syam-weds-sangeeta.lokaai.in/" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Inline favicon: an ivory monogram roundel (also stops the 404) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='31' fill='%231e4d34'/%3E%3Ccircle cx='32' cy='32' r='26' fill='none' stroke='%23e6c98a' stroke-width='1.5'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='28' fill='%23faf3e6'%3ES%3C/text%3E%3C/svg%3E" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="assets/images/wreath.webp" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Great+Vibes&family=Marcellus&display=swap"
+    rel="stylesheet" />
 
   <link rel="stylesheet" href="style.css" />
 </head>
 
-<body>
+<body class="is-locked">
 
-  <!-- ===================== Falling Petals Canvas ===================== -->
+  <!-- ============================ Loader ============================ -->
+  <div id="loader" role="status" aria-live="polite">
+    <div class="loader-mark">
+      <span class="monogram" aria-hidden="true">S &amp; S</span>
+      <p class="eyebrow">Sangeeta &amp; Syam Sundar</p>
+      <div class="loader-bar" aria-hidden="true"><i></i></div>
+      <span class="sr-only">Loading the invitation</span>
+    </div>
+  </div>
+
+  <!-- ============================ Cover ============================= -->
+  <section id="cover" aria-label="Invitation cover">
+    <div class="cover-deco" aria-hidden="true">
+      <img class="cover-wash tl" src="assets/images/bloom.webp" alt="" />
+      <img class="cover-wash br" src="assets/images/bloom.webp" alt="" />
+    </div>
+
+    <div class="cover-inner">
+      <div class="crest">
+        <img src="assets/images/wreath.webp" alt="" aria-hidden="true" />
+        <span class="monogram" aria-hidden="true">S&nbsp;&amp;&nbsp;S</span>
+      </div>
+
+      <p class="eyebrow">Wedding Invitation</p>
+
+      <h1 class="names cover-names">
+        Sangeeta
+        <span class="amp" aria-hidden="true">&amp;</span>
+        <span class="sr-only">and</span>
+        Syam Sundar
+      </h1>
+
+      <svg class="divider" viewBox="0 0 240 22" role="presentation" aria-hidden="true">
+        <path d="M4 11h86M150 11h86" stroke="currentColor" stroke-width="1" stroke-linecap="round" />
+        <path d="M120 3.5 128.5 11 120 18.5 111.5 11z" fill="none" stroke="currentColor" stroke-width="1" />
+        <circle cx="120" cy="11" r="1.9" fill="currentColor" />
+        <path d="M104 11c-4-4.2-9.5-4.2-13.5 0 4 4.2 9.5 4.2 13.5 0z" fill="currentColor" opacity=".55" />
+        <path d="M136 11c4-4.2 9.5-4.2 13.5 0-4 4.2-9.5 4.2-13.5 0z" fill="currentColor" opacity=".55" />
+      </svg>
+
+      <p class="cover-date">19 December 2026</p>
+      <p class="cover-place">Guruvayur Temple, Kerala</p>
+
+      <button id="openBtn" class="btn" type="button"><span>Open Invitation</span></button>
+    </div>
+
+    <p class="scroll-cue" aria-hidden="true">With love</p>
+  </section>
+
+  <!-- ============================ Chrome ============================ -->
+  <div id="progress" aria-hidden="true"></div>
   <canvas id="petals" aria-hidden="true"></canvas>
 
-  <!-- ===================== Music Player ===================== -->
-  <audio id="music" loop>
+  <audio id="music" loop preload="none">
     <source src="assets/music/wedding.mp3" type="audio/mpeg" />
   </audio>
 
-  <button id="musicBtn" aria-label="Toggle music" title="Toggle music">
-    <span class="music-icon">♫</span>
-    <span class="music-label">Music</span>
+  <button id="musicBtn" type="button" aria-label="Play music" aria-pressed="false">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <g class="bars" fill="currentColor">
+        <rect x="4"  y="7"  width="3" height="11" rx="1.5" />
+        <rect x="10.5" y="4" width="3" height="14" rx="1.5" />
+        <rect x="17" y="9"  width="3" height="9"  rx="1.5" />
+      </g>
+      <path class="slash" d="M3.5 20.5 20.5 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+    </svg>
   </button>
 
-  <!-- ===================== Loader ===================== -->
-  <div id="loader" role="status" aria-live="polite">
-    <div class="loader-wc-overlay"></div>
-    <div class="loader-inner">
-      <img class="loader-frame-img" src="assets/images/frame.png" alt="" />
-      <div class="loader-content">
-        <div class="loader-florals" aria-hidden="true">
-          <img src="assets/images/floral.png" alt="" class="lf-corner lf-tl" />
-          <img src="assets/images/floral.png" alt="" class="lf-corner lf-tr" />
-          <img src="assets/images/floral.png" alt="" class="lf-corner lf-bl" />
-          <img src="assets/images/floral.png" alt="" class="lf-corner lf-br" />
+  <main id="main">
+
+    <!-- ========================= Invitation ========================= -->
+    <section id="invite" class="section" aria-labelledby="invite-h">
+      <div class="shell">
+        <div class="invite-grid">
+
+          <figure class="portrait reveal">
+            <img src="assets/images/couple.webp" width="1100" height="1070"
+              alt="Watercolour illustration of a bride and groom in traditional Indian wedding attire, seated together." />
+          </figure>
+
+          <div class="stack center">
+            <p class="eyebrow reveal">Together with their families</p>
+
+            <h1 id="invite-h" class="names invite-names reveal">
+              Sangeeta
+              <span class="amp" aria-hidden="true">&amp;</span>
+              <span class="sr-only">and</span>
+              Syam Sundar
+            </h1>
+
+            <svg class="divider reveal" viewBox="0 0 240 22" aria-hidden="true">
+              <path d="M4 11h86M150 11h86" stroke="currentColor" stroke-width="1" stroke-linecap="round" />
+              <path d="M120 3.5 128.5 11 120 18.5 111.5 11z" fill="none" stroke="currentColor" stroke-width="1" />
+              <circle cx="120" cy="11" r="1.9" fill="currentColor" />
+              <path d="M104 11c-4-4.2-9.5-4.2-13.5 0 4 4.2 9.5 4.2 13.5 0z" fill="currentColor" opacity=".55" />
+              <path d="M136 11c4-4.2 9.5-4.2 13.5 0-4 4.2-9.5 4.2-13.5 0z" fill="currentColor" opacity=".55" />
+            </svg>
+
+            <p class="lede reveal">Request the pleasure of your company as they exchange
+              the Tulasi garland and begin their life together.</p>
+
+            <div class="invite-meta reveal">
+              <p class="big">Saturday, 19 December 2026</p>
+              <p class="small">8:00 AM · Guruvayur Temple, Kerala</p>
+            </div>
+          </div>
+
         </div>
-        <p class="loader-invite-tag">Wedding Invitation</p>
-        <p class="loader-names">
-          <span class="shimmer-text">Sangeeta</span>
-          <span class="loader-heart" aria-hidden="true">❤</span>
-          <span class="shimmer-text">Syam Sundar</span>
-        </p>
-        <p class="loader-date-preview">19 · XII · 2026</p>
-        <p class="loader-sub">Loading Invitation…</p>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- ===================== Envelope Opening Screen ===================== -->
-  <section id="opening" aria-label="Envelope opening screen">
+    <!-- ========================= Countdown ========================== -->
+    <section id="countdown" class="section tint-cream" aria-labelledby="countdown-h">
+      <img class="bloom l t" src="assets/images/bloom.webp" alt="" aria-hidden="true" />
+      <img class="bloom r b" src="assets/images/bloom.webp" alt="" aria-hidden="true" />
 
-    <!-- Floral corner decorations (floral.png) -->
-    <img class="corner-floral tl" src="assets/images/floral.png" alt="" aria-hidden="true" />
-    <img class="corner-floral tr" src="assets/images/floral.png" alt="" aria-hidden="true" />
-    <img class="corner-floral bl" src="assets/images/floral.png" alt="" aria-hidden="true" />
-    <img class="corner-floral br" src="assets/images/floral.png" alt="" aria-hidden="true" />
+      <div class="shell narrow stack center">
+        <p class="eyebrow reveal">Counting the days</p>
+        <h2 id="countdown-h" class="title reveal">Until we say <em class="script">I do</em></h2>
 
-    <!-- Decorative bg flower (bg_flower.png) -->
-    <img class="opening-bg-flower" src="assets/images/bg_flower.png" alt="" aria-hidden="true" />
-
-    <div class="envelope-scene" id="envelopeScene">
-
-      <!-- Envelope body -->
-      <div class="envelope-body">
-
-        <!-- Flap (3D fold) -->
-        <div class="envelope-flap" id="envelopeFlap">
-          <div class="flap-inner"></div>
+        <div class="timer reveal" id="timer" role="group" aria-label="Time remaining until the wedding">
+          <div class="timer-unit">
+            <span class="timer-num" id="d">—</span>
+            <span class="timer-label">Days</span>
+          </div>
+          <div class="timer-unit">
+            <span class="timer-num" id="h">—</span>
+            <span class="timer-label">Hours</span>
+          </div>
+          <div class="timer-unit">
+            <span class="timer-num" id="m">—</span>
+            <span class="timer-label">Minutes</span>
+          </div>
+          <div class="timer-unit">
+            <span class="timer-num" id="s">—</span>
+            <span class="timer-label">Seconds</span>
+          </div>
         </div>
+        <p class="timer-done reveal" id="timerDone" hidden>Happily married ever after.</p>
+      </div>
+    </section>
 
-        <!-- Wax seal -->
-        <div class="wax-seal" id="waxSeal" aria-hidden="true">
-          <svg viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="46" fill="#c9a87c" stroke="#a07840" stroke-width="2"/>
-            <circle cx="50" cy="50" r="38" fill="none" stroke="#fff8ee" stroke-width="1" stroke-dasharray="4 3"/>
-            <text x="50" y="46" text-anchor="middle" font-family="Great Vibes,cursive" font-size="14" fill="#fff8ee">S</text>
-            <text x="50" y="62" text-anchor="middle" font-family="Great Vibes,cursive" font-size="14" fill="#fff8ee">&amp;</text>
-            <text x="50" y="77" text-anchor="middle" font-family="Great Vibes,cursive" font-size="11" fill="#fff8ee">S</text>
-          </svg>
+    <!-- ======================= Couple & family ====================== -->
+    <section id="couple" class="section" aria-labelledby="couple-h">
+      <div class="shell stack center">
+        <p class="eyebrow reveal">The Couple</p>
+        <h2 id="couple-h" class="title reveal">With the blessings of our families</h2>
+
+        <div class="couple-grid">
+
+          <article class="card person reveal">
+            <p class="role">The Bride</p>
+            <h3 class="who">Sangeeta Khyonshali</h3>
+            <p class="rel">Daughter of</p>
+            <p class="parents">Dayal Singh Khyonshali<br />&amp; Hema Devi</p>
+            <div class="sibs">
+              <p>Sister — Mansi Khyonshali</p>
+              <p>Brother — Priyanshu Khyonshali</p>
+            </div>
+          </article>
+
+          <div class="union reveal" aria-hidden="true">
+            <svg viewBox="0 0 64 64" fill="none">
+              <path d="M32 55C14 44 8 33 12.5 24.5 16 18 25 18.5 32 27c7-8.5 16-9 19.5-2.5C56 33 50 44 32 55z"
+                fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+              <circle cx="32" cy="38" r="2.2" fill="currentColor" />
+            </svg>
+          </div>
+
+          <article class="card person reveal">
+            <p class="role">The Groom</p>
+            <h3 class="who">Syam Sundar</h3>
+            <p class="rel">Son of</p>
+            <p class="parents">C C Somasundaran<br />&amp; Sheeba Soman</p>
+            <div class="sibs">
+              <p>Sister — Swathy C Sundar</p>
+            </div>
+          </article>
+
         </div>
+      </div>
+    </section>
 
-        <!-- Card inside envelope -->
-        <div class="envelope-card" id="envelopeCard">
-          <!-- frame.png as card frame -->
-          <img class="card-frame-img" src="assets/images/frame.png" alt="" />
+    <!-- ========================== Blessing ========================== -->
+    <section id="blessing" class="section tint-forest" aria-label="A blessing">
+      <div class="shell narrow stack center">
+        <svg class="divider reveal" viewBox="0 0 240 22" aria-hidden="true">
+          <path d="M4 11h86M150 11h86" stroke="currentColor" stroke-width="1" stroke-linecap="round" />
+          <path d="M120 3.5 128.5 11 120 18.5 111.5 11z" fill="none" stroke="currentColor" stroke-width="1" />
+          <circle cx="120" cy="11" r="1.9" fill="currentColor" />
+        </svg>
+        <blockquote class="reveal">
+          <p class="quote">Two hearts, one journey — and forever begins.</p>
+        </blockquote>
+        <cite class="reveal">Sangeeta &amp; Syam Sundar</cite>
+      </div>
+    </section>
 
-          <p class="card-tag">Wedding Invitation</p>
+    <!-- =========================== Events =========================== -->
+    <section id="events" class="section tint-cream" aria-labelledby="events-h">
+      <img class="bloom r t" src="assets/images/bloom.webp" alt="" aria-hidden="true" />
 
-          <!-- SVG floral divider -->
-          <svg class="floral-divider" viewBox="0 0 260 30" aria-hidden="true">
-            <line x1="0" y1="15" x2="90" y2="15" stroke="#e8c9a0" stroke-width="1"/>
-            <ellipse cx="130" cy="15" rx="8" ry="4" fill="#f5b8b8" opacity="0.8"/>
-            <ellipse cx="115" cy="15" rx="5" ry="3" fill="#f5d0b0" opacity="0.7"/>
-            <ellipse cx="145" cy="15" rx="5" ry="3" fill="#f5d0b0" opacity="0.7"/>
-            <line x1="170" y1="15" x2="260" y2="15" stroke="#e8c9a0" stroke-width="1"/>
-          </svg>
+      <div class="shell stack center">
+        <p class="eyebrow reveal">Celebrations</p>
+        <h2 id="events-h" class="title reveal">The order of festivities</h2>
+        <p class="lede reveal">From the first touch of mehndi in Nainital to the last toast in
+          Thrissur — we would love to have you with us.</p>
 
-          <h1 class="shimmer-text">Sangeeta</h1>
-          <p class="card-amp">❤</p>
-          <h1 class="shimmer-text">Syam Sundar</h1>
+        <ol class="timeline">
 
-          <svg class="floral-divider" viewBox="0 0 260 30" aria-hidden="true">
-            <line x1="0" y1="15" x2="90" y2="15" stroke="#e8c9a0" stroke-width="1"/>
-            <ellipse cx="130" cy="15" rx="8" ry="4" fill="#f5b8b8" opacity="0.8"/>
-            <ellipse cx="115" cy="15" rx="5" ry="3" fill="#f5d0b0" opacity="0.7"/>
-            <ellipse cx="145" cy="15" rx="5" ry="3" fill="#f5d0b0" opacity="0.7"/>
-            <line x1="170" y1="15" x2="260" y2="15" stroke="#e8c9a0" stroke-width="1"/>
-          </svg>
+          <li class="timeline-item reveal">
+            <article class="card event">
+              <p class="event-when">Thu 10 Dec 2026 · 7:00 PM</p>
+              <h3>Mehndi</h3>
+              <p class="desc">An evening adorned with intricate mehndi art, song and laughter.</p>
+              <p class="where">Khyonshali Nivas, Ramnagar</p>
+            </article>
+          </li>
 
-          <p class="card-date">19 December 2026</p>
+          <li class="timeline-item reveal">
+            <article class="card event">
+              <p class="event-when">Fri 11 Dec 2026 · 9:00 AM</p>
+              <h3>Haldi</h3>
+              <p class="desc">A golden morning of turmeric, blessings and warmth.</p>
+              <p class="where">Khyonshali Nivas, Ramnagar</p>
+            </article>
+          </li>
 
-          <button id="openInvitation" class="open-btn">
-            Open Invitation
+          <li class="timeline-item reveal">
+            <article class="card event">
+              <p class="event-when">Fri 11 Dec 2026 · 2:00 PM</p>
+              <h3>Sangeet</h3>
+              <p class="desc">A vibrant afternoon of music, dance and heartfelt melodies.</p>
+              <p class="where">Khyonshali Nivas, Ramnagar</p>
+            </article>
+          </li>
+
+          <li class="timeline-item reveal">
+            <article class="card event">
+              <p class="event-when">Fri 11 Dec 2026 · 8:00 PM</p>
+              <h3>Bhaarath</h3>
+              <p class="desc">A grand procession welcoming the groom, with drums and dancing.</p>
+              <p class="where">Khyonshali Nivas, Ramnagar</p>
+            </article>
+          </li>
+
+          <li class="timeline-item is-main reveal">
+            <article class="card event">
+              <p class="event-when">Sat 19 Dec 2026 · 8:00 AM</p>
+              <h3>Wedding Ceremony</h3>
+              <p class="desc">The Tulasi garland exchange, in the presence of the Lord and
+                of everyone dear to us.</p>
+              <p class="where">Guruvayur Temple, Kerala</p>
+            </article>
+          </li>
+
+          <li class="timeline-item reveal">
+            <article class="card event">
+              <p class="event-when">Sun 20 Dec 2026 · 5:00 – 9:00 PM</p>
+              <h3>Reception</h3>
+              <p class="desc">An evening of dinner and celebration with the newlyweds.</p>
+              <p class="where">NH 544, Pudukad, Thrissur</p>
+            </article>
+          </li>
+
+        </ol>
+      </div>
+    </section>
+
+    <!-- =========================== Venues =========================== -->
+    <section id="venues" class="section" aria-labelledby="venues-h">
+      <div class="shell stack center">
+        <p class="eyebrow reveal">Where it happens</p>
+        <h2 id="venues-h" class="title reveal">Venues &amp; directions</h2>
+
+        <div class="venue-grid">
+
+          <article class="card venue reveal">
+            <span class="sigil" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 11 12 3l9 8" /><path d="M5.5 9.5V20h13V9.5" /><path d="M10 20v-5h4v5" />
+              </svg>
+            </span>
+            <p class="for">Mehndi · Haldi · Sangeet · Bhaarath</p>
+            <h3>Khyonshali Nivas</h3>
+            <p class="when">10 – 11 December 2026</p>
+            <address>
+              Royal Enclave Colony, Chorpani<br />
+              Ramnagar, Nainital<br />
+              Uttarakhand
+            </address>
+            <a class="btn ghost" href="https://maps.app.goo.gl/agNspCSS8CFG3q3FA?g_st=ic"
+              target="_blank" rel="noopener noreferrer">
+              <span>Open in Maps</span>
+            </a>
+          </article>
+
+          <article class="card venue reveal">
+            <span class="sigil" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2.5 15 8H9z" /><path d="M6 8h12l1.5 4.5H4.5z" />
+                <path d="M5 12.5V21h14v-8.5" /><path d="M10 21v-5.5h4V21" />
+              </svg>
+            </span>
+            <p class="for">Wedding Ceremony</p>
+            <h3>Guruvayur Temple</h3>
+            <p class="when">19 December 2026 · 8:00 AM</p>
+            <address>
+              East Nada, Guruvayur<br />
+              Thrissur District<br />
+              Kerala
+            </address>
+            <a class="btn ghost" href="https://maps.app.goo.gl/SX9ev9vMwUZ3cNFq5?g_st=ic"
+              target="_blank" rel="noopener noreferrer">
+              <span>Open in Maps</span>
+            </a>
+          </article>
+
+          <article class="card venue reveal">
+            <span class="sigil" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 3h10l-1 5.5a4 4 0 0 1-8 0z" /><path d="M12 13v7" /><path d="M8.5 20.5h7" />
+              </svg>
+            </span>
+            <p class="for">Reception</p>
+            <h3>Reception Hall</h3>
+            <p class="when">20 December 2026 · 5:00 – 9:00 PM</p>
+            <address>
+              NH 544, near Pudukad Centre<br />
+              Thrissur<br />
+              Kerala
+            </address>
+            <a class="btn ghost" href="https://share.google/cwLOlrzxC4ProMag7"
+              target="_blank" rel="noopener noreferrer">
+              <span>Open in Maps</span>
+            </a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================== Closing ========================== -->
+    <section id="closing" class="section tint-sand" aria-labelledby="closing-h">
+      <img class="bloom l b" src="assets/images/bloom.webp" alt="" aria-hidden="true" />
+
+      <div class="shell narrow stack center">
+        <p class="eyebrow reveal">With gratitude</p>
+        <h2 id="closing-h" class="title reveal">Thank you</h2>
+
+        <p class="lede reveal">Your presence is the greatest blessing we could ask for.
+          We cannot wait to celebrate this day with you.</p>
+
+        <svg class="divider reveal" viewBox="0 0 240 22" aria-hidden="true">
+          <path d="M4 11h86M150 11h86" stroke="currentColor" stroke-width="1" stroke-linecap="round" />
+          <path d="M120 3.5 128.5 11 120 18.5 111.5 11z" fill="none" stroke="currentColor" stroke-width="1" />
+          <circle cx="120" cy="11" r="1.9" fill="currentColor" />
+          <path d="M104 11c-4-4.2-9.5-4.2-13.5 0 4 4.2 9.5 4.2 13.5 0z" fill="currentColor" opacity=".55" />
+          <path d="M136 11c4-4.2 9.5-4.2 13.5 0-4 4.2-9.5 4.2-13.5 0z" fill="currentColor" opacity=".55" />
+        </svg>
+
+        <p class="names closing-names reveal">
+          Sangeeta
+          <span class="amp" aria-hidden="true">&amp;</span>
+          Syam Sundar
+        </p>
+
+        <div class="btn-row reveal">
+          <a id="calBtn" class="btn gold" href="#" download="sangeeta-syam-wedding.ics">
+            <span>Add to calendar</span>
+          </a>
+          <button id="shareBtn" class="btn ghost" type="button" hidden>
+            <span>Share invitation</span>
           </button>
         </div>
-
       </div>
-    </div>
-  </section>
-
-  <!-- ===================== Section Border Separator ===================== -->
-  <div class="section-divider" aria-hidden="true">
-  </div>
-
-  <!-- ===================== Hero ===================== -->
-  <header id="hero" aria-label="Wedding hero">
-
-    <!-- watercolor.jpg as hero background -->
-    <div class="hero-art" aria-hidden="true">
-      <img class="hero-watercolor" src="assets/images/watercolor.jpg" alt="" />
-      <div class="hero-wc-overlay"></div>
-      <!-- bg_flower decorative overlays -->
-      <img class="hero-bg-flower left" src="assets/images/bg_flower.png" alt="" />
-      <img class="hero-bg-flower right" src="assets/images/bg_flower.png" alt="" />
-    </div>
-
-    <!-- floral.png corner decorations -->
-    <img class="hero-corner-floral tl" src="assets/images/floral.png" alt="" aria-hidden="true" />
-    <img class="hero-corner-floral tr" src="assets/images/floral.png" alt="" aria-hidden="true" />
-    <img class="hero-corner-floral bl" src="assets/images/floral.png" alt="" aria-hidden="true" />
-    <img class="hero-corner-floral br" src="assets/images/floral.png" alt="" aria-hidden="true" />
-
-    <!-- border.png top/bottom decoration -->
-    <img class="hero-border top" src="assets/images/border.png" alt="" aria-hidden="true" />
-
-    <div class="hero-content reveal-fade">
-      <p class="hero-tagline">Together With Their Families</p>
-
-      <!-- SVG floral divider -->
-      <svg class="floral-divider large" viewBox="0 0 320 36" aria-hidden="true">
-        <line x1="0" y1="18" x2="110" y2="18" stroke="#e8c9a0" stroke-width="1.2"/>
-        <ellipse cx="160" cy="18" rx="12" ry="6" fill="#f5b8b8" opacity="0.8"/>
-        <ellipse cx="140" cy="18" rx="7" ry="4" fill="#f9d0a0" opacity="0.7"/>
-        <ellipse cx="180" cy="18" rx="7" ry="4" fill="#f9d0a0" opacity="0.7"/>
-        <line x1="210" y1="18" x2="320" y2="18" stroke="#e8c9a0" stroke-width="1.2"/>
-      </svg>
-
-      <h1 class="hero-names">
-        <span class="shimmer-text">Sangeeta</span>
-        <span class="hero-amp">&amp;</span>
-        <span class="shimmer-text">Syam Sundar</span>
-      </h1>
-
-      <svg class="floral-divider large" viewBox="0 0 320 36" aria-hidden="true">
-        <line x1="0" y1="18" x2="110" y2="18" stroke="#e8c9a0" stroke-width="1.2"/>
-        <ellipse cx="160" cy="18" rx="12" ry="6" fill="#f5b8b8" opacity="0.8"/>
-        <ellipse cx="140" cy="18" rx="7" ry="4" fill="#f9d0a0" opacity="0.7"/>
-        <ellipse cx="180" cy="18" rx="7" ry="4" fill="#f9d0a0" opacity="0.7"/>
-        <line x1="210" y1="18" x2="320" y2="18" stroke="#e8c9a0" stroke-width="1.2"/>
-      </svg>
-
-      <p class="hero-subtitle">Request the pleasure of your company</p>
-
-      <div class="hero-date-badge">
-        <span class="hero-date-icon" aria-hidden="true">✦</span>
-        <span class="hero-date">19 December 2026</span>
-        <span class="hero-date-icon" aria-hidden="true">✦</span>
-      </div>
-    </div>
-
-    <!-- border.png bottom decoration -->
-    <img class="hero-border bottom" src="assets/images/border.png" alt="" aria-hidden="true" />
-  </header>
-
-  <!-- ===================== Section Border Separator ===================== -->
-  <div class="section-divider" aria-hidden="true">
-  </div>
-
-  <!-- ===================== Countdown ===================== -->
-  <section id="countdown" aria-label="Wedding countdown">
-    <div class="section-art" aria-hidden="true">
-      <svg viewBox="0 0 1440 500" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <linearGradient id="cdGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#fff0f5"/>
-            <stop offset="100%" stop-color="#fde8d8"/>
-          </linearGradient>
-        </defs>
-        <rect width="1440" height="500" fill="url(#cdGrad)"/>
-      </svg>
-      <!-- bg_flower.png decorative -->
-      <img class="bg-flower-deco bg-left" src="assets/images/bg_flower.png" alt="" />
-      <img class="bg-flower-deco bg-right" src="assets/images/bg_flower.png" alt="" />
-    </div>
-
-    <div class="section-inner reveal-fade">
-      <p class="section-tag">Time is ticking…</p>
-      <h2 class="section-title">Days Until We Say <span class="shimmer-text">I Do</span></h2>
-
-      <svg class="floral-divider" viewBox="0 0 260 30" aria-hidden="true">
-        <line x1="0" y1="15" x2="90" y2="15" stroke="#e8c9a0" stroke-width="1"/>
-        <ellipse cx="130" cy="15" rx="8" ry="4" fill="#f5b8b8" opacity="0.8"/>
-        <ellipse cx="115" cy="15" rx="5" ry="3" fill="#f5d0b0" opacity="0.7"/>
-        <ellipse cx="145" cy="15" rx="5" ry="3" fill="#f5d0b0" opacity="0.7"/>
-        <line x1="170" y1="15" x2="260" y2="15" stroke="#e8c9a0" stroke-width="1"/>
-      </svg>
-
-      <div class="timer" role="timer" aria-label="Countdown timer">
-        <div class="timer-unit glass-card">
-          <span id="days" class="timer-num">00</span>
-          <small>Days</small>
-        </div>
-        <div class="timer-sep" aria-hidden="true">:</div>
-        <div class="timer-unit glass-card">
-          <span id="hours" class="timer-num">00</span>
-          <small>Hours</small>
-        </div>
-        <div class="timer-sep" aria-hidden="true">:</div>
-        <div class="timer-unit glass-card">
-          <span id="minutes" class="timer-num">00</span>
-          <small>Minutes</small>
-        </div>
-        <div class="timer-sep" aria-hidden="true">:</div>
-        <div class="timer-unit glass-card">
-          <span id="seconds" class="timer-num">00</span>
-          <small>Seconds</small>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== Section Border Separator ===================== -->
-  <div class="section-divider" aria-hidden="true">
-  </div>
-
-  <!-- ===================== Couple ===================== -->
-  <section id="couple" aria-label="The couple">
-    <div class="section-art" aria-hidden="true">
-      <svg viewBox="0 0 1440 600" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <linearGradient id="coupleGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#fde8d8"/>
-            <stop offset="50%" stop-color="#fff5e8"/>
-            <stop offset="100%" stop-color="#ffe8f0"/>
-          </linearGradient>
-        </defs>
-        <rect width="1440" height="600" fill="url(#coupleGrad)"/>
-        <path d="M0,0 Q200,200 0,600" fill="none" stroke="#e8c9a0" stroke-width="2" opacity="0.3"/>
-        <path d="M1440,0 Q1240,200 1440,600" fill="none" stroke="#e8c9a0" stroke-width="2" opacity="0.3"/>
-      </svg>
-      <img class="bg-flower-deco bg-left" src="assets/images/bg_flower.png" alt="" />
-      <img class="bg-flower-deco bg-right" src="assets/images/bg_flower.png" alt="" />
-    </div>
-
-    <!-- floral.png corners -->
-    <img class="section-corner-floral tl" src="assets/images/floral.png" alt="" aria-hidden="true" />
-    <img class="section-corner-floral tr" src="assets/images/floral.png" alt="" aria-hidden="true" />
-    <img class="section-corner-floral bl" src="assets/images/floral.png" alt="" aria-hidden="true" />
-    <img class="section-corner-floral br" src="assets/images/floral.png" alt="" aria-hidden="true" />
-
-    <div class="section-inner">
-      <p class="section-tag">The Couple</p>
-      <h2 class="section-title reveal-fade">With Families &amp; Loved Ones</h2>
-
-      <div class="couple-grid">
-
-        <!-- Bride -->
-        <article class="person-card glass-card reveal-fade">
-          <svg class="person-floral" viewBox="0 0 200 50" aria-hidden="true">
-            <line x1="10" y1="25" x2="70" y2="25" stroke="#e8c9a0" stroke-width="1"/>
-            <ellipse cx="100" cy="25" rx="14" ry="7" fill="#f5b8b8" opacity="0.7"/>
-            <ellipse cx="83" cy="25" rx="8" ry="4" fill="#f9d0a0" opacity="0.6"/>
-            <ellipse cx="117" cy="25" rx="8" ry="4" fill="#f9d0a0" opacity="0.6"/>
-            <line x1="130" y1="25" x2="190" y2="25" stroke="#e8c9a0" stroke-width="1"/>
-          </svg>
-
-          <p class="person-role">The Bride</p>
-          <h3 class="shimmer-text">Sangeeta Khyonshali</h3>
-          <p class="person-relation">Daughter of</p>
-          <p class="person-parent">Dayal Singh Khyonshali</p>
-          <p class="person-parent">&amp; Hema Devi</p>
-          <div class="person-siblings">
-            <span>Sister: Mansi Khyonshali</span>
-            <span>Brother: Priyanshu Khyonshali</span>
-          </div>
-
-          <svg class="person-floral" viewBox="0 0 200 50" aria-hidden="true">
-            <line x1="10" y1="25" x2="70" y2="25" stroke="#e8c9a0" stroke-width="1"/>
-            <ellipse cx="100" cy="25" rx="14" ry="7" fill="#f5b8b8" opacity="0.7"/>
-            <ellipse cx="83" cy="25" rx="8" ry="4" fill="#f9d0a0" opacity="0.6"/>
-            <ellipse cx="117" cy="25" rx="8" ry="4" fill="#f9d0a0" opacity="0.6"/>
-            <line x1="130" y1="25" x2="190" y2="25" stroke="#e8c9a0" stroke-width="1"/>
-          </svg>
-        </article>
-
-        <!-- Heart divider -->
-        <div class="couple-heart reveal-fade" aria-hidden="true">
-          <svg viewBox="0 0 80 80">
-            <defs>
-              <radialGradient id="heartGrad" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#f5a0b0"/>
-                <stop offset="100%" stop-color="#e07890"/>
-              </radialGradient>
-            </defs>
-            <path d="M40,68 C10,50 4,26 14,16 C24,6 40,16 40,16 C40,16 56,6 66,16 C76,26 70,50 40,68Z" fill="url(#heartGrad)"/>
-          </svg>
-        </div>
-
-        <!-- Groom -->
-        <article class="person-card glass-card reveal-fade">
-          <svg class="person-floral" viewBox="0 0 200 50" aria-hidden="true">
-            <line x1="10" y1="25" x2="70" y2="25" stroke="#e8c9a0" stroke-width="1"/>
-            <ellipse cx="100" cy="25" rx="14" ry="7" fill="#f5b8b8" opacity="0.7"/>
-            <ellipse cx="83" cy="25" rx="8" ry="4" fill="#f9d0a0" opacity="0.6"/>
-            <ellipse cx="117" cy="25" rx="8" ry="4" fill="#f9d0a0" opacity="0.6"/>
-            <line x1="130" y1="25" x2="190" y2="25" stroke="#e8c9a0" stroke-width="1"/>
-          </svg>
-
-          <p class="person-role">The Groom</p>
-          <h3 class="shimmer-text">Syam Sundar</h3>
-          <p class="person-relation">Son of</p>
-          <p class="person-parent">C C Somasundaran</p>
-          <p class="person-parent">&amp; Sheeba Soman</p>
-          <div class="person-siblings">
-            <span>Sister: Swathy C Sundar</span>
-          </div>
-
-          <svg class="person-floral" viewBox="0 0 200 50" aria-hidden="true">
-            <line x1="10" y1="25" x2="70" y2="25" stroke="#e8c9a0" stroke-width="1"/>
-            <ellipse cx="100" cy="25" rx="14" ry="7" fill="#f5b8b8" opacity="0.7"/>
-            <ellipse cx="83" cy="25" rx="8" ry="4" fill="#f9d0a0" opacity="0.6"/>
-            <ellipse cx="117" cy="25" rx="8" ry="4" fill="#f9d0a0" opacity="0.6"/>
-            <line x1="130" y1="25" x2="190" y2="25" stroke="#e8c9a0" stroke-width="1"/>
-          </svg>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== Section Border Separator ===================== -->
-  <div class="section-divider" aria-hidden="true">
-  </div>
-
-  <!-- ===================== Quote ===================== -->
-  <section id="quote" aria-label="Wedding quote">
-    <div class="section-art" aria-hidden="true">
-      <svg viewBox="0 0 1440 400" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <linearGradient id="quoteGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#ffe8f0"/>
-            <stop offset="100%" stop-color="#fde8d8"/>
-          </linearGradient>
-        </defs>
-        <rect width="1440" height="400" fill="url(#quoteGrad)"/>
-      </svg>
-      <img class="bg-flower-deco bg-left" src="assets/images/bg_flower.png" alt="" />
-      <img class="bg-flower-deco bg-right" src="assets/images/bg_flower.png" alt="" />
-    </div>
-
-    <div class="quote-inner reveal-fade">
-      <svg class="quote-mark" viewBox="0 0 60 50" aria-hidden="true">
-        <text x="0" y="50" font-family="Georgia,serif" font-size="80" fill="#e8c9a0" opacity="0.4">"</text>
-      </svg>
-      <blockquote>
-        <p class="quote-line shimmer-text">Two Hearts</p>
-        <p class="quote-line">One Journey</p>
-        <p class="quote-line shimmer-text">Forever Begins</p>
-      </blockquote>
-      <svg class="quote-mark close" viewBox="0 0 60 50" aria-hidden="true">
-        <text x="0" y="50" font-family="Georgia,serif" font-size="80" fill="#e8c9a0" opacity="0.4">"</text>
-      </svg>
-    </div>
-  </section>
-
-  <!-- ===================== Section Border Separator ===================== -->
-  <div class="section-divider" aria-hidden="true">
-  </div>
-
-  <!-- ===================== Events Timeline ===================== -->
-  <section id="events" aria-label="Wedding celebrations">
-    <div class="section-art" aria-hidden="true">
-      <svg viewBox="0 0 1440 700" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <linearGradient id="eventsGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#fff5e8"/>
-            <stop offset="50%" stop-color="#fde8d8"/>
-            <stop offset="100%" stop-color="#fff0f5"/>
-          </linearGradient>
-        </defs>
-        <rect width="1440" height="700" fill="url(#eventsGrad)"/>
-        <g opacity="0.12">
-          <ellipse cx="180" cy="350" rx="100" ry="200" fill="#c3a8d4" transform="rotate(-15 180 350)"/>
-          <ellipse cx="1260" cy="350" rx="100" ry="200" fill="#c3a8d4" transform="rotate(15 1260 350)"/>
-        </g>
-      </svg>
-      <img class="bg-flower-deco bg-left" src="assets/images/bg_flower.png" alt="" />
-      <img class="bg-flower-deco bg-right" src="assets/images/bg_flower.png" alt="" />
-    </div>
-
-    <div class="section-inner">
-      <p class="section-tag">Celebrations</p>
-      <h2 class="section-title reveal-fade">Wedding Festivities</h2>
-
-      <svg class="floral-divider" viewBox="0 0 260 30" aria-hidden="true">
-        <line x1="0" y1="15" x2="90" y2="15" stroke="#e8c9a0" stroke-width="1"/>
-        <ellipse cx="130" cy="15" rx="8" ry="4" fill="#f5b8b8" opacity="0.8"/>
-        <ellipse cx="115" cy="15" rx="5" ry="3" fill="#f5d0b0" opacity="0.7"/>
-        <ellipse cx="145" cy="15" rx="5" ry="3" fill="#f5d0b0" opacity="0.7"/>
-        <line x1="170" y1="15" x2="260" y2="15" stroke="#e8c9a0" stroke-width="1"/>
-      </svg>
-
-      <!-- Vertical Timeline -->
-      <ol class="timeline" aria-label="Events timeline">
-
-        <li class="timeline-item reveal-fade">
-          <div class="timeline-dot" aria-hidden="true">
-            <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="#f9c6d0" stroke="#e8a0b0" stroke-width="1.5"/><ellipse cx="20" cy="10" rx="5" ry="8" fill="#f5b8b8"/><ellipse cx="20" cy="10" rx="5" ry="8" fill="#f5b8b8" transform="rotate(72 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="8" fill="#f5b8b8" transform="rotate(144 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="8" fill="#f5b8b8" transform="rotate(216 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="8" fill="#f5b8b8" transform="rotate(288 20 20)"/><circle cx="20" cy="20" r="6" fill="#e8a0b0"/></svg>
-          </div>
-          <article class="timeline-card glass-card">
-            <p class="event-emoji" aria-hidden="true">🌿</p>
-            <h3>Mehndi</h3>
-            <p class="event-date">10 December 2026</p>
-            <p class="event-time">7:00 PM</p>
-            <p class="event-desc">An evening adorned with intricate mehndi art and joyful celebration</p>
-          </article>
-        </li>
-
-        <li class="timeline-item reveal-fade">
-          <div class="timeline-dot" aria-hidden="true">
-            <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="#fde8c0" stroke="#e8c060" stroke-width="1.5"/><ellipse cx="20" cy="8" rx="5" ry="9" fill="#f9d080"/><ellipse cx="20" cy="8" rx="5" ry="9" fill="#f9d080" transform="rotate(60 20 20)"/><ellipse cx="20" cy="8" rx="5" ry="9" fill="#f9d080" transform="rotate(120 20 20)"/><ellipse cx="20" cy="8" rx="5" ry="9" fill="#f9d080" transform="rotate(180 20 20)"/><ellipse cx="20" cy="8" rx="5" ry="9" fill="#f9d080" transform="rotate(240 20 20)"/><ellipse cx="20" cy="8" rx="5" ry="9" fill="#f9d080" transform="rotate(300 20 20)"/><circle cx="20" cy="20" r="6" fill="#e8a030"/></svg>
-          </div>
-          <article class="timeline-card glass-card">
-            <p class="event-emoji" aria-hidden="true">🌼</p>
-            <h3>Haldi</h3>
-            <p class="event-date">11 December 2026</p>
-            <p class="event-time">9:00 AM</p>
-            <p class="event-desc">A golden morning of blessings with turmeric and love</p>
-          </article>
-        </li>
-
-        <li class="timeline-item reveal-fade">
-          <div class="timeline-dot" aria-hidden="true">
-            <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="#d4c8f0" stroke="#a090d0" stroke-width="1.5"/><ellipse cx="20" cy="10" rx="5" ry="8" fill="#c0b0e8"/><ellipse cx="20" cy="10" rx="5" ry="8" fill="#c0b0e8" transform="rotate(72 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="8" fill="#c0b0e8" transform="rotate(144 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="8" fill="#c0b0e8" transform="rotate(216 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="8" fill="#c0b0e8" transform="rotate(288 20 20)"/><circle cx="20" cy="20" r="6" fill="#a090d0"/></svg>
-          </div>
-          <article class="timeline-card glass-card">
-            <p class="event-emoji" aria-hidden="true">🎵</p>
-            <h3>Sangeet</h3>
-            <p class="event-date">11 December 2026</p>
-            <p class="event-time">2:00 PM</p>
-            <p class="event-desc">A vibrant evening of music, dance, and heartfelt melodies</p>
-          </article>
-        </li>
-
-        <li class="timeline-item reveal-fade">
-          <div class="timeline-dot" aria-hidden="true">
-            <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="#f0d8c8" stroke="#c09070" stroke-width="1.5"/><ellipse cx="20" cy="10" rx="5" ry="8" fill="#e8c0a0"/><ellipse cx="20" cy="10" rx="5" ry="8" fill="#e8c0a0" transform="rotate(45 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="8" fill="#e8c0a0" transform="rotate(90 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="8" fill="#e8c0a0" transform="rotate(135 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="8" fill="#e8c0a0" transform="rotate(180 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="8" fill="#e8c0a0" transform="rotate(225 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="8" fill="#e8c0a0" transform="rotate(270 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="8" fill="#e8c0a0" transform="rotate(315 20 20)"/><circle cx="20" cy="20" r="6" fill="#c09070"/></svg>
-          </div>
-          <article class="timeline-card glass-card">
-            <p class="event-emoji" aria-hidden="true">🎺</p>
-            <h3>Bhaarath</h3>
-            <p class="event-date">11 December 2026</p>
-            <p class="event-time">8:00 PM</p>
-            <p class="event-desc">A grand procession welcoming the groom with music and festivities</p>
-          </article>
-        </li>
-
-        <li class="timeline-item reveal-fade">
-          <div class="timeline-dot" aria-hidden="true">
-            <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="#f9c6d0" stroke="#e8a0b0" stroke-width="1.5"/><ellipse cx="20" cy="8" rx="6" ry="10" fill="#f5b8b8"/><ellipse cx="20" cy="8" rx="6" ry="10" fill="#f5b8b8" transform="rotate(60 20 20)"/><ellipse cx="20" cy="8" rx="6" ry="10" fill="#f5b8b8" transform="rotate(120 20 20)"/><ellipse cx="20" cy="8" rx="6" ry="10" fill="#f5b8b8" transform="rotate(180 20 20)"/><ellipse cx="20" cy="8" rx="6" ry="10" fill="#f5b8b8" transform="rotate(240 20 20)"/><ellipse cx="20" cy="8" rx="6" ry="10" fill="#f5b8b8" transform="rotate(300 20 20)"/><circle cx="20" cy="20" r="7" fill="#e8a0b0"/></svg>
-          </div>
-          <article class="timeline-card glass-card">
-            <p class="event-emoji" aria-hidden="true">💍</p>
-            <h3>Wedding Ceremony</h3>
-            <p class="event-date">19 December 2026</p>
-            <p class="event-time">8:00 AM</p>
-            <p class="event-desc">Tulasi Garland Exchange — Guruvayur Temple, Kerala</p>
-          </article>
-        </li>
-
-        <li class="timeline-item reveal-fade">
-          <div class="timeline-dot" aria-hidden="true">
-            <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="#c8e8d0" stroke="#80c090" stroke-width="1.5"/><ellipse cx="20" cy="10" rx="5" ry="9" fill="#a8d8b0"/><ellipse cx="20" cy="10" rx="5" ry="9" fill="#a8d8b0" transform="rotate(72 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="9" fill="#a8d8b0" transform="rotate(144 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="9" fill="#a8d8b0" transform="rotate(216 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="9" fill="#a8d8b0" transform="rotate(288 20 20)"/><circle cx="20" cy="20" r="6" fill="#80c090"/></svg>
-          </div>
-          <article class="timeline-card glass-card">
-            <p class="event-emoji" aria-hidden="true">🥂</p>
-            <h3>Reception</h3>
-            <p class="event-date">20 December 2026</p>
-            <p class="event-time">5:00 PM – 9:00 PM</p>
-            <p class="event-desc">An elegant reception to celebrate the newlyweds — NH 544, Thrissur</p>
-          </article>
-        </li>
-
-      </ol>
-    </div>
-  </section>
-
-  <!-- ===================== Section Border Separator ===================== -->
-  <div class="section-divider" aria-hidden="true">
-  </div>
-
-  <!-- ===================== Venues ===================== -->
-  <section id="venues" aria-label="Venue details">
-    <div class="section-art" aria-hidden="true">
-      <svg viewBox="0 0 1440 600" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <linearGradient id="venueGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#ffe8f0"/>
-            <stop offset="50%" stop-color="#fff8ee"/>
-            <stop offset="100%" stop-color="#e8f8ee"/>
-          </linearGradient>
-        </defs>
-        <rect width="1440" height="600" fill="url(#venueGrad)"/>
-        <path d="M580,600 Q720,400 860,600" fill="none" stroke="#e8c9a0" stroke-width="2" opacity="0.3"/>
-        <path d="M560,600 Q720,380 880,600" fill="none" stroke="#e8c9a0" stroke-width="1" opacity="0.2"/>
-      </svg>
-      <img class="bg-flower-deco bg-left" src="assets/images/bg_flower.png" alt="" />
-      <img class="bg-flower-deco bg-right" src="assets/images/bg_flower.png" alt="" />
-    </div>
-
-    <!-- floral.png corners -->
-    <img class="section-corner-floral tl" src="assets/images/floral.png" alt="" aria-hidden="true" />
-    <img class="section-corner-floral tr" src="assets/images/floral.png" alt="" aria-hidden="true" />
-
-    <div class="section-inner">
-      <p class="section-tag">Where It Happens</p>
-      <h2 class="section-title reveal-fade">Venue Details</h2>
-
-      <svg class="floral-divider" viewBox="0 0 260 30" aria-hidden="true">
-        <line x1="0" y1="15" x2="90" y2="15" stroke="#e8c9a0" stroke-width="1"/>
-        <ellipse cx="130" cy="15" rx="8" ry="4" fill="#f5b8b8" opacity="0.8"/>
-        <ellipse cx="115" cy="15" rx="5" ry="3" fill="#f5d0b0" opacity="0.7"/>
-        <ellipse cx="145" cy="15" rx="5" ry="3" fill="#f5d0b0" opacity="0.7"/>
-        <line x1="170" y1="15" x2="260" y2="15" stroke="#e8c9a0" stroke-width="1"/>
-      </svg>
-
-      <div class="venues-grid">
-
-        <article class="venue-card glass-card reveal-fade">
-          <div class="venue-icon" aria-hidden="true">🏡</div>
-          <p class="venue-event">Wedding Functions</p>
-          <h3>Khyonshali Nivas</h3>
-          <address>
-            Royal Enclave Colony, Chorpani<br/>
-            Ramnagar, Nainital<br/>
-            Uttarakhand
-          </address>
-          <a class="venue-map-btn" href="https://maps.app.goo.gl/agNspCSS8CFG3q3FA?g_st=ic" target="_blank" rel="noopener noreferrer" aria-label="View Khyonshali Nivas on Google Maps">
-            <span>📍</span> View on Maps
-          </a>
-        </article>
-
-        <article class="venue-card glass-card reveal-fade">
-          <div class="venue-icon" aria-hidden="true">🛕</div>
-          <p class="venue-event">Tulasi Garland Exchange</p>
-          <h3>Guruvayur Temple</h3>
-          <p class="venue-date-info">19 December 2026 · 8:00 AM</p>
-          <address>
-            East Nada, Guruvayur<br/>
-            Kerala
-          </address>
-          <a class="venue-map-btn" href="https://maps.app.goo.gl/SX9ev9vMwUZ3cNFq5?g_st=ic" target="_blank" rel="noopener noreferrer" aria-label="View Guruvayur Temple on Google Maps">
-            <span>📍</span> View on Maps
-          </a>
-        </article>
-
-        <article class="venue-card glass-card reveal-fade">
-          <div class="venue-icon" aria-hidden="true">✨</div>
-          <p class="venue-event">Reception</p>
-          <h3>Reception Venue</h3>
-          <p class="venue-date-info">20 December 2026 · 5:00 PM – 9:00 PM</p>
-          <address>
-            NH 544, Near Pudukad Center<br/>
-            Thrissur, Kerala
-          </address>
-          <a class="venue-map-btn" href="https://share.google/cwLOlrzxC4ProMag7" target="_blank" rel="noopener noreferrer" aria-label="View Reception venue on Google Maps">
-            <span>📍</span> View on Maps
-          </a>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== Section Border Separator ===================== -->
-  <div class="section-divider" aria-hidden="true">
-  </div>
-
-  <!-- ===================== Footer ===================== -->
-  <footer id="footer">
-    <div class="section-art" aria-hidden="true">
-      <svg viewBox="0 0 1440 500" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <linearGradient id="footerGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#fde8d8"/>
-            <stop offset="50%" stop-color="#ffe8f0"/>
-            <stop offset="100%" stop-color="#fff5e8"/>
-          </linearGradient>
-        </defs>
-        <rect width="1440" height="500" fill="url(#footerGrad)"/>
-        <path d="M400,500 Q720,100 1040,500" fill="none" stroke="#e8c9a0" stroke-width="2" opacity="0.25"/>
-        <path d="M380,500 Q720,80 1060,500" fill="none" stroke="#e8c9a0" stroke-width="1" opacity="0.15"/>
-      </svg>
-      <img class="bg-flower-deco bg-left" src="assets/images/bg_flower.png" alt="" />
-      <img class="bg-flower-deco bg-right" src="assets/images/bg_flower.png" alt="" />
-    </div>
-
-    <!-- floral.png corners -->
-    <img class="section-corner-floral bl" src="assets/images/floral.png" alt="" aria-hidden="true" />
-    <img class="section-corner-floral br" src="assets/images/floral.png" alt="" aria-hidden="true" />
-
-    <div class="footer-inner reveal-fade">
-      <h2 class="footer-thanks shimmer-text">Thank You</h2>
-
-      <svg class="floral-divider large" viewBox="0 0 320 36" aria-hidden="true">
-        <line x1="0" y1="18" x2="110" y2="18" stroke="#e8c9a0" stroke-width="1.2"/>
-        <ellipse cx="160" cy="18" rx="12" ry="6" fill="#f5b8b8" opacity="0.8"/>
-        <ellipse cx="140" cy="18" rx="7" ry="4" fill="#f9d0a0" opacity="0.7"/>
-        <ellipse cx="180" cy="18" rx="7" ry="4" fill="#f9d0a0" opacity="0.7"/>
-        <line x1="210" y1="18" x2="320" y2="18" stroke="#e8c9a0" stroke-width="1.2"/>
-      </svg>
-
-      <p class="footer-names">
-        <span class="shimmer-text">Sangeeta</span>
-        <span class="footer-heart">❤</span>
-        <span class="shimmer-text">Syam Sundar</span>
-      </p>
-
-      <p class="footer-message">We look forward to celebrating with you.</p>
-
-      <svg class="floral-divider" viewBox="0 0 260 30" aria-hidden="true">
-        <line x1="0" y1="15" x2="90" y2="15" stroke="#e8c9a0" stroke-width="1"/>
-        <ellipse cx="130" cy="15" rx="8" ry="4" fill="#f5b8b8" opacity="0.8"/>
-        <ellipse cx="115" cy="15" rx="5" ry="3" fill="#f5d0b0" opacity="0.7"/>
-        <ellipse cx="145" cy="15" rx="5" ry="3" fill="#f5d0b0" opacity="0.7"/>
-        <line x1="170" y1="15" x2="260" y2="15" stroke="#e8c9a0" stroke-width="1"/>
-      </svg>
-
-      <div class="footer-credit">
-        <p>Designed &amp; Developed by <a href="https://rs.lokaai.in/" target="_blank" rel="noopener noreferrer">Roshni Stephen</a> ❤️</p>
-        <p>Powered by <a href="https://lokaai.in/" target="_blank" rel="noopener noreferrer">Loka AI</a></p>
-      </div>
-    </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>Designed &amp; developed by
+      <a href="https://rs.lokaai.in/" target="_blank" rel="noopener noreferrer">Roshni Stephen</a>
+    </p>
+    <p>Powered by <a href="https://lokaai.in/" target="_blank" rel="noopener noreferrer">Loka AI</a></p>
   </footer>
 
   <script src="script.js"></script>
 </body>
+
 </html>
