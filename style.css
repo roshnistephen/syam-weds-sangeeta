@@ -640,24 +640,6 @@ address {
   z-index: 5;
 }
 
-.section-border-img {
-  width: 100%;
-  max-height: 60px;
-  object-fit: cover;
-  display: block;
-  opacity: 0.75;
-  animation: borderShimmer 6s ease-in-out infinite;
-}
-
-.section-border-img.flip-v {
-  transform: scaleY(-1);
-}
-
-@keyframes borderShimmer {
-  0%, 100% { opacity: 0.65; }
-  50%       { opacity: 0.9; }
-}
-
 /* ===========================================
    Hero — watercolor.jpg background
 =========================================== */
@@ -701,7 +683,10 @@ address {
 /* Soft overlay for readability */
 .hero-wc-overlay {
   position: absolute;
-  inset: 0;
+  top: -1px;
+  left: 0;
+  right: 0;
+  bottom: -1px;
   background: linear-gradient(
     135deg,
     rgba(255, 240, 235, 0.52) 0%,
