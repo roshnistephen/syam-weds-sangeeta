@@ -81,12 +81,12 @@ address {
 }
 
 /* ===========================================
-   Loader
+   Loader — Premium Watercolor + Frame
 =========================================== */
 #loader {
   position: fixed;
   inset: 0;
-  background: var(--pastel-cream);
+  background: url('assets/images/watercolor.jpg') center / cover no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -99,22 +99,64 @@ address {
   visibility: hidden;
 }
 
+/* Soft cream overlay for readability */
+.loader-wc-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 248, 238, 0.62);
+  pointer-events: none;
+}
+
 .loader-inner {
-  text-align: center;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(380px, 90vw);
+  min-height: 380px;
 }
 
-.loader-ring {
-  width: 180px;
-  height: 180px;
-  animation: loaderSpin 8s linear infinite;
-  display: block;
-  margin: 0 auto 20px;
+/* frame.png as loader frame */
+.loader-frame-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+  animation: framePulse 4s ease-in-out infinite;
+  z-index: 0;
 }
 
-@keyframes loaderSpin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+.loader-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 60px 40px;
+}
+
+/* Small floral corners inside loader */
+.loader-florals { pointer-events: none; }
+
+.lf-corner {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  opacity: 0.75;
+  animation: cornerPulse 5s ease-in-out infinite;
+}
+
+.lf-tl { top: 8px;  left: 8px; }
+.lf-tr { top: 8px;  right: 8px;  transform: scaleX(-1); }
+.lf-bl { bottom: 8px; left: 8px;  transform: scaleY(-1); }
+.lf-br { bottom: 8px; right: 8px;  transform: scale(-1,-1); }
+
+.loader-invite-tag {
+  font-size: 0.65rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  margin-bottom: 14px;
 }
 
 .loader-names {
@@ -124,24 +166,28 @@ address {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: 14px;
   flex-wrap: wrap;
 }
 
 .loader-heart {
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   color: #e07890;
   animation: heartPulse 1.2s ease-in-out infinite;
 }
 
-@keyframes heartPulse {
-  0%, 100% { transform: scale(1); }
-  50%       { transform: scale(1.3); }
+.loader-date-preview {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  letter-spacing: 3px;
+  color: var(--gold-dark);
+  margin-top: 10px;
+  font-weight: 600;
 }
 
 .loader-sub {
   margin-top: 14px;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   letter-spacing: 4px;
   text-transform: uppercase;
   color: var(--text-soft);
@@ -150,7 +196,22 @@ address {
 
 @keyframes loadingDots {
   0%, 100% { opacity: 1; }
-  50%       { opacity: 0.4; }
+  50%       { opacity: 0.35; }
+}
+
+@keyframes framePulse {
+  0%, 100% { opacity: 0.9; filter: drop-shadow(0 4px 20px rgba(200,160,80,0.2)); }
+  50%       { opacity: 1;   filter: drop-shadow(0 6px 28px rgba(200,160,80,0.4)); }
+}
+
+@keyframes cornerPulse {
+  0%, 100% { opacity: 0.7; }
+  50%       { opacity: 1; }
+}
+
+@keyframes heartPulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.3); }
 }
 
 /* ===========================================
@@ -239,11 +300,52 @@ address {
 }
 
 /* ===========================================
+   bg_flower.png decorative overlays in sections
+=========================================== */
+.bg-flower-deco {
+  position: absolute;
+  width: 300px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.14;
+}
+
+.bg-flower-deco.bg-left {
+  left: -80px;
+  top: 50%;
+  transform: translateY(-50%);
+  animation: bgFlowerFloat 12s ease-in-out infinite;
+}
+
+.bg-flower-deco.bg-right {
+  right: -80px;
+  top: 50%;
+  transform: translateY(-50%) scaleX(-1);
+  animation: bgFlowerFloat 12s ease-in-out infinite 1.5s;
+}
+
+@keyframes bgFlowerFloat {
+  0%, 100% { opacity: 0.14; transform: translateY(-50%) translateX(0); }
+  50%       { opacity: 0.22; transform: translateY(-52%) translateX(6px); }
+}
+
+/* Fix scaleX variant */
+.bg-flower-deco.bg-right {
+  transform: translateY(-50%) scaleX(-1);
+  animation: bgFlowerFloatR 12s ease-in-out infinite 1.5s;
+}
+
+@keyframes bgFlowerFloatR {
+  0%, 100% { opacity: 0.14; transform: translateY(-50%) scaleX(-1) translateX(0); }
+  50%       { opacity: 0.22; transform: translateY(-52%) scaleX(-1) translateX(6px); }
+}
+
+/* ===========================================
    Common Section Helpers
 =========================================== */
 .section-inner {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   max-width: 1100px;
   margin: 0 auto;
   padding: 80px 24px;
@@ -305,20 +407,66 @@ address {
 }
 
 /* ===========================================
-   Corner SVGs (Envelope screen)
+   floral.png corner images
 =========================================== */
-.corner-svg {
+.corner-floral {
   position: absolute;
-  width: 120px;
-  height: 120px;
-  z-index: 0;
+  width: 150px;
+  height: 150px;
   pointer-events: none;
+  z-index: 2;
+  animation: cornerPulse 6s ease-in-out infinite;
 }
 
-.corner-svg.tl { top: 0; left: 0; }
-.corner-svg.tr { top: 0; right: 0; }
-.corner-svg.bl { bottom: 0; left: 0; }
-.corner-svg.br { bottom: 0; right: 0; }
+.corner-floral.tl { top: 0; left: 0; }
+.corner-floral.tr { top: 0; right: 0; transform: scaleX(-1); }
+.corner-floral.bl { bottom: 0; left: 0; transform: scaleY(-1); }
+.corner-floral.br { bottom: 0; right: 0; transform: scale(-1,-1); }
+
+/* Hero section floral corners (smaller) */
+.hero-corner-floral {
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  pointer-events: none;
+  z-index: 4;
+  animation: cornerPulse 7s ease-in-out infinite;
+  opacity: 0.88;
+}
+
+.hero-corner-floral.tl { top: 0; left: 0; }
+.hero-corner-floral.tr { top: 0; right: 0; transform: scaleX(-1); }
+.hero-corner-floral.bl { bottom: 80px; left: 0; transform: scaleY(-1); }
+.hero-corner-floral.br { bottom: 80px; right: 0; transform: scale(-1,-1); }
+
+/* Section floral corners */
+.section-corner-floral {
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.75;
+  animation: cornerPulse 8s ease-in-out infinite;
+}
+
+.section-corner-floral.tl { top: 0; left: 0; }
+.section-corner-floral.tr { top: 0; right: 0; transform: scaleX(-1); }
+.section-corner-floral.bl { bottom: 0; left: 0; transform: scaleY(-1); }
+.section-corner-floral.br { bottom: 0; right: 0; transform: scale(-1,-1); }
+
+/* Opening bg flower */
+.opening-bg-flower {
+  position: absolute;
+  width: 420px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.07;
+  pointer-events: none;
+  z-index: 0;
+  animation: wcBreathe 10s ease-in-out infinite;
+}
 
 /* ===========================================
    Envelope Opening Screen
@@ -337,7 +485,7 @@ address {
 .envelope-scene {
   perspective: 1200px;
   position: relative;
-  z-index: 1;
+  z-index: 3;
 }
 
 .envelope-body {
@@ -404,12 +552,16 @@ address {
   overflow: hidden;
 }
 
-.card-border {
+/* frame.png as card frame */
+.card-frame-img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  object-fit: fill;
   pointer-events: none;
+  z-index: 0;
+  animation: framePulse 5s ease-in-out infinite;
 }
 
 .card-tag {
@@ -418,6 +570,8 @@ address {
   text-transform: uppercase;
   color: var(--text-soft);
   margin-bottom: 4px;
+  position: relative;
+  z-index: 1;
 }
 
 .envelope-card h1 {
@@ -434,6 +588,8 @@ address {
   color: #e07890;
   line-height: 1;
   animation: heartPulse 1.6s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
 }
 
 .card-date {
@@ -441,6 +597,8 @@ address {
   font-size: 1.05rem;
   color: var(--text-mid);
   margin-top: 4px;
+  position: relative;
+  z-index: 1;
 }
 
 .open-btn {
@@ -479,7 +637,35 @@ address {
 }
 
 /* ===========================================
-   Hero
+   border.png Section Dividers
+=========================================== */
+.section-divider {
+  line-height: 0;
+  overflow: hidden;
+  position: relative;
+  z-index: 5;
+}
+
+.section-border-img {
+  width: 100%;
+  max-height: 60px;
+  object-fit: cover;
+  display: block;
+  opacity: 0.75;
+  animation: borderShimmer 6s ease-in-out infinite;
+}
+
+.section-border-img.flip-v {
+  transform: scaleY(-1);
+}
+
+@keyframes borderShimmer {
+  0%, 100% { opacity: 0.65; }
+  50%       { opacity: 0.9; }
+}
+
+/* ===========================================
+   Hero — watercolor.jpg background
 =========================================== */
 #hero {
   min-height: 100vh;
@@ -489,34 +675,76 @@ address {
   align-items: center;
   text-align: center;
   position: relative;
+  overflow: hidden;
 }
 
 .hero-art {
   position: absolute;
   inset: 0;
   z-index: 0;
+  overflow: hidden;
 }
 
-.hero-art-svg {
+/* watercolor.jpg fills the hero */
+.hero-watercolor {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  display: block;
+  object-fit: cover;
+  object-position: center;
+  animation: wcBreathe 10s ease-in-out infinite;
+  will-change: transform;
 }
 
-.hero-floral-border {
+@keyframes wcBreathe {
+  0%, 100% { transform: scale(1.02); opacity: 0.92; }
+  50%       { transform: scale(1.05); opacity: 1; }
+}
+
+/* Soft overlay for readability */
+.hero-wc-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 240, 235, 0.52) 0%,
+    rgba(255, 248, 238, 0.44) 50%,
+    rgba(255, 235, 248, 0.52) 100%
+  );
+}
+
+/* bg_flower in hero */
+.hero-bg-flower {
+  position: absolute;
+  width: 380px;
+  pointer-events: none;
+  opacity: 0.15;
+  z-index: 1;
+  animation: bgFlowerFloat 14s ease-in-out infinite;
+}
+
+.hero-bg-flower.left  { left: -100px; top: 50%; transform: translateY(-50%); }
+.hero-bg-flower.right { right: -100px; top: 50%; transform: translateY(-50%) scaleX(-1); animation-delay: 2s; }
+
+/* border.png hero top/bottom */
+.hero-border {
   position: absolute;
   left: 0;
-  right: 0;
   width: 100%;
-  z-index: 2;
+  z-index: 3;
+  max-height: 60px;
+  object-fit: cover;
+  opacity: 0.7;
+  animation: borderShimmer 8s ease-in-out infinite;
 }
 
-.hero-floral-border.top { top: 0; height: 80px; }
-.hero-floral-border.bottom { bottom: 0; height: 80px; }
+.hero-border.top    { top: 0; }
+.hero-border.bottom { bottom: 0; transform: scaleY(-1); }
 
 .hero-content {
   position: relative;
-  z-index: 3;
+  z-index: 5;
   max-width: 860px;
   padding: 40px 24px;
 }
@@ -559,47 +787,51 @@ address {
   margin-bottom: 24px;
 }
 
+/* ===========================================
+   Premium Date Badge (no scratch)
+=========================================== */
 .hero-date-badge {
-  display: inline-block;
-  margin-top: 16px;
-  padding: 14px 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 20px;
+  padding: 16px 44px;
   border: 2px solid var(--gold);
   border-radius: var(--radius-pill);
-  background: rgba(255,255,255,0.5);
-  backdrop-filter: blur(8px);
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  box-shadow: 0 8px 24px rgba(232, 192, 96, 0.15);
-  transition: all 0.3s ease;
-}
-
-.hero-date-badge:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(232, 192, 96, 0.25);
-}
-
-.scratch-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  cursor: grab;
-  z-index: 10;
-  border-radius: var(--radius-pill);
-}
-
-.scratch-canvas:active {
-  cursor: grabbing;
+  background: rgba(255, 252, 245, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 30px rgba(200, 160, 80, 0.22),
+              0 0 0 6px rgba(232, 201, 160, 0.12);
+  animation: dateBadgeGlow 4s ease-in-out infinite;
 }
 
 .hero-date {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: var(--gold-dark);
-  letter-spacing: 2px;
-  position: relative;
-  z-index: 5;
+  letter-spacing: 2.5px;
+}
+
+.hero-date-icon {
+  color: var(--gold);
+  font-size: 0.85rem;
+  animation: sparkle 2.5s ease-in-out infinite;
+}
+
+.hero-date-icon:last-child {
+  animation-delay: 1.25s;
+}
+
+@keyframes dateBadgeGlow {
+  0%, 100% { box-shadow: 0 8px 30px rgba(200,160,80,0.22), 0 0 0 6px rgba(232,201,160,0.12); }
+  50%       { box-shadow: 0 12px 40px rgba(200,160,80,0.35), 0 0 0 8px rgba(232,201,160,0.22); }
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0.6; transform: scale(1) rotate(0deg); }
+  50%       { opacity: 1;   transform: scale(1.3) rotate(20deg); }
 }
 
 /* ===========================================
@@ -752,7 +984,7 @@ address {
 
 .quote-inner {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   padding: 80px 24px;
   text-align: center;
 }
@@ -1012,7 +1244,7 @@ blockquote {
 
 .footer-inner {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   padding: 80px 24px 60px;
   text-align: center;
 }
@@ -1070,16 +1302,6 @@ blockquote {
 }
 
 /* ===========================================
-   Hero Floral Border SVG (Responsive)
-=========================================== */
-@media (max-width: 768px) {
-  .hero-floral-border.top,
-  .hero-floral-border.bottom {
-    height: 40px;
-  }
-}
-
-/* ===========================================
    Responsive
 =========================================== */
 @media (max-width: 900px) {
@@ -1131,9 +1353,11 @@ blockquote {
 }
 
 @media (max-width: 600px) {
-  .corner-svg {
-    width: 72px;
-    height: 72px;
+  .corner-floral,
+  .hero-corner-floral,
+  .section-corner-floral {
+    width: 80px;
+    height: 80px;
   }
 
   .hero-names {
@@ -1152,6 +1376,15 @@ blockquote {
 
   .venues-grid {
     grid-template-columns: 1fr;
+  }
+
+  .hero-date-badge {
+    padding: 12px 28px;
+    gap: 10px;
+  }
+
+  .bg-flower-deco {
+    width: 200px;
   }
 }
 
