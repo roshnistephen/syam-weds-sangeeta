@@ -1,7 +1,10 @@
 /* =====================================================================
    Sangeeta & Syam Sundar — Wedding Invitation
-   Palette derived from the watercolour artwork: marigold, forest green,
-   terracotta and ivory. Every text block sits on a solid surface so it
+
+   Two regions, two moods. The Uttarakhand functions (Mehndi, Haldi,
+   Sangeet, Bhaarath) sit in earthy sage / terracotta / marigold; the
+   Kerala sections (Guruvayur, Thrissur) shift to warm gold, cream and
+   deep temple green. Every text block sits on a solid surface so it
    stays readable at any size.
    ===================================================================== */
 
@@ -31,10 +34,12 @@
 
   --terra:      #a8452c;   /*  6.1:1 */
   --rose:       #b45566;
+  --sage:       #6f8d78;
 
   /* Type */
   --serif:  "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
-  --roman:  "Marcellus", "Optima", "Palatino Linotype", Georgia, serif;
+  --display:"Playfair Display", "Iowan Old Style", Georgia, serif;
+  --sans:   "Montserrat", "Helvetica Neue", Arial, sans-serif;
   --script: "Great Vibes", "Snell Roundhand", cursive;
 
   /* Rhythm */
@@ -74,12 +79,14 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Locked while the cover is showing */
+/* Locked while the envelope is showing */
 body.is-locked { overflow: hidden; height: 100%; }
 
 img { max-width: 100%; display: block; height: auto; }
-h1, h2, h3, h4, p, figure, blockquote, ol, ul { margin: 0; }
+h1, h2, h3, h4, p, figure, blockquote, ol, ul, dl, dd, fieldset { margin: 0; }
 ol, ul { padding: 0; list-style: none; }
+fieldset { border: 0; padding: 0; min-inline-size: 0; }
+legend { padding: 0; }
 a { color: inherit; }
 button { font: inherit; color: inherit; border: 0; background: none; cursor: pointer; }
 
@@ -101,6 +108,8 @@ button { font: inherit; color: inherit; border: 0; background: none; cursor: poi
   outline-offset: 3px;
   border-radius: 6px;
 }
+.tint-forest :focus-visible,
+#envelope :focus-visible { outline-color: var(--gold-soft); }
 
 /* Headings we move focus to programmatically are announced, not outlined */
 [tabindex="-1"]:focus { outline: none; }
@@ -136,8 +145,8 @@ body::before {
 }
 .shell.narrow { max-width: 760px; }
 
-.stack     { display: grid; gap: clamp(.9rem, 2.4vw, 1.4rem); justify-items: center; }
-.center    { text-align: center; }
+.stack  { display: grid; gap: clamp(.9rem, 2.4vw, 1.4rem); justify-items: center; }
+.center { text-align: center; }
 
 /* Alternating section tints */
 .tint-cream  { background: var(--cream); }
@@ -151,26 +160,28 @@ body::before {
    4. Typography components
 --------------------------------------------------------------- */
 .eyebrow {
-  font-family: var(--roman);
-  font-size: clamp(.68rem, .63rem + .22vw, .8rem);
-  letter-spacing: .34em;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: clamp(.63rem, .59rem + .2vw, .74rem);
+  letter-spacing: .3em;
   text-transform: uppercase;
   color: var(--gold);
-  line-height: 1.5;
-  margin-inline-start: .34em; /* optical: cancel trailing tracking */
+  line-height: 1.6;
+  margin-inline-start: .3em; /* optical: cancel trailing tracking */
 }
 .tint-forest .eyebrow { color: var(--gold-soft); }
 
 .title {
-  font-family: var(--roman);
+  font-family: var(--display);
   font-weight: 400;
-  font-size: clamp(1.75rem, 1.34rem + 1.9vw, 2.85rem);
-  line-height: 1.22;
-  letter-spacing: .012em;
+  font-size: clamp(1.7rem, 1.3rem + 1.9vw, 2.7rem);
+  line-height: 1.24;
+  letter-spacing: .008em;
   color: var(--forest);
   text-wrap: balance;
 }
 .tint-forest .title { color: #fdf6ea; }
+.title .script { font-size: 1.22em; line-height: 1; }
 
 .lede {
   color: var(--ink-soft);
@@ -180,26 +191,9 @@ body::before {
 }
 .tint-forest .lede { color: #e2d8c6; }
 
-.names {
-  font-family: var(--serif);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--forest);
-  line-height: 1.14;
-  letter-spacing: .005em;
-  text-wrap: balance;
-}
-.names .amp {
-  display: block;
-  font-family: var(--script);
-  font-style: normal;
-  font-size: .56em;
-  color: var(--gold);
-  line-height: 1.5;
-}
-
 /* Small script flourish */
 .script { font-family: var(--script); color: var(--gold); }
+.tint-forest .script { color: var(--gold-soft); }
 
 /* ---------------------------------------------------------------
    5. Divider
@@ -227,17 +221,18 @@ body::before {
   background: var(--btn-bg);
   color: var(--btn-fg);
   border-radius: 999px;
-  font-family: var(--roman);
-  font-size: clamp(.82rem, .78rem + .2vw, .92rem);
-  letter-spacing: .2em;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: clamp(.72rem, .68rem + .18vw, .8rem);
+  letter-spacing: .18em;
   text-transform: uppercase;
   text-decoration: none;
   text-align: center;
   box-shadow: var(--shadow-md);
   transition: transform .35s var(--ease), box-shadow .35s var(--ease),
-              background-color .35s var(--ease);
+              background-color .35s var(--ease), border-color .35s var(--ease);
 }
-.btn > span { margin-inline-start: -.1em; } /* absorb trailing letter-spacing */
+.btn > span { margin-inline-start: -.09em; } /* absorb trailing letter-spacing */
 .btn:hover  { background: var(--forest-mid); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
 .btn:active { transform: translateY(0) scale(.985); }
 .btn[disabled] { opacity: .55; pointer-events: none; }
@@ -250,8 +245,20 @@ body::before {
 }
 .btn.ghost:hover { background: var(--forest-tint); border-color: var(--forest-mid); }
 
+/* Ghost button sitting on the dark forest panel */
+.btn.ghost.on-dark {
+  --btn-fg: #f4ece0;
+  border-color: rgba(230, 201, 138, .5);
+}
+.btn.ghost.on-dark:hover {
+  background: rgba(230, 201, 138, .14);
+  border-color: var(--gold-soft);
+}
+
 .btn.gold { --btn-bg: var(--gold); --btn-fg: #fffaf0; }
 .btn.gold:hover { background: #b07a1a; }
+
+.btn.small { min-height: 44px; padding: .55rem 1.35rem; font-size: .7rem; }
 
 .btn-row {
   display: flex;
@@ -286,7 +293,7 @@ body::before {
 }
 
 /* ---------------------------------------------------------------
-   8. Progress bar + music toggle
+   8. Progress bar + music toggle + petals
 --------------------------------------------------------------- */
 #progress {
   position: fixed;
@@ -333,7 +340,6 @@ body::before {
 #musicBtn .slash { opacity: 0; transition: opacity .25s; }
 #musicBtn:not(.playing) .slash { opacity: 1; }
 
-/* Falling petals canvas */
 #petals {
   position: fixed;
   inset: 0;
@@ -383,16 +389,14 @@ body::before {
 }
 
 /* ---------------------------------------------------------------
-   10. Cover
+   10. Envelope intro
 --------------------------------------------------------------- */
-#cover {
+#envelope {
   position: fixed;
   inset: 0;
   z-index: 90;
   display: grid;
   justify-items: center;
-  /* `safe` keeps the top of the card reachable if it ever outgrows a short
-     viewport, instead of centring it out of view */
   align-content: safe center;
   padding: calc(2rem + env(safe-area-inset-top)) var(--gutter)
            calc(2rem + env(safe-area-inset-bottom));
@@ -406,149 +410,349 @@ body::before {
   -webkit-overflow-scrolling: touch;
   transition: opacity .9s var(--ease), visibility .9s;
 }
-#cover.opened { opacity: 0; visibility: hidden; }
-#cover[hidden]  { display: none; }
+#envelope.gone { opacity: 0; visibility: hidden; }
+#envelope[hidden] { display: none; }
 
-/* Decorations live in their own clipped layer so they can never extend the
-   cover's scrollable area */
-.cover-deco {
+/* Corner line-art florals */
+.env-corner {
   position: absolute;
-  inset: 0;
-  overflow: hidden;
+  width: clamp(120px, 26vw, 200px);
+  color: var(--gold-line);
+  opacity: .38;
   pointer-events: none;
 }
-
-/* Soft floral wash pinned to the corners — never under the text column */
-.cover-wash {
-  position: absolute;
-  width: clamp(180px, 34vw, 340px);
-  opacity: .16;
-  user-select: none;
+.env-corner.tl { top: clamp(.5rem, 3vw, 2rem); left: clamp(.5rem, 3vw, 2rem); }
+.env-corner.br {
+  bottom: clamp(.5rem, 3vw, 2rem); right: clamp(.5rem, 3vw, 2rem);
+  transform: rotate(180deg);
 }
-.cover-wash.tl { top: -6%;  left: -12%; transform: rotate(-14deg); }
-.cover-wash.br { bottom: -8%; right: -12%; transform: rotate(166deg); }
 
-.cover-inner {
+.env-stage {
   position: relative;
   display: grid;
   justify-items: center;
-  gap: clamp(1rem, 3vw, 1.5rem);
+  gap: clamp(1.1rem, 3.5vw, 1.9rem);
   text-align: center;
-  max-width: 34rem;
+  width: 100%;
+  max-width: 30rem;
 }
 
-/* Wreath frames the monogram only — the void in the middle is the safe area */
-.crest {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: clamp(190px, 52vw, 268px);
-  aspect-ratio: 1;
-  margin-bottom: clamp(.2rem, 1.5vw, .6rem);
+.env-script {
+  font-family: var(--script);
+  font-size: clamp(2.5rem, 11vw, 3.9rem);
+  line-height: 1.1;
+  color: var(--forest);
 }
-.crest img {
+
+/* --- the envelope itself --- */
+.env {
+  position: relative;
+  width: min(400px, 82vw);
+  aspect-ratio: 3 / 2;
+  perspective: 1100px;
+  transition: transform .8s var(--ease), opacity .8s var(--ease);
+}
+
+/* Back wall of the envelope */
+.env::before {
+  content: "";
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  animation: breathe 9s ease-in-out infinite;
-}
-/* The hand-drawn ring is not centred in its own bitmap — its true centre sits
-   at 56.8% / 52.3% because the bouquet hangs off the upper left. Pin the
-   monogram there so it reads as being inside the wreath. */
-.crest .monogram {
-  position: absolute;
-  left: 56.8%;
-  top: 52.3%;
-  transform: translate(-50%, -50%);
-  font-family: var(--script);
-  font-size: clamp(2.4rem, 10.5vw, 3.5rem);
-  line-height: 1;
-  color: var(--forest);
-  text-shadow: 0 1px 0 var(--cream);
-}
-@keyframes breathe {
-  0%, 100% { transform: scale(1)     rotate(0deg); }
-  50%      { transform: scale(1.035) rotate(1.4deg); }
+  border-radius: 10px;
+  background: linear-gradient(160deg, var(--sand) 0%, var(--sand-deep) 100%);
+  box-shadow: var(--shadow-md);
 }
 
-.cover-names {
-  font-size: clamp(2.15rem, 1.35rem + 4.1vw, 3.6rem);
+/* The letter, tucked inside until the flap opens */
+.env-letter {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  bottom: 6%;
+  z-index: 2;
+  display: grid;
+  gap: .3rem;
+  padding: 1.1rem .9rem 1.3rem;
+  border-radius: 6px;
+  background: var(--ivory);
+  border: 1px solid rgba(201, 154, 62, .4);
+  box-shadow: 0 -6px 18px -10px rgba(70, 52, 28, .4);
+  /* Tucked out of sight until the flap opens — otherwise the top of the
+     letter peeks through the notch between the flap tip and the pocket. */
+  transform: translateY(30%);
+  opacity: 0;
+  transition: transform .85s var(--ease) .3s, opacity .5s linear .3s;
 }
-.cover-date {
-  font-family: var(--roman);
-  font-size: clamp(.86rem, .8rem + .34vw, 1.02rem);
+.env.is-open .env-letter { transform: translateY(-38%); opacity: 1; }
+
+.env-letter-eyebrow {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: clamp(.5rem, 1.7vw, .6rem);
   letter-spacing: .3em;
   text-transform: uppercase;
-  color: var(--ink-soft);
+  color: var(--gold);
   margin-inline-start: .3em;
 }
-.cover-place {
-  font-size: clamp(.95rem, .9rem + .3vw, 1.08rem);
-  color: var(--ink-mute);
+.env-letter-names {
+  font-family: var(--serif);
   font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1.25rem, 5.4vw, 1.8rem);
+  line-height: 1.2;
+  color: var(--forest);
 }
-#openBtn { margin-top: clamp(.5rem, 2vw, 1rem); }
+.env-letter-names em {
+  font-family: var(--script);
+  font-style: normal;
+  color: var(--gold);
+}
+.env-letter-date {
+  font-family: var(--sans);
+  font-size: clamp(.48rem, 1.7vw, .58rem);
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-inline-start: .22em;
+}
 
-.scroll-cue {
+/* Front pocket — drawn over the letter so it reads as "inside" */
+.env-body {
   position: absolute;
-  bottom: max(1.1rem, env(safe-area-inset-bottom));
+  inset: 0;
+  z-index: 3;
+  border-radius: 10px;
+  background:
+    linear-gradient(160deg, #f7ead4 0%, var(--sand-deep) 100%);
+  /* The pocket's V meets the flap tip (66%) with a little overlap, so no
+     sliver of the envelope interior shows between them. */
+  clip-path: polygon(0 30%, 50% 64%, 100% 30%, 100% 100%, 0 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5);
+}
+.env-body::before,
+.env-body::after {
+  /* the two side seams */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  background: rgba(201, 154, 62, .16);
+}
+.env-body::before { clip-path: polygon(0 28%, 50% 66%, 48% 68%, 0 32%); }
+.env-body::after  { clip-path: polygon(100% 28%, 52% 68%, 50% 66%, 100% 32%); }
+
+/* Top flap — folds up and over */
+.env-flap {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 66%;
+  z-index: 4;
+  transform-origin: 50% 0;
+  transform: rotateX(0deg);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  border-radius: 10px 10px 0 0;
+  background: linear-gradient(180deg, #f2e2c6 0%, var(--sand-deep) 100%);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  box-shadow: 0 3px 10px -6px rgba(70, 52, 28, .5);
+  transition: transform .85s var(--ease);
+}
+.env.is-open .env-flap {
+  transform: rotateX(-172deg);
+  z-index: 1;
+}
+
+/* Wax-seal button */
+.env-seal {
+  position: absolute;
   left: 50%;
-  transform: translateX(-50%);
-  font-family: var(--roman);
-  font-size: .64rem;
+  top: 56%;
+  z-index: 6;
+  width: clamp(74px, 19vw, 94px);
+  height: clamp(74px, 19vw, 94px);
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: radial-gradient(circle at 36% 32%, #b8563a 0%, #8e3a24 62%, #742d1b 100%);
+  color: #ffeccf;
+  box-shadow: 0 8px 22px -8px rgba(90, 34, 18, .7), inset 0 -2px 6px rgba(0, 0, 0, .3);
+  transition: transform .45s var(--ease), opacity .45s var(--ease), box-shadow .45s var(--ease);
+  animation: sealPulse 2.6s ease-in-out infinite;
+}
+.env-seal:hover { box-shadow: 0 12px 28px -8px rgba(90, 34, 18, .8), inset 0 -2px 6px rgba(0, 0, 0, .3); }
+.env-seal:active { transform: translate(-50%, -50%) scale(.94); }
+.env-seal-ring {
+  position: absolute;
+  inset: 8px;
+  border: 1.5px dashed rgba(255, 236, 207, .55);
+  border-radius: 50%;
+}
+.env-seal-mark {
+  font-family: var(--script);
+  font-size: clamp(1.5rem, 5.4vw, 1.9rem);
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .35);
+}
+@keyframes sealPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50%      { transform: translate(-50%, -50%) scale(1.045); }
+}
+.env.is-open .env-seal {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(.6);
+  pointer-events: none;
+  animation: none;
+}
+
+.env-hint {
+  font-family: var(--sans);
+  font-size: clamp(.6rem, 2.2vw, .7rem);
   letter-spacing: .3em;
   text-transform: uppercase;
   color: var(--ink-mute);
-  opacity: .75;
+  margin-inline-start: .3em;
+  transition: opacity .4s;
 }
+.env-hint.hide { opacity: 0; }
 
-/* Short viewports (small phones, landscape): scale the cover to the height it
-   actually has so "Open Invitation" is never below the fold. */
-@media (max-height: 800px) {
-  #cover { padding-block: calc(1.25rem + env(safe-area-inset-top))
-                          calc(1.25rem + env(safe-area-inset-bottom)); }
-  .cover-inner { gap: .55rem; }
-  .crest {
-    width: clamp(120px, 26vh, 200px);
-    margin-bottom: 0;
-  }
-  .cover-names { font-size: clamp(1.75rem, 6.4vh, 2.7rem); }
-  .divider { width: clamp(150px, 40vw, 220px); }
-  .cover-place { font-size: .92rem; }
-  #openBtn { margin-top: .35rem; min-height: 48px; }
-  .scroll-cue { display: none; }
-}
+/* The whole envelope lifts away once opened */
+#envelope.opening .env { transform: translateY(-6%) scale(1.04); }
+#envelope.opening .env-script,
+#envelope.opening .env-hint { opacity: 0; }
 
-/* Staggered entrance for the cover contents */
-.cover-inner > * {
+/* Staggered entrance */
+.env-stage > * {
   opacity: 0;
   transform: translateY(16px);
   animation: rise .95s var(--ease) forwards;
 }
-.cover-inner > *:nth-child(1) { animation-delay: .10s; }
-.cover-inner > *:nth-child(2) { animation-delay: .22s; }
-.cover-inner > *:nth-child(3) { animation-delay: .32s; }
-.cover-inner > *:nth-child(4) { animation-delay: .42s; }
-.cover-inner > *:nth-child(5) { animation-delay: .52s; }
-.cover-inner > *:nth-child(6) { animation-delay: .62s; }
-.cover-inner > *:nth-child(7) { animation-delay: .72s; }
+.env-stage > *:nth-child(1) { animation-delay: .12s; }
+.env-stage > *:nth-child(2) { animation-delay: .26s; }
+.env-stage > *:nth-child(3) { animation-delay: .42s; }
 @keyframes rise { to { opacity: 1; transform: none; } }
 
+/* Short viewports: keep the seal reachable without scrolling */
+@media (max-height: 720px) {
+  #envelope { padding-block: calc(1.1rem + env(safe-area-inset-top))
+                             calc(1.1rem + env(safe-area-inset-bottom)); }
+  .env-stage { gap: .8rem; }
+  .env-script { font-size: clamp(1.9rem, 7.5vh, 2.8rem); }
+  .env { width: min(340px, 74vw); }
+}
+
 /* ---------------------------------------------------------------
-   11. Invitation hero
+   11. Blessing header
 --------------------------------------------------------------- */
-#invite {
-  padding-top: clamp(3rem, 9vw, 5.5rem);
+#blessing {
+  padding-bottom: 0;
   background:
     radial-gradient(90% 60% at 50% 0%, #fffdf8, transparent 70%),
     var(--ivory);
 }
-.invite-grid {
+
+.parents-grid {
   display: grid;
-  gap: clamp(1.8rem, 5vw, 3.2rem);
+  gap: clamp(.9rem, 3vw, 1.4rem);
+  width: 100%;
+  margin-top: clamp(.8rem, 2.6vw, 1.4rem);
   justify-items: center;
+}
+@media (min-width: 760px) {
+  .parents-grid {
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+  }
+  .parents-grid .parents-card:first-child { justify-self: end; text-align: right; }
+  .parents-grid .parents-card:last-child  { justify-self: start; text-align: left; }
+}
+
+.parents-card {
+  display: grid;
+  gap: .3rem;
+  max-width: 24rem;
+  text-align: center;
+}
+.parents-card .side {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: clamp(.58rem, .55rem + .16vw, .66rem);
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-inline-start: .28em;
+}
+.parents-card .pair {
+  font-family: var(--serif);
+  font-size: clamp(1.08rem, 1rem + .5vw, 1.32rem);
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.parents-knot { color: var(--gold-line); display: grid; place-items: center; }
+.parents-knot svg { width: clamp(24px, 6vw, 34px); height: auto; }
+@media (max-width: 759px) {
+  .parents-knot svg { width: 22px; transform: rotate(90deg); }
+}
+
+.invite-line {
+  font-style: italic;
+  color: var(--ink-soft);
+  max-width: 34ch;
+}
+
+/* Full-width illustrated scene */
+/* Full-bleed via margins, not transform: this element also carries .reveal,
+   whose transform would override a translateX centring trick. */
+.scene {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-top: clamp(2rem, 6vw, 3.5rem);
+  line-height: 0;
+}
+.scene-svg {
+  width: 100%;
+  height: clamp(190px, 30vw, 340px);
+  display: block;
+}
+/* soften the top edge into the section above */
+.scene::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 42%;
+  background: linear-gradient(180deg, var(--ivory), transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ---------------------------------------------------------------
+   12. Couple names
+--------------------------------------------------------------- */
+.couple-names {
+  font-family: var(--script);
+  font-weight: 400;
+  font-size: clamp(3rem, 1.6rem + 7.4vw, 6rem);
+  line-height: 1.06;
+  color: var(--forest);
+  text-wrap: balance;
+}
+.couple-names .amp {
+  display: block;
+  font-size: .58em;
+  color: var(--gold);
+  line-height: 1.35;
+}
+
+.full-names {
+  font-family: var(--sans);
+  font-size: clamp(.68rem, .64rem + .2vw, .8rem);
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-inline-start: .24em;
+  text-wrap: balance;
 }
 
 /* The watercolour couple, blended into the cream so its white ground vanishes */
@@ -556,10 +760,11 @@ body::before {
   position: relative;
   width: min(430px, 82vw);
   aspect-ratio: 1;
+  margin-top: clamp(.6rem, 2.4vw, 1.2rem);
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: radial-gradient(circle at 50% 45%, var(--cream) 55%, var(--sand) 100%);
+  background: radial-gradient(circle at 50% 45%, var(--ivory) 55%, var(--sand) 100%);
   box-shadow: var(--shadow-md), inset 0 0 0 1px rgba(201, 154, 62, .3);
 }
 .portrait::after {
@@ -577,31 +782,98 @@ body::before {
           mask-image: radial-gradient(circle at 50% 50%, #000 62%, transparent 88%);
 }
 
-.invite-names { font-size: clamp(2.3rem, 1.4rem + 4.4vw, 4rem); }
+/* ---------------------------------------------------------------
+   13. Scratch to reveal
+--------------------------------------------------------------- */
+.scratch-card {
+  position: relative;
+  width: min(420px, 88vw);
+  aspect-ratio: 4 / 3;
+  margin-top: clamp(.6rem, 2.4vw, 1.2rem);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--cream);
+  border: 1px solid rgba(201, 154, 62, .35);
+  box-shadow: var(--shadow-md);
+}
 
-.invite-meta {
+.scratch-under {
+  position: absolute;
+  inset: 0;
   display: grid;
-  gap: .3rem;
-  justify-items: center;
-  font-family: var(--roman);
-  color: var(--ink-soft);
+  place-items: center;
+  gap: .2rem;
+  padding: 1rem;
+  background: radial-gradient(circle at 50% 42%, var(--ivory) 50%, var(--sand) 100%);
 }
-.invite-meta .big {
-  font-size: clamp(1.1rem, .98rem + .7vw, 1.5rem);
-  letter-spacing: .16em;
+.scratch-under img {
+  width: 62%;
+  max-height: 62%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+.scratch-script {
+  font-family: var(--script);
+  font-size: clamp(1.5rem, 6vw, 2.1rem);
+  line-height: 1;
+  color: var(--forest);
+}
+.scratch-date {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: clamp(.58rem, 2.1vw, .68rem);
+  letter-spacing: .26em;
   text-transform: uppercase;
-  color: var(--terra);
-  margin-inline-start: .16em;
+  color: var(--gold);
+  margin-inline-start: .26em;
 }
-.invite-meta .small {
-  font-size: clamp(.82rem, .78rem + .2vw, .92rem);
-  letter-spacing: .2em;
+
+#scratchCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* let the finger scratch instead of scrolling the page */
+  touch-action: none;
+  cursor: grab;
+  transition: opacity .6s var(--ease);
+}
+#scratchCanvas.cleared { opacity: 0; pointer-events: none; }
+#scratchCanvas:active { cursor: grabbing; }
+
+.scratch-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 12%;
+  transform: translateX(-50%);
+  z-index: 2;
+  pointer-events: none;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: clamp(.6rem, 2.2vw, .72rem);
+  letter-spacing: .28em;
   text-transform: uppercase;
-  margin-inline-start: .2em;
+  white-space: nowrap;
+  transition: opacity .4s;
 }
+.scratch-hint span {
+  background: linear-gradient(100deg,
+    rgba(255, 250, 240, .55) 0%, #fffaf0 42%,
+    rgba(255, 250, 240, .55) 84%) 0 0 / 260% 100%;
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  animation: shimmer 2.6s linear infinite;
+  text-shadow: 0 1px 2px rgba(70, 40, 20, .35);
+}
+@keyframes shimmer { to { background-position: -260% 0; } }
+.scratch-hint.hide { opacity: 0; }
+
+#scratchReveal { margin-top: .4rem; }
+#scratchReveal[hidden] { display: none; }
 
 /* ---------------------------------------------------------------
-   12. Countdown
+   14. Countdown
 --------------------------------------------------------------- */
 .timer {
   display: grid;
@@ -621,20 +893,29 @@ body::before {
   box-shadow: var(--shadow-sm);
 }
 .timer-num {
-  font-family: var(--roman);
-  font-size: clamp(1.65rem, 1.05rem + 3vw, 2.9rem);
-  line-height: 1.05;
+  font-family: var(--display);
+  font-size: clamp(1.55rem, 1rem + 2.9vw, 2.7rem);
+  line-height: 1.08;
   color: var(--forest);
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";
 }
 .timer-label {
-  font-family: var(--roman);
-  font-size: clamp(.58rem, .55rem + .16vw, .68rem);
+  font-family: var(--sans);
+  font-size: clamp(.52rem, .5rem + .14vw, .6rem);
   letter-spacing: .2em;
   text-transform: uppercase;
   color: var(--ink-mute);
   margin-inline-start: .2em;
+}
+.timer-foot {
+  font-family: var(--sans);
+  font-size: clamp(.64rem, .6rem + .2vw, .74rem);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-inline-start: .2em;
+  text-wrap: balance;
 }
 .timer-done {
   font-family: var(--serif);
@@ -642,196 +923,293 @@ body::before {
   font-size: clamp(1.4rem, 1.1rem + 1.4vw, 2rem);
   color: var(--forest);
 }
+.timer-done[hidden] { display: none; }
 
 /* ---------------------------------------------------------------
-   13. Couple & families
+   15. Event cards
 --------------------------------------------------------------- */
-.couple-grid {
+.events-list {
+  display: grid;
+  justify-items: center;
+  gap: 0;
+  width: 100%;
+  max-width: 720px;
+  margin: clamp(1.4rem, 4vw, 2.4rem) auto 0;
+}
+
+.event-card {
+  /* per-mood defaults, overridden below */
+  --e-bg:   var(--ivory);
+  --e-bg2:  var(--cream);
+  --e-ink:  var(--forest);
+  --e-soft: var(--ink-soft);
+  --e-mute: var(--ink-mute);
+  --e-accent: var(--terra);
+  --e-art:  var(--gold-line);
+  --e-edge: rgba(201, 154, 62, .3);
+  --e-scrim: rgba(255, 252, 246, .86);
+  --e-sigil: rgba(255, 255, 255, .55);
+
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--e-edge);
+  background: linear-gradient(155deg, var(--e-bg) 0%, var(--e-bg2) 100%);
+  box-shadow: var(--shadow-sm);
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+}
+@media (hover: hover) {
+  .event-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+}
+
+/* mood artwork sits behind the copy */
+.event-art {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  color: var(--e-art);
+  opacity: .26;
+  pointer-events: none;
+}
+.event-art svg { width: 100%; height: 100%; display: block; }
+
+/* Scrim: fades the card's own ground back in under the text block so the
+   illustration stays a mood at the edges and never fights the copy. */
+.event-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(74% 62% at 50% 52%, var(--e-scrim) 0%, transparent 78%);
+  pointer-events: none;
+}
+
+.event-body {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: .32rem;
+  padding: clamp(1.5rem, 5vw, 2.3rem) clamp(1.3rem, 5vw, 2.3rem);
+  text-align: center;
+}
+
+/* Per-event emblem */
+.event-sigil {
+  justify-self: center;
+  display: grid;
+  place-items: center;
+  width: clamp(46px, 12vw, 54px);
+  aspect-ratio: 1;
+  margin-bottom: .55rem;
+  border-radius: 50%;
+  background: var(--e-sigil);
+  border: 1px solid var(--e-edge);
+  color: var(--e-accent);
+}
+.event-sigil svg { width: 58%; height: 58%; }
+
+.event-when {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: clamp(.6rem, .57rem + .16vw, .7rem);
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--e-accent);
+  margin-inline-start: .24em;
+  text-wrap: balance;
+}
+.event-name {
+  font-family: var(--script);
+  font-weight: 400;
+  font-size: clamp(2.1rem, 1.5rem + 3vw, 3.1rem);
+  line-height: 1.1;
+  color: var(--e-ink);
+  text-wrap: balance;
+}
+.event-time {
+  font-family: var(--display);
+  font-size: clamp(1rem, .94rem + .4vw, 1.18rem);
+  letter-spacing: .1em;
+  color: var(--e-ink);
+}
+.event-desc {
+  margin-top: .35rem;
+  color: var(--e-soft);
+  font-size: .96em;
+  text-wrap: pretty;
+  max-width: 42ch;
+  justify-self: center;
+}
+.event-where {
+  margin-top: .55rem;
+  padding-top: .7rem;
+  border-top: 1px solid var(--e-edge);
+  justify-self: center;
+  width: min(100%, 30rem);
+  font-family: var(--serif);
+  font-size: 1.02em;
+  line-height: 1.45;
+  color: var(--e-ink);
+}
+.event-where span {
+  display: block;
+  margin-top: .1rem;
+  font-size: .82em;
+  font-style: italic;
+  color: var(--e-mute);
+  text-wrap: pretty;
+}
+
+/* --- moods: Uttarakhand (earthy, mountain-garden) --- */
+.mood-mehndi {
+  --e-bg: #f6f0e0; --e-bg2: #e7dfc7;
+  --e-ink: #35502f; --e-soft: #4f5b42; --e-mute: #6d7660;
+  --e-accent: #8a5a2b; --e-art: #6f8d78;
+  --e-edge: rgba(111, 141, 120, .38);
+  --e-scrim: rgba(246, 240, 224, .88);
+  --e-sigil: rgba(255, 255, 255, .5);
+}
+.mood-haldi {
+  --e-bg: #fdf3d8; --e-bg2: #f7e3ac;
+  --e-ink: #6b4a10; --e-soft: #6d5423; --e-mute: #85693a;
+  --e-accent: #b5651d; --e-art: #d9a326;
+  --e-edge: rgba(201, 154, 62, .45);
+  --e-scrim: rgba(253, 243, 216, .86);
+  --e-sigil: rgba(255, 255, 255, .52);
+}
+.mood-sangeet {
+  --e-bg: #fceee6; --e-bg2: #f6ddd0;
+  --e-ink: #8a3d2c; --e-soft: #6c4438; --e-mute: #8a6355;
+  --e-accent: #a8452c; --e-art: #c8785f;
+  --e-edge: rgba(168, 69, 44, .32);
+  --e-scrim: rgba(252, 238, 230, .88);
+  --e-sigil: rgba(255, 255, 255, .55);
+}
+.mood-bhaarath {
+  --e-bg: #21362c; --e-bg2: #16241d;
+  --e-ink: #f6e9cf; --e-soft: #ddd0b6; --e-mute: #b5a98f;
+  --e-accent: #e6c98a; --e-art: #e6c98a;
+  --e-edge: rgba(230, 201, 138, .32);
+  --e-scrim: rgba(26, 43, 34, .86);
+  --e-sigil: rgba(230, 201, 138, .13);
+}
+.mood-bhaarath .event-art { opacity: .36; }
+
+/* --- moods: Kerala (warm gold, cream, temple green) --- */
+.mood-temple {
+  --e-bg: #fffaee; --e-bg2: #f6e9c9;
+  --e-ink: #1e4d34; --e-soft: #4a5a48; --e-mute: #77836f;
+  --e-accent: #8d5f10; --e-art: #c99a3e;
+  --e-edge: rgba(201, 154, 62, .5);
+  --e-scrim: rgba(255, 250, 238, .88);
+  --e-sigil: rgba(255, 255, 255, .6);
+}
+.mood-temple.is-main {
+  border-width: 1.5px;
+  box-shadow: var(--shadow-md);
+}
+.mood-reception {
+  --e-bg: #1e3b30; --e-bg2: #14291f;
+  --e-ink: #f7ecd5; --e-soft: #ded2b8; --e-mute: #b3a88e;
+  --e-accent: #e6c98a; --e-art: #d8b46a;
+  --e-edge: rgba(230, 201, 138, .3);
+  --e-scrim: rgba(24, 47, 37, .86);
+  --e-sigil: rgba(230, 201, 138, .13);
+}
+.mood-reception .event-art { opacity: .34; }
+
+/* --- dividers between cards --- */
+.event-divider {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  padding: clamp(.5rem, 2.4vw, 1rem) 0;
+  color: var(--gold-line);
+}
+.event-divider svg {
+  width: min(300px, 70%);
+  height: auto;
+  display: block;
+}
+.event-divider.is-turn { color: var(--terra); }
+
+/* ---------------------------------------------------------------
+   16. Family cards
+--------------------------------------------------------------- */
+.family-grid {
   display: grid;
   gap: clamp(1.1rem, 3.4vw, 1.8rem);
   width: 100%;
   margin-top: clamp(1rem, 3vw, 1.8rem);
 }
-@media (min-width: 860px) {
-  .couple-grid {
-    grid-template-columns: 1fr auto 1fr;
-    align-items: stretch;   /* both cards share a height */
-  }
-  .union { align-self: center; }
+@media (min-width: 760px) {
+  .family-grid { grid-template-columns: repeat(2, 1fr); align-items: stretch; }
 }
 
-.person {
-  text-align: center;
+.family {
   display: grid;
-  gap: .45rem;
+  gap: .5rem;
   justify-items: center;
-  align-content: center;
+  text-align: center;
+  align-content: start;
 }
-.person .role {
-  font-family: var(--roman);
-  font-size: .7rem;
-  letter-spacing: .3em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-inline-start: .3em;
-}
-.person .who {
-  font-family: var(--serif);
-  font-weight: 500;
-  font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.05rem);
-  line-height: 1.2;
-  color: var(--forest);
-  text-wrap: balance;
-}
-.person .rel {
-  font-style: italic;
-  color: var(--ink-mute);
-  font-size: .95em;
-}
-.person .parents {
-  color: var(--ink);
-  font-size: clamp(1.02rem, .98rem + .3vw, 1.16rem);
-  line-height: 1.55;
-}
-.person .sibs {
-  display: grid;
-  gap: .2rem;
-  margin-top: .5rem;
-  padding-top: .8rem;
-  border-top: 1px solid rgba(201, 154, 62, .28);
-  width: min(100%, 22rem);
-  color: var(--ink-soft);
-  font-size: .93em;
-}
-
-.union {
+.family-sigil {
   display: grid;
   place-items: center;
-  color: var(--gold-line);
-}
-.union svg { width: clamp(40px, 11vw, 64px); height: auto; }
-@media (max-width: 859px) {
-  .union { padding: .2rem 0; }
-  .union svg { width: 44px; }
-}
-
-/* ---------------------------------------------------------------
-   14. Blessing
---------------------------------------------------------------- */
-#blessing { text-align: center; }
-#blessing .quote {
-  font-family: var(--serif);
-  font-style: italic;
-  font-weight: 300;
-  font-size: clamp(1.5rem, 1.1rem + 2.1vw, 2.5rem);
-  line-height: 1.45;
-  color: #fdf6ea;
-  text-wrap: balance;
-  max-width: 22ch;
-  margin-inline: auto;
-}
-#blessing cite {
-  display: block;
-  font-family: var(--roman);
-  font-style: normal;
-  font-size: clamp(.72rem, .68rem + .2vw, .82rem);
-  letter-spacing: .28em;
-  text-transform: uppercase;
-  color: var(--gold-soft);
-  margin-inline-start: .28em;
-}
-
-/* ---------------------------------------------------------------
-   15. Events timeline
---------------------------------------------------------------- */
-.timeline {
-  position: relative;
-  display: grid;
-  gap: clamp(1rem, 3vw, 1.6rem);
-  width: 100%;
-  margin-top: clamp(1.2rem, 4vw, 2.2rem);
-  padding-left: 2.4rem;
-}
-.timeline::before {
-  content: "";
-  position: absolute;
-  left: 11px;
-  top: .6rem;
-  bottom: .6rem;
-  width: 1.5px;
-  background: linear-gradient(180deg,
-    transparent, rgba(201, 154, 62, .55) 8%, rgba(201, 154, 62, .55) 92%, transparent);
-}
-.timeline-item { position: relative; }
-.timeline-item::before {
-  content: "";
-  position: absolute;
-  left: -2.4rem;
-  top: 1.55rem;
-  width: 23px;
-  height: 23px;
-  margin-left: 0;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background: var(--ivory);
-  border: 1.5px solid var(--gold-line);
-  box-shadow: 0 0 0 5px var(--cream);
+  background: var(--forest-tint);
+  color: var(--forest);
 }
-.timeline-item::after {
-  content: "";
-  position: absolute;
-  left: calc(-2.4rem + 7px);
-  top: calc(1.55rem + 7px);
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--gold-line);
-}
-.timeline-item.is-main::after { background: var(--terra); }
-.timeline-item.is-main .event { border-color: rgba(168, 69, 44, .45); }
-
-.event { display: grid; gap: .35rem; }
-.event-when {
-  font-family: var(--roman);
-  font-size: clamp(.7rem, .67rem + .16vw, .78rem);
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: var(--terra);
-  margin-inline-start: .22em;
-  text-wrap: balance;
-}
-.event h3 {
-  font-family: var(--serif);
-  font-weight: 500;
-  font-size: clamp(1.32rem, 1.15rem + .9vw, 1.72rem);
+.family-sigil svg { width: 26px; height: 26px; }
+.family h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.32rem, 1.15rem + .9vw, 1.65rem);
   line-height: 1.25;
   color: var(--forest);
 }
-.event .desc { color: var(--ink-soft); font-size: .97em; text-wrap: pretty; }
-.event .where {
-  display: inline-flex;
-  align-items: center;
-  gap: .45em;
-  margin-top: .2rem;
-  font-size: .93em;
-  color: var(--ink-mute);
-  font-style: italic;
-}
 
-@media (min-width: 780px) {
-  .timeline { padding-left: 0; }
-  .timeline::before { left: 50%; transform: translateX(-50%); }
-  .timeline-item { width: calc(50% - 2.6rem); }
-  .timeline-item:nth-child(odd)  { justify-self: start; text-align: right; }
-  .timeline-item:nth-child(even) { justify-self: end; }
-  .timeline-item:nth-child(odd)  .event { justify-items: end; }
-  .timeline-item:nth-child(odd)::before { left: auto; right: -3.6rem; }
-  .timeline-item:nth-child(odd)::after  { left: auto; right: calc(-3.6rem + 7px); }
-  .timeline-item:nth-child(even)::before { left: -3.6rem; }
-  .timeline-item:nth-child(even)::after  { left: calc(-3.6rem + 7px); }
+.kin {
+  display: grid;
+  gap: .5rem;
+  width: min(100%, 25rem);
+  margin-top: .5rem;
+  padding-top: .9rem;
+  border-top: 1px solid rgba(201, 154, 62, .3);
+}
+.kin > div {
+  display: grid;
+  gap: .05rem;
+}
+.kin dt {
+  font-family: var(--sans);
+  font-size: clamp(.54rem, .52rem + .14vw, .62rem);
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-inline-start: .26em;
+}
+.kin dd {
+  font-family: var(--serif);
+  font-size: clamp(1.05rem, 1rem + .34vw, 1.2rem);
+  line-height: 1.4;
+  color: var(--ink);
+}
+@media (min-width: 460px) {
+  .kin > div {
+    grid-template-columns: 6.5rem 1fr;
+    align-items: baseline;
+    gap: .6rem;
+    text-align: left;
+  }
+  .kin dt { justify-self: end; text-align: right; margin-inline-start: 0; }
 }
 
 /* ---------------------------------------------------------------
-   16. Venues
+   17. Venues
 --------------------------------------------------------------- */
 .venue-grid {
   display: grid;
@@ -839,7 +1217,7 @@ body::before {
   width: 100%;
   margin-top: clamp(1.2rem, 4vw, 2rem);
 }
-@media (min-width: 720px) { .venue-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 720px)  { .venue-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1000px) { .venue-grid { grid-template-columns: repeat(3, 1fr); } }
 
 /* Flex column so the map button can be pinned to the bottom of every card,
@@ -863,18 +1241,19 @@ body::before {
 }
 .venue .sigil svg { width: 26px; height: 26px; }
 .venue .for {
-  font-family: var(--roman);
-  font-size: .68rem;
-  letter-spacing: .26em;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: clamp(.56rem, .54rem + .14vw, .64rem);
+  letter-spacing: .22em;
   text-transform: uppercase;
   color: var(--gold);
-  margin-inline-start: .26em;
+  margin-inline-start: .22em;
   text-wrap: balance;
 }
 .venue h3 {
-  font-family: var(--serif);
-  font-weight: 500;
-  font-size: clamp(1.25rem, 1.1rem + .8vw, 1.55rem);
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.22rem, 1.1rem + .8vw, 1.5rem);
   line-height: 1.28;
   color: var(--forest);
   text-wrap: balance;
@@ -889,33 +1268,195 @@ body::before {
 /* The address absorbs the leftover height, so every card's button lands on
    the same baseline without the button losing its own spacing. */
 .venue address { margin-bottom: auto; }
-.venue .btn { margin-top: .8rem; min-height: 46px; padding: .6rem 1.4rem; font-size: .76rem; }
+.venue .btn { margin-top: .8rem; min-height: 46px; padding: .6rem 1.4rem; }
 
 /* ---------------------------------------------------------------
-   17. Closing & footer
+   18. RSVP
 --------------------------------------------------------------- */
-#closing { text-align: center; }
-.closing-names {
-  font-size: clamp(2rem, 1.35rem + 3.3vw, 3.2rem);
+.rsvp-form {
+  display: grid;
+  gap: clamp(1rem, 3vw, 1.4rem);
+  width: min(560px, 100%);
+  margin-top: clamp(.8rem, 2.6vw, 1.4rem);
+  text-align: left;
 }
 
+.field { display: grid; gap: .4rem; }
+
+/* Direct children only — the checkbox labels inside .checks style themselves */
+.field > label,
+.field > legend {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: clamp(.6rem, .57rem + .16vw, .68rem);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+}
+.field .opt {
+  letter-spacing: .06em;
+  text-transform: none;
+  color: #b3a88e;
+  font-weight: 400;
+}
+
+.field input[type="text"],
+.field input[type="number"],
+.field textarea {
+  width: 100%;
+  padding: .78rem .95rem;
+  font-family: var(--serif);
+  font-size: 1.02rem;
+  line-height: 1.5;
+  color: #fdf6ea;
+  background: rgba(255, 252, 246, .07);
+  border: 1px solid rgba(230, 201, 138, .38);
+  border-radius: 12px;
+  transition: border-color .3s, background-color .3s;
+}
+.field textarea { resize: vertical; min-height: 5.5rem; }
+.field input::placeholder,
+.field textarea::placeholder { color: rgba(244, 236, 224, .45); font-style: italic; }
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--gold-soft);
+  background: rgba(255, 252, 246, .12);
+}
+.field input:focus-visible,
+.field textarea:focus-visible { outline: 2px solid var(--gold-soft); outline-offset: 1px; }
+.field input[aria-invalid="true"],
+.field textarea[aria-invalid="true"] { border-color: #e8a08c; }
+
+/* function checkboxes */
+.checks {
+  display: grid;
+  gap: .5rem;
+  margin-top: .2rem;
+}
+@media (min-width: 520px) { .checks { grid-template-columns: repeat(2, 1fr); } }
+
+.checks label {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  padding: .6rem .8rem;
+  border: 1px solid rgba(230, 201, 138, .28);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color .25s, background-color .25s;
+}
+.checks label:hover { border-color: rgba(230, 201, 138, .6); background: rgba(255, 252, 246, .06); }
+.checks label:has(input:checked) {
+  border-color: var(--gold-soft);
+  background: rgba(230, 201, 138, .14);
+}
+.checks input {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--gold-line);
+  cursor: pointer;
+}
+.checks span {
+  font-family: var(--serif);
+  font-size: 1rem;
+  line-height: 1.35;
+  color: #f0e6d6;
+}
+
+.form-error {
+  font-family: var(--sans);
+  font-size: .78rem;
+  letter-spacing: .04em;
+  color: #f3b7a4;
+}
+.form-error[hidden] { display: none; }
+
+.form-note {
+  font-family: var(--sans);
+  font-size: .68rem;
+  letter-spacing: .1em;
+  color: #b3a88e;
+  text-align: center;
+}
+
+.rsvp-done {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.3rem, 1.05rem + 1.2vw, 1.8rem);
+  color: var(--gold-soft);
+  text-wrap: balance;
+}
+.rsvp-done[hidden] { display: none; }
+
+.sign-off {
+  margin-top: clamp(.6rem, 2.4vw, 1.2rem);
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #ddd0b6;
+}
+.sign-off em {
+  display: block;
+  font-family: var(--script);
+  font-style: normal;
+  font-size: clamp(1.7rem, 1.3rem + 1.8vw, 2.3rem);
+  line-height: 1.3;
+  color: var(--gold-soft);
+}
+
+/* ---------------------------------------------------------------
+   19. Footer
+--------------------------------------------------------------- */
 .footer {
   position: relative;
   z-index: 1;
-  padding: clamp(2rem, 6vw, 3rem) var(--gutter)
-           calc(clamp(2rem, 6vw, 3rem) + env(safe-area-inset-bottom));
-  background: var(--forest);
+  display: grid;
+  justify-items: center;
+  gap: .45rem;
+  padding: clamp(1.8rem, 5vw, 2.6rem) var(--gutter)
+           calc(clamp(1.8rem, 5vw, 2.6rem) + env(safe-area-inset-bottom));
+  background: #14261c;
   color: #cfc4b2;
   text-align: center;
-  font-size: .92rem;
 }
-.footer p { margin: .2rem 0; }
+
+/* Primary credit — the line that should carry the weight down here. */
+.footer-credit {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: clamp(.74rem, .7rem + .18vw, .82rem);
+  letter-spacing: .08em;
+  color: #cfc4b2;            /* 9.2:1 on the footer ground */
+  text-wrap: balance;
+}
+
+/* Attribution the audio licence requires. Deliberately fine print — smaller,
+   dimmer and lighter than the credit above it — but held at 4.7:1 contrast so
+   it stays readable. Below that it stops counting as attribution at all. */
+.credit-music {
+  display: block;
+  margin-top: .6rem;
+  font-weight: 400;
+  font-size: clamp(.58rem, .55rem + .12vw, .63rem);
+  letter-spacing: .05em;
+  color: #948b7b;            /* 4.7:1 on the footer ground */
+}
+
 .footer a {
   color: var(--gold-soft);
   text-decoration-color: rgba(230, 201, 138, .45);
   text-underline-offset: 3px;
 }
 .footer a:hover { color: #fdf6ea; }
+
+/* Links in the fine print stay quieter than the ones above them */
+.credit-music a {
+  color: #b3a68c;            /* 6.6:1 — visible as a link, not attention-grabbing */
+  text-decoration-color: rgba(179, 166, 140, .4);
+}
+.credit-music a:hover { color: #e6c98a; }
 
 /* Decorative bloom accents that sit in the page margins only */
 .bloom {
@@ -933,7 +1474,7 @@ body::before {
 @media (max-width: 700px) { .bloom { opacity: .09; width: 34vw; } }
 
 /* ---------------------------------------------------------------
-   18. Scroll reveal
+   20. Scroll reveal
 --------------------------------------------------------------- */
 .reveal {
   opacity: 0;
@@ -944,7 +1485,7 @@ body::before {
 .reveal.in { opacity: 1; transform: none; will-change: auto; }
 
 /* ---------------------------------------------------------------
-   19. Motion & print
+   21. Motion & print
 --------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -954,14 +1495,25 @@ body::before {
     transition-duration: .01ms !important;
   }
   .reveal { opacity: 1; transform: none; }
-  .cover-inner > * { opacity: 1; transform: none; }
+  .env-stage > * { opacity: 1; transform: none; }
   #petals { display: none; }
+  .scratch-hint span {
+    animation: none;
+    -webkit-background-clip: border-box;
+            background-clip: border-box;
+    background: none;
+    color: #fffaf0;
+  }
 }
 
 @media print {
-  #loader, #cover, #petals, #musicBtn, #progress, .bloom { display: none !important; }
+  #loader, #envelope, #petals, #musicBtn, #progress, .bloom,
+  #scratchCanvas, .scratch-hint, #scratchReveal, .rsvp-form { display: none !important; }
   body::before { display: none; }
-  body { background: #fff; }
+  body { background: #fff; color: #000; }
   .section { padding: 1.5rem 0; break-inside: avoid; }
-  .card { box-shadow: none; }
+  .card, .event-card { box-shadow: none; }
+  .tint-forest { background: #fff; color: #000; }
+  .tint-forest .title, .tint-forest .lede, .sign-off { color: #000; }
+  .footer { background: #fff; color: #000; }
 }

@@ -6,14 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#1e4d34" />
 
-  <title>Sangeeta &amp; Syam Sundar — Wedding Invitation · 19 December 2026</title>
+  <title>Sangeeta &amp; Syam Sundar — Wedding Invitation · December 2026</title>
   <meta name="description"
-    content="Sangeeta Khyonshali and Syam Sundar invite you to their wedding — Tulasi garland exchange at Guruvayur Temple, Kerala on 19 December 2026, with celebrations from 10 December." />
+    content="Sangeeta Khyonshali and Syam Sundar invite you to their wedding — celebrations in Ramnagar, Uttarakhand from 10 December 2026, the Tulasi garland exchange at Guruvayur Temple, Kerala on 19 December, and the reception in Thrissur on 20 December." />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Sangeeta &amp; Syam Sundar — Wedding Invitation" />
   <meta property="og:description"
-    content="Together with their families — 19 December 2026, Guruvayur Temple, Kerala." />
+    content="With the blessings of both families — December 2026, Ramnagar &amp; Guruvayur." />
   <meta property="og:url" content="https://syam-weds-sangeeta.lokaai.in/" />
   <meta name="twitter:card" content="summary_large_image" />
 
@@ -22,9 +22,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="image" href="assets/images/wreath.webp" />
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Great+Vibes&family=Marcellus&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Great+Vibes&family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap"
     rel="stylesheet" />
 
   <link rel="stylesheet" href="style.css" />
@@ -42,51 +41,69 @@
     </div>
   </div>
 
-  <!-- ============================ Cover ============================= -->
-  <section id="cover" aria-label="Invitation cover">
-    <div class="cover-deco" aria-hidden="true">
-      <img class="cover-wash tl" src="assets/images/bloom.webp" alt="" />
-      <img class="cover-wash br" src="assets/images/bloom.webp" alt="" />
-    </div>
+  <!-- ======================= 1. Envelope intro ====================== -->
+  <section id="envelope" aria-label="Invitation envelope">
 
-    <div class="cover-inner">
-      <div class="crest">
-        <img src="assets/images/wreath.webp" alt="" aria-hidden="true" />
-        <span class="monogram" aria-hidden="true">S&nbsp;&amp;&nbsp;S</span>
+    <!-- Fine line-art florals on the soft ground, corner-pinned -->
+    <svg class="env-corner tl" viewBox="0 0 160 160" aria-hidden="true">
+      <g fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round">
+        <path d="M4 76c26-4 44-22 48-48" />
+        <path d="M4 76c22 4 38 20 42 42" opacity=".5" />
+        <path d="M52 28c8-6 17-5 22 3-8 6-17 5-22-3z" />
+        <path d="M52 28c-6-8-5-17 3-22 6 8 5 17-3 22z" />
+        <path d="M30 54c9-3 17 1 19 10-9 3-17-1-19-10z" opacity=".75" />
+        <path d="M30 54c-3-9 1-17 10-19 3 9-1 17-10 19z" opacity=".75" />
+        <circle cx="74" cy="26" r="2.4" fill="currentColor" stroke="none" />
+        <circle cx="46" cy="70" r="1.8" fill="currentColor" stroke="none" opacity=".7" />
+      </g>
+    </svg>
+    <svg class="env-corner br" viewBox="0 0 160 160" aria-hidden="true">
+      <g fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round">
+        <path d="M4 76c26-4 44-22 48-48" />
+        <path d="M4 76c22 4 38 20 42 42" opacity=".5" />
+        <path d="M52 28c8-6 17-5 22 3-8 6-17 5-22-3z" />
+        <path d="M52 28c-6-8-5-17 3-22 6 8 5 17-3 22z" />
+        <path d="M30 54c9-3 17 1 19 10-9 3-17-1-19-10z" opacity=".75" />
+        <path d="M30 54c-3-9 1-17 10-19 3 9-1 17-10 19z" opacity=".75" />
+        <circle cx="74" cy="26" r="2.4" fill="currentColor" stroke="none" />
+        <circle cx="46" cy="70" r="1.8" fill="currentColor" stroke="none" opacity=".7" />
+      </g>
+    </svg>
+
+    <div class="env-stage">
+      <p class="env-script">You&rsquo;re Invited</p>
+
+      <div class="env" id="env">
+        <!-- The letter that lifts out as the flap opens -->
+        <div class="env-letter" aria-hidden="true">
+          <p class="env-letter-eyebrow">Wedding Invitation</p>
+          <p class="env-letter-names">Sangeeta <em>&amp;</em> Syam</p>
+          <p class="env-letter-date">10 &middot; 19 &middot; 20 December 2026</p>
+        </div>
+
+        <div class="env-body" aria-hidden="true"></div>
+        <div class="env-flap" aria-hidden="true"></div>
+
+        <button id="sealBtn" class="env-seal" type="button"
+          aria-label="Open the invitation">
+          <span class="env-seal-ring" aria-hidden="true"></span>
+          <span class="env-seal-mark" aria-hidden="true">S&amp;S</span>
+        </button>
       </div>
 
-      <p class="eyebrow">Wedding Invitation</p>
-
-      <h1 class="names cover-names">
-        Sangeeta
-        <span class="amp" aria-hidden="true">&amp;</span>
-        <span class="sr-only">and</span>
-        Syam Sundar
-      </h1>
-
-      <svg class="divider" viewBox="0 0 240 22" role="presentation" aria-hidden="true">
-        <path d="M4 11h86M150 11h86" stroke="currentColor" stroke-width="1" stroke-linecap="round" />
-        <path d="M120 3.5 128.5 11 120 18.5 111.5 11z" fill="none" stroke="currentColor" stroke-width="1" />
-        <circle cx="120" cy="11" r="1.9" fill="currentColor" />
-        <path d="M104 11c-4-4.2-9.5-4.2-13.5 0 4 4.2 9.5 4.2 13.5 0z" fill="currentColor" opacity=".55" />
-        <path d="M136 11c4-4.2 9.5-4.2 13.5 0-4 4.2-9.5 4.2-13.5 0z" fill="currentColor" opacity=".55" />
-      </svg>
-
-      <p class="cover-date">19 December 2026</p>
-      <p class="cover-place">Guruvayur Temple, Kerala</p>
-
-      <button id="openBtn" class="btn" type="button"><span>Open Invitation</span></button>
+      <p class="env-hint" id="envHint">Tap to open</p>
     </div>
-
-    <p class="scroll-cue" aria-hidden="true">With love</p>
   </section>
 
   <!-- ============================ Chrome ============================ -->
   <div id="progress" aria-hidden="true"></div>
   <canvas id="petals" aria-hidden="true"></canvas>
 
+  <!-- "Indian Folk Classical Flute Music" by MayankSingh33 (Wikimedia Commons),
+       CC BY-SA 4.0 — normalised, faded at both ends so the loop doesn't click.
+       Credited in the footer, as the licence requires. -->
   <audio id="music" loop preload="none">
-    <source src="assets/music/wedding.mp3" type="audio/mpeg" />
+    <source src="assets/music/wedding.m4a" type="audio/mp4" />
   </audio>
 
   <button id="musicBtn" type="button" aria-label="Play music" aria-pressed="false">
@@ -102,57 +119,196 @@
 
   <main id="main">
 
-    <!-- ========================= Invitation ========================= -->
-    <section id="invite" class="section" aria-labelledby="invite-h">
-      <div class="shell">
-        <div class="invite-grid">
+    <!-- ====================== 2. Blessing header ===================== -->
+    <section id="blessing" class="section" aria-labelledby="blessing-h">
+      <div class="shell stack center">
+        <p class="eyebrow reveal">Together in celebration</p>
+        <h1 id="blessing-h" class="title reveal">With the blessings of both families</h1>
 
-          <figure class="portrait reveal">
-            <img src="assets/images/couple.webp" width="1100" height="1070"
-              alt="Watercolour illustration of a bride and groom in traditional Indian wedding attire, seated together." />
-          </figure>
+        <div class="parents-grid">
+          <article class="parents-card reveal">
+            <p class="side">Bride&rsquo;s Parents</p>
+            <p class="pair">Mr. Dayal Singh Khyonshali<br />&amp; Mrs. Hema Devi</p>
+          </article>
 
-          <div class="stack center">
-            <p class="eyebrow reveal">Together with their families</p>
-
-            <h1 id="invite-h" class="names invite-names reveal">
-              Sangeeta
-              <span class="amp" aria-hidden="true">&amp;</span>
-              <span class="sr-only">and</span>
-              Syam Sundar
-            </h1>
-
-            <svg class="divider reveal" viewBox="0 0 240 22" aria-hidden="true">
-              <path d="M4 11h86M150 11h86" stroke="currentColor" stroke-width="1" stroke-linecap="round" />
-              <path d="M120 3.5 128.5 11 120 18.5 111.5 11z" fill="none" stroke="currentColor" stroke-width="1" />
-              <circle cx="120" cy="11" r="1.9" fill="currentColor" />
-              <path d="M104 11c-4-4.2-9.5-4.2-13.5 0 4 4.2 9.5 4.2 13.5 0z" fill="currentColor" opacity=".55" />
-              <path d="M136 11c4-4.2 9.5-4.2 13.5 0-4 4.2-9.5 4.2-13.5 0z" fill="currentColor" opacity=".55" />
+          <div class="parents-knot reveal" aria-hidden="true">
+            <svg viewBox="0 0 40 64" fill="none">
+              <path d="M20 4v56" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".5" />
+              <path d="M20 26c-7-5-7-13 0-15 7 2 7 10 0 15z" stroke="currentColor" stroke-width="1.3" />
+              <path d="M20 38c7 5 7 13 0 15-7-2-7-10 0-15z" stroke="currentColor" stroke-width="1.3" />
+              <circle cx="20" cy="32" r="3" stroke="currentColor" stroke-width="1.3" />
             </svg>
-
-            <p class="lede reveal">Request the pleasure of your company as they exchange
-              the Tulasi garland and begin their life together.</p>
-
-            <div class="invite-meta reveal">
-              <p class="big">Saturday, 19 December 2026</p>
-              <p class="small">8:00 AM · Guruvayur Temple, Kerala</p>
-            </div>
           </div>
 
+          <article class="parents-card reveal">
+            <p class="side">Groom&rsquo;s Parents</p>
+            <p class="pair">Mr. C C Somasundaran<br />&amp; Mrs. Sheeba Soman</p>
+          </article>
         </div>
+
+        <p class="lede invite-line reveal">cordially invite you to the wedding of
+          their daughter and son</p>
       </div>
+
+      <!-- Full-width illustrated scene: Kumaoni hills blending into a temple arch.
+           PLACEHOLDER — swap this whole <figure> for commissioned artwork. -->
+      <figure class="scene reveal" aria-label="Illustration of Kumaoni hills and pine trees blending into a temple arch">
+        <svg class="scene-svg" viewBox="0 0 1200 380" preserveAspectRatio="xMidYMax slice" role="img">
+          <defs>
+            <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#f6ecd9" />
+              <stop offset="55%"  stop-color="#efe2ca" />
+              <stop offset="100%" stop-color="#e7d9bd" />
+            </linearGradient>
+            <linearGradient id="farHill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#9db2a3" /><stop offset="100%" stop-color="#8aa392" />
+            </linearGradient>
+            <linearGradient id="midHill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#6f8d78" /><stop offset="100%" stop-color="#5d7d67" />
+            </linearGradient>
+            <linearGradient id="nearHill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#3f6350" /><stop offset="100%" stop-color="#2c4c3c" />
+            </linearGradient>
+            <linearGradient id="archG" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#d8ab52" /><stop offset="100%" stop-color="#b8863a" />
+            </linearGradient>
+          </defs>
+
+          <rect width="1200" height="380" fill="url(#sky)" />
+
+          <!-- sun -->
+          <circle cx="600" cy="150" r="52" fill="#f2d9a4" opacity=".55" />
+          <circle cx="600" cy="150" r="52" fill="none" stroke="#c99a3e" stroke-width="1" opacity=".5" />
+
+          <!-- far range -->
+          <path fill="url(#farHill)" opacity=".85"
+            d="M0 214 L118 150 L196 196 L286 128 L392 200 L470 162 L556 214 L640 168 L724 210 L812 150 L906 202 L1000 154 L1090 200 L1200 158 L1200 380 L0 380 Z" />
+          <!-- mid range -->
+          <path fill="url(#midHill)" opacity=".92"
+            d="M0 258 L96 206 L184 250 L272 194 L368 252 L462 214 L548 262 L648 212 L740 258 L840 206 L936 254 L1040 208 L1136 252 L1200 222 L1200 380 L0 380 Z" />
+          <!-- near range -->
+          <path fill="url(#nearHill)"
+            d="M0 306 L110 262 L212 300 L318 254 L430 304 L536 268 L640 308 L752 264 L858 302 L968 260 L1076 300 L1200 268 L1200 380 L0 380 Z" />
+
+          <!-- Pines. Kept within roughly x=210–990 so they survive the
+               `slice` crop on a narrow phone, where only the middle of the
+               viewBox is visible. -->
+          <g fill="#24402f">
+            <!-- left cluster -->
+            <g transform="translate(258 262)">
+              <path d="M0 44 L0 30 M-13 30 L0 -2 L13 30 Z M-10 40 L0 16 L10 40 Z" />
+            </g>
+            <g transform="translate(310 278) scale(.8)">
+              <path d="M0 44 L0 30 M-13 30 L0 -2 L13 30 Z M-10 40 L0 16 L10 40 Z" />
+            </g>
+            <g transform="translate(216 288) scale(.66)">
+              <path d="M0 44 L0 30 M-13 30 L0 -2 L13 30 Z M-10 40 L0 16 L10 40 Z" />
+            </g>
+            <g transform="translate(362 270) scale(.9)">
+              <path d="M0 44 L0 30 M-13 30 L0 -2 L13 30 Z M-10 40 L0 16 L10 40 Z" />
+            </g>
+            <!-- right cluster -->
+            <g transform="translate(848 270) scale(.9)">
+              <path d="M0 44 L0 30 M-13 30 L0 -2 L13 30 Z M-10 40 L0 16 L10 40 Z" />
+            </g>
+            <g transform="translate(902 286) scale(.72)">
+              <path d="M0 44 L0 30 M-13 30 L0 -2 L13 30 Z M-10 40 L0 16 L10 40 Z" />
+            </g>
+            <g transform="translate(956 276) scale(.8)">
+              <path d="M0 44 L0 30 M-13 30 L0 -2 L13 30 Z M-10 40 L0 16 L10 40 Z" />
+            </g>
+          </g>
+
+          <!-- temple arch motif, centred where the two regions meet -->
+          <g stroke="url(#archG)" fill="none" stroke-width="2.4" stroke-linecap="round">
+            <path d="M474 380 L474 250 A126 126 0 0 1 726 250 L726 380" />
+            <path d="M492 380 L492 254 A108 108 0 0 1 708 254 L708 380" stroke-width="1.2" opacity=".7" />
+            <path d="M600 124 L600 100" stroke-width="1.6" />
+            <path d="M586 148 h28" stroke-width="1.6" />
+          </g>
+          <!-- kalash finial -->
+          <g fill="#c99a3e" opacity=".95">
+            <circle cx="600" cy="94" r="7" />
+            <path d="M593 100 h14 l-3 12 h-8 z" />
+          </g>
+          <!-- hanging lamps -->
+          <g fill="#c99a3e" opacity=".8">
+            <circle cx="510" cy="262" r="4" /><path d="M510 240 v18" stroke="#c99a3e" stroke-width="1" />
+            <circle cx="690" cy="262" r="4" /><path d="M690 240 v18" stroke="#c99a3e" stroke-width="1" />
+          </g>
+        </svg>
+      </figure>
     </section>
 
-    <!-- ========================= Countdown ========================== -->
-    <section id="countdown" class="section tint-cream" aria-labelledby="countdown-h">
+    <!-- ======================== 3. Couple names ====================== -->
+    <section id="couple" class="section tint-cream" aria-labelledby="couple-h">
       <img class="bloom l t" src="assets/images/bloom.webp" alt="" aria-hidden="true" />
       <img class="bloom r b" src="assets/images/bloom.webp" alt="" aria-hidden="true" />
 
-      <div class="shell narrow stack center">
-        <p class="eyebrow reveal">Counting the days</p>
-        <h2 id="countdown-h" class="title reveal">Until we say <em class="script">I do</em></h2>
+      <div class="shell stack center">
+        <p class="eyebrow reveal">With immense joy and love</p>
 
-        <div class="timer reveal" id="timer" role="group" aria-label="Time remaining until the wedding">
+        <h2 id="couple-h" class="couple-names reveal">
+          Sangeeta
+          <span class="amp" aria-hidden="true">&amp;</span>
+          <span class="sr-only">and</span>
+          Syam
+        </h2>
+
+        <svg class="divider reveal" viewBox="0 0 240 22" aria-hidden="true">
+          <path d="M4 11h86M150 11h86" stroke="currentColor" stroke-width="1" stroke-linecap="round" />
+          <path d="M120 3.5 128.5 11 120 18.5 111.5 11z" fill="none" stroke="currentColor" stroke-width="1" />
+          <circle cx="120" cy="11" r="1.9" fill="currentColor" />
+          <path d="M104 11c-4-4.2-9.5-4.2-13.5 0 4 4.2 9.5 4.2 13.5 0z" fill="currentColor" opacity=".55" />
+          <path d="M136 11c4-4.2 9.5-4.2 13.5 0-4 4.2-9.5 4.2-13.5 0z" fill="currentColor" opacity=".55" />
+        </svg>
+
+        <p class="full-names reveal">Sangeeta Khyonshali &middot; Syam Sundar</p>
+
+        <!-- PLACEHOLDER — commissioned couple portrait drops in here -->
+        <figure class="portrait reveal">
+          <img src="assets/images/couple.webp" width="1100" height="1070"
+            alt="Watercolour illustration of a bride and groom in traditional Indian wedding attire, seated together." />
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===================== 4. Scratch to reveal ==================== -->
+    <section id="scratch" class="section" aria-labelledby="scratch-h">
+      <div class="shell narrow stack center">
+        <p class="eyebrow reveal">A little something</p>
+        <h2 id="scratch-h" class="title reveal">Scratch to reveal</h2>
+
+        <div class="scratch-card reveal" id="scratchCard">
+          <!-- What sits underneath the foil -->
+          <div class="scratch-under">
+            <img src="assets/images/couple.webp" alt="" aria-hidden="true" />
+            <p class="scratch-script">See you there</p>
+            <p class="scratch-date">19 December 2026</p>
+          </div>
+
+          <canvas id="scratchCanvas" aria-hidden="true"></canvas>
+
+          <p class="scratch-hint" id="scratchHint" aria-hidden="true">
+            <span>Scratch to reveal</span>
+          </p>
+        </div>
+
+        <button id="scratchReveal" class="btn ghost small reveal" type="button">
+          <span>Reveal it for me</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ========================= 5. Countdown ======================== -->
+    <section id="countdown" class="section tint-sand" aria-labelledby="countdown-h">
+      <img class="bloom r t" src="assets/images/bloom.webp" alt="" aria-hidden="true" />
+
+      <div class="shell narrow stack center">
+        <p class="eyebrow reveal">Counting down to the first function</p>
+        <h2 id="countdown-h" class="title reveal">Until the <em class="script">Mehndi</em></h2>
+
+        <div class="timer reveal" id="timer" role="group" aria-label="Time remaining until the Mehndi">
           <div class="timer-unit">
             <span class="timer-num" id="d">—</span>
             <span class="timer-label">Days</span>
@@ -170,142 +326,408 @@
             <span class="timer-label">Seconds</span>
           </div>
         </div>
-        <p class="timer-done reveal" id="timerDone" hidden>Happily married ever after.</p>
+
+        <p class="timer-foot reveal">Thursday, 10 December 2026 &middot; 7:00 PM &middot; Ramnagar</p>
+        <p class="timer-done reveal" id="timerDone" hidden>The celebrations have begun.</p>
       </div>
     </section>
 
-    <!-- ======================= Couple & family ====================== -->
-    <section id="couple" class="section" aria-labelledby="couple-h">
+    <!-- ========================== 6. Events ========================== -->
+    <section id="events" class="section" aria-labelledby="events-h">
       <div class="shell stack center">
-        <p class="eyebrow reveal">The Couple</p>
-        <h2 id="couple-h" class="title reveal">With the blessings of our families</h2>
+        <p class="eyebrow reveal">Celebrations</p>
+        <h2 id="events-h" class="title reveal">The order of festivities</h2>
+        <p class="lede reveal">From the first touch of mehndi in the Kumaon hills to the
+          last toast in Thrissur — we would love to have you with us.</p>
+      </div>
 
-        <div class="couple-grid">
+      <ol class="events-list">
 
-          <article class="card person reveal">
-            <p class="role">The Bride</p>
-            <h3 class="who">Sangeeta Khyonshali</h3>
-            <p class="rel">Daughter of</p>
-            <p class="parents">Dayal Singh Khyonshali<br />&amp; Hema Devi</p>
-            <div class="sibs">
-              <p>Sister — Mansi Khyonshali</p>
-              <p>Brother — Priyanshu Khyonshali</p>
-            </div>
-          </article>
-
-          <div class="union reveal" aria-hidden="true">
-            <svg viewBox="0 0 64 64" fill="none">
-              <path d="M32 55C14 44 8 33 12.5 24.5 16 18 25 18.5 32 27c7-8.5 16-9 19.5-2.5C56 33 50 44 32 55z"
-                fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
-              <circle cx="32" cy="38" r="2.2" fill="currentColor" />
+        <!-- ---------- Mehndi ---------- -->
+        <li class="event-card mood-mehndi reveal">
+          <div class="event-art" aria-hidden="true">
+            <svg viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice">
+              <g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+                <path d="M40 130c0-30 14-46 34-56M40 130c-16-10-24-28-20-48" opacity=".7" />
+                <path d="M74 74c10-8 22-6 28 4-10 8-22 6-28-4z" />
+                <path d="M74 74c-8-10-6-22 4-28 8 10 6 22-4 28z" />
+                <circle cx="106" cy="76" r="3" fill="currentColor" stroke="none" />
+                <path d="M330 40c0 26-12 40-30 48M330 40c14 8 21 24 18 42" opacity=".7" />
+                <path d="M300 88c-10 8-22 6-28-4 10-8 22-6 28 4z" />
+                <path d="M300 88c8 10 6 22-4 28-8-10-6-22 4-28z" />
+                <circle cx="268" cy="86" r="3" fill="currentColor" stroke="none" />
+                <path d="M180 30c14 10 20 26 16 42-14-10-20-26-16-42z" opacity=".55" />
+                <path d="M220 30c-14 10-20 26-16 42 14-10 20-26 16-42z" opacity=".55" />
+              </g>
             </svg>
           </div>
+          <div class="event-body">
+            <span class="event-sigil" aria-hidden="true">
+              <!-- henna paisley (buta) -->
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 28c-6-3-9-8.2-8-13.6C10 9 14 5.4 18.4 6.4c4 .9 6 4.7 5 8.3-.8 3-3.6 4.6-5.9 3.7-1.9-.8-2.6-3-1.5-4.6" />
+                <path d="M17.2 24.2c-3.9-2.4-5.8-6.1-5-10 .6-3 3-5 5.9-4.9" opacity=".55" />
+                <circle cx="19.4" cy="12.4" r="1.15" fill="currentColor" stroke="none" />
+                <circle cx="13.4" cy="19.6" r=".85" fill="currentColor" stroke="none" opacity=".8" />
+                <circle cx="15" cy="23.4" r=".7" fill="currentColor" stroke="none" opacity=".6" />
+              </svg>
+            </span>
+            <p class="event-when">Thursday, 10 December 2026</p>
+            <h3 class="event-name">Mehndi</h3>
+            <p class="event-time">7:00 PM</p>
+            <p class="event-desc">An evening adorned with intricate mehndi art, song and laughter.</p>
+            <p class="event-where">Khyonshali Nivas<br />
+              <span>Royal Enclave Colony, Chorpani, Ramnagar, Nainital, Uttarakhand</span></p>
+          </div>
+        </li>
 
-          <article class="card person reveal">
-            <p class="role">The Groom</p>
-            <h3 class="who">Syam Sundar</h3>
-            <p class="rel">Son of</p>
-            <p class="parents">C C Somasundaran<br />&amp; Sheeba Soman</p>
-            <div class="sibs">
-              <p>Sister — Swathy C Sundar</p>
-            </div>
+        <!-- divider: hanging string lights -->
+        <li class="event-divider" aria-hidden="true">
+          <svg viewBox="0 0 300 40" preserveAspectRatio="xMidYMid meet">
+            <path d="M0 8 Q75 32 150 14 T300 8" fill="none" stroke="currentColor" stroke-width="1" opacity=".6" />
+            <g fill="currentColor">
+              <circle cx="52"  cy="23" r="3.2" /><circle cx="100" cy="26" r="3.2" />
+              <circle cx="150" cy="20" r="3.2" /><circle cx="200" cy="21" r="3.2" />
+              <circle cx="248" cy="16" r="3.2" />
+            </g>
+          </svg>
+        </li>
+
+        <!-- ---------- Haldi ---------- -->
+        <li class="event-card mood-haldi reveal">
+          <div class="event-art" aria-hidden="true">
+            <svg viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice">
+              <g fill="currentColor">
+                <g opacity=".8">
+                  <circle cx="60" cy="52" r="13" />
+                  <circle cx="60" cy="52" r="20" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".6" />
+                  <circle cx="112" cy="96" r="10" />
+                  <circle cx="112" cy="96" r="16" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".6" />
+                  <circle cx="330" cy="60" r="12" />
+                  <circle cx="330" cy="60" r="19" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".6" />
+                  <circle cx="284" cy="110" r="9" />
+                </g>
+                <g opacity=".45">
+                  <circle cx="180" cy="34" r="6" /><circle cx="216" cy="126" r="7" />
+                  <circle cx="150" cy="120" r="5" /><circle cx="246" cy="46" r="5" />
+                </g>
+              </g>
+            </svg>
+          </div>
+          <div class="event-body">
+            <span class="event-sigil" aria-hidden="true">
+              <!-- bowl of turmeric paste with fresh leaves -->
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5.5 17.5h21a10.5 10.5 0 0 1-21 0z" />
+                <path d="M11 27.5h10" />
+                <path d="M12 17.5a4 4 0 0 1 8 0" opacity=".7" />
+                <path d="M16 13.5c-3.3-.6-5.2-3.1-4.8-6.2 3.3.6 5.2 3.1 4.8 6.2z" />
+                <path d="M16 13.5c3.3-.6 5.2-3.1 4.8-6.2-3.3.6-5.2 3.1-4.8 6.2z" opacity=".75" />
+              </svg>
+            </span>
+            <p class="event-when">Friday, 11 December 2026</p>
+            <h3 class="event-name">Haldi</h3>
+            <p class="event-time">9:00 AM</p>
+            <p class="event-desc">A golden morning of turmeric, marigolds and blessings.</p>
+            <p class="event-where">Khyonshali Nivas<br />
+              <span>Royal Enclave Colony, Chorpani, Ramnagar, Nainital, Uttarakhand</span></p>
+          </div>
+        </li>
+
+        <!-- divider: marigold garland -->
+        <li class="event-divider" aria-hidden="true">
+          <svg viewBox="0 0 300 40" preserveAspectRatio="xMidYMid meet">
+            <path d="M0 12 Q75 34 150 18 T300 12" fill="none" stroke="currentColor" stroke-width="1" opacity=".5" />
+            <g fill="currentColor" opacity=".85">
+              <circle cx="30" cy="18" r="4.5" /><circle cx="62" cy="25" r="5" />
+              <circle cx="96" cy="28" r="4.5" /><circle cx="130" cy="24" r="5" />
+              <circle cx="164" cy="21" r="4.5" /><circle cx="198" cy="20" r="5" />
+              <circle cx="232" cy="17" r="4.5" /><circle cx="266" cy="14" r="5" />
+            </g>
+          </svg>
+        </li>
+
+        <!-- ---------- Sangeet ---------- -->
+        <li class="event-card mood-sangeet reveal">
+          <div class="event-art" aria-hidden="true">
+            <svg viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice">
+              <g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+                <path d="M70 110V54l34-10v56" />
+                <circle cx="60" cy="112" r="10" fill="currentColor" opacity=".75" stroke="none" />
+                <circle cx="94" cy="102" r="10" fill="currentColor" opacity=".75" stroke="none" />
+                <path d="M296 118V58l32-9v58" />
+                <circle cx="286" cy="120" r="9" fill="currentColor" opacity=".75" stroke="none" />
+                <circle cx="318" cy="111" r="9" fill="currentColor" opacity=".75" stroke="none" />
+                <path d="M170 48c10 8 10 22 0 30M186 40c16 12 16 34 0 46" opacity=".6" />
+                <path d="M230 48c-10 8-10 22 0 30M214 40c-16 12-16 34 0 46" opacity=".6" />
+              </g>
+            </svg>
+          </div>
+          <div class="event-body">
+            <span class="event-sigil" aria-hidden="true">
+              <!-- beamed notes with a dancing flourish -->
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M13 23V9.2l10-2.2v13.8" />
+                <path d="M13 13.4l10-2.2" />
+                <ellipse cx="10.6" cy="23.6" rx="2.9" ry="2.3" fill="currentColor" stroke="none"
+                  transform="rotate(-16 10.6 23.6)" />
+                <ellipse cx="20.6" cy="21.4" rx="2.9" ry="2.3" fill="currentColor" stroke="none"
+                  transform="rotate(-16 20.6 21.4)" />
+                <path d="M5.5 17c1.6-2.4 3.6-2.6 5-1" opacity=".6" />
+                <path d="M26.5 26c-1.6-2.4-3.6-2.6-5-1" opacity=".6" />
+              </svg>
+            </span>
+            <p class="event-when">Friday, 11 December 2026</p>
+            <h3 class="event-name">Sangeet</h3>
+            <p class="event-time">2:00 PM</p>
+            <p class="event-desc">A vibrant afternoon of music, dance and heartfelt melodies.</p>
+            <p class="event-where">Khyonshali Nivas<br />
+              <span>Royal Enclave Colony, Chorpani, Ramnagar, Nainital, Uttarakhand</span></p>
+          </div>
+        </li>
+
+        <!-- divider: pearl strand -->
+        <li class="event-divider" aria-hidden="true">
+          <svg viewBox="0 0 300 40" preserveAspectRatio="xMidYMid meet">
+            <path d="M0 16 Q75 30 150 20 T300 16" fill="none" stroke="currentColor" stroke-width=".8" opacity=".45" />
+            <g fill="currentColor" opacity=".7">
+              <circle cx="42" cy="21" r="2.8" /><circle cx="70" cy="24" r="2.8" />
+              <circle cx="98" cy="26" r="2.8" /><circle cx="126" cy="25" r="2.8" />
+              <circle cx="154" cy="22" r="3.4" /><circle cx="182" cy="21" r="2.8" />
+              <circle cx="210" cy="20" r="2.8" /><circle cx="238" cy="18" r="2.8" />
+              <circle cx="266" cy="16" r="2.8" />
+            </g>
+          </svg>
+        </li>
+
+        <!-- ---------- Bhaarath ---------- -->
+        <li class="event-card mood-bhaarath reveal">
+          <div class="event-art" aria-hidden="true">
+            <svg viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice">
+              <g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+                <!-- mandap -->
+                <path d="M120 140V70M280 140V70" />
+                <path d="M104 70h192" stroke-width="1.6" />
+                <path d="M120 70c0-22 36-34 80-34s80 12 80 34" opacity=".8" />
+                <path d="M200 36V22" /><circle cx="200" cy="17" r="4" fill="currentColor" stroke="none" />
+                <!-- string lights -->
+                <path d="M0 26 Q60 48 120 30" opacity=".65" />
+                <path d="M280 30 Q340 48 400 26" opacity=".65" />
+              </g>
+              <g fill="currentColor" opacity=".8">
+                <circle cx="34" cy="38" r="2.8" /><circle cx="72" cy="43" r="2.8" />
+                <circle cx="106" cy="37" r="2.8" />
+                <circle cx="296" cy="37" r="2.8" /><circle cx="332" cy="43" r="2.8" />
+                <circle cx="368" cy="38" r="2.8" />
+              </g>
+            </svg>
+          </div>
+          <div class="event-body">
+            <span class="event-sigil" aria-hidden="true">
+              <!-- procession dhol with beaters -->
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7.5 14.6c0-1.3 3.8-2.3 8.5-2.3s8.5 1 8.5 2.3v4.8c0 1.3-3.8 2.3-8.5 2.3s-8.5-1-8.5-2.3z" />
+                <ellipse cx="16" cy="14.6" rx="8.5" ry="2.3" />
+                <path d="M8.6 16.4l14.8 4M8.6 20.2l14.8-4" opacity=".65" />
+                <path d="M5.5 7.5l4.4 3.4M26.5 7.5l-4.4 3.4" />
+                <circle cx="4.8" cy="6.9" r="1.5" fill="currentColor" stroke="none" />
+                <circle cx="27.2" cy="6.9" r="1.5" fill="currentColor" stroke="none" />
+              </svg>
+            </span>
+            <p class="event-when">Friday, 11 December 2026</p>
+            <h3 class="event-name">Bhaarath</h3>
+            <p class="event-time">8:00 PM</p>
+            <p class="event-desc">A grand evening procession welcoming the groom, with drums,
+              lights and dancing.</p>
+            <p class="event-where">Khyonshali Nivas<br />
+              <span>Royal Enclave Colony, Chorpani, Ramnagar, Nainital, Uttarakhand</span></p>
+          </div>
+        </li>
+
+        <!-- divider: marigold garland (transition into Kerala) -->
+        <li class="event-divider is-turn" aria-hidden="true">
+          <svg viewBox="0 0 300 40" preserveAspectRatio="xMidYMid meet">
+            <path d="M0 12 Q75 34 150 18 T300 12" fill="none" stroke="currentColor" stroke-width="1" opacity=".5" />
+            <g fill="currentColor" opacity=".85">
+              <circle cx="30" cy="18" r="4.5" /><circle cx="62" cy="25" r="5" />
+              <circle cx="96" cy="28" r="4.5" /><circle cx="130" cy="24" r="5" />
+              <circle cx="164" cy="21" r="4.5" /><circle cx="198" cy="20" r="5" />
+              <circle cx="232" cy="17" r="4.5" /><circle cx="266" cy="14" r="5" />
+            </g>
+          </svg>
+        </li>
+
+        <!-- ---------- Tulasi Garland Exchange ---------- -->
+        <li class="event-card mood-temple is-main reveal">
+          <div class="event-art" aria-hidden="true">
+            <svg viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice">
+              <!-- gopuram silhouette -->
+              <g fill="currentColor" opacity=".2">
+                <path d="M150 160V96l12-14h76l12 14v64z" />
+                <path d="M160 82V66l10-10h60l10 10v16z" />
+                <path d="M172 56V44l8-8h40l8 8v12z" />
+                <path d="M188 36V26l6-8h12l6 8v10z" />
+              </g>
+              <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity=".85">
+                <path d="M150 160V96l12-14h76l12 14v64" />
+                <path d="M160 82V66l10-10h60l10 10v16" />
+                <path d="M172 56V44l8-8h40l8 8v12" />
+                <path d="M200 18V6" /><circle cx="200" cy="4" r="3.2" fill="currentColor" stroke="none" />
+                <!-- tulasi sprigs -->
+                <path d="M62 132V88" />
+                <path d="M62 104c-12-4-18-14-16-24 12 4 18 14 16 24z" />
+                <path d="M62 104c12-4 18-14 16-24-12 4-18 14-16 24z" />
+                <path d="M62 122c-10-3-15-11-13-19 10 3 15 11 13 19z" opacity=".7" />
+                <path d="M338 132V88" />
+                <path d="M338 104c-12-4-18-14-16-24 12 4 18 14 16 24z" />
+                <path d="M338 104c12-4 18-14 16-24-12 4-18 14-16 24z" />
+                <path d="M338 122c10-3 15-11 13-19-10 3-15 11-13 19z" opacity=".7" />
+              </g>
+            </svg>
+          </div>
+          <div class="event-body">
+            <span class="event-sigil" aria-hidden="true">
+              <!-- two exchanged garlands, tulasi sprig above -->
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <ellipse cx="12.8" cy="19.8" rx="5.6" ry="7.3" transform="rotate(-18 12.8 19.8)" />
+                <ellipse cx="19.2" cy="19.8" rx="5.6" ry="7.3" transform="rotate(18 19.2 19.8)" />
+                <circle cx="8.4" cy="17.6" r=".9" fill="currentColor" stroke="none" opacity=".8" />
+                <circle cx="23.6" cy="17.6" r=".9" fill="currentColor" stroke="none" opacity=".8" />
+                <path d="M16 10.4V6" />
+                <path d="M16 9.4c-2.4-.5-3.8-2.3-3.5-4.6 2.4.5 3.8 2.3 3.5 4.6z" />
+                <path d="M16 9.4c2.4-.5 3.8-2.3 3.5-4.6-2.4.5-3.8 2.3-3.5 4.6z" opacity=".75" />
+              </svg>
+            </span>
+            <p class="event-when">Saturday, 19 December 2026</p>
+            <h3 class="event-name">Tulasi Garland Exchange</h3>
+            <p class="event-time">8:00 AM</p>
+            <p class="event-desc">The wedding ceremony — the exchange of tulasi garlands, in the
+              presence of the Lord and of everyone dear to us.</p>
+            <p class="event-where">Guruvayur Temple<br />
+              <span>East Nada, Guruvayur, Kerala 680101</span></p>
+          </div>
+        </li>
+
+        <!-- divider: pearl strand -->
+        <li class="event-divider" aria-hidden="true">
+          <svg viewBox="0 0 300 40" preserveAspectRatio="xMidYMid meet">
+            <path d="M0 16 Q75 30 150 20 T300 16" fill="none" stroke="currentColor" stroke-width=".8" opacity=".45" />
+            <g fill="currentColor" opacity=".7">
+              <circle cx="42" cy="21" r="2.8" /><circle cx="70" cy="24" r="2.8" />
+              <circle cx="98" cy="26" r="2.8" /><circle cx="126" cy="25" r="2.8" />
+              <circle cx="154" cy="22" r="3.4" /><circle cx="182" cy="21" r="2.8" />
+              <circle cx="210" cy="20" r="2.8" /><circle cx="238" cy="18" r="2.8" />
+              <circle cx="266" cy="16" r="2.8" />
+            </g>
+          </svg>
+        </li>
+
+        <!-- ---------- Reception ---------- -->
+        <li class="event-card mood-reception reveal">
+          <div class="event-art" aria-hidden="true">
+            <svg viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice">
+              <g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+                <path d="M64 40h34l-3.4 18a13.6 13.6 0 0 1-27.2 0z" />
+                <path d="M81 76v26M70 104h22" />
+                <path d="M302 40h34l-3.4 18a13.6 13.6 0 0 1-27.2 0z" />
+                <path d="M319 76v26M308 104h22" />
+                <path d="M0 24 Q60 46 124 28" opacity=".6" />
+                <path d="M276 28 Q340 46 400 24" opacity=".6" />
+                <path d="M172 118c0-20 12-30 28-30s28 10 28 30z" opacity=".7" />
+                <path d="M200 88V70" /><circle cx="200" cy="66" r="4" fill="currentColor" stroke="none" />
+              </g>
+              <g fill="currentColor" opacity=".75">
+                <circle cx="36" cy="36" r="2.6" /><circle cx="76" cy="42" r="2.6" />
+                <circle cx="112" cy="35" r="2.6" />
+                <circle cx="288" cy="35" r="2.6" /><circle cx="326" cy="42" r="2.6" />
+                <circle cx="364" cy="36" r="2.6" />
+              </g>
+            </svg>
+          </div>
+          <div class="event-body">
+            <span class="event-sigil" aria-hidden="true">
+              <!-- toasting glasses -->
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <!-- rotated about each base so the rims lean in and clink -->
+                <g transform="rotate(15 12 22.4)">
+                  <path d="M8 8.4h8l-1.2 5a2.8 2.8 0 0 1-5.6 0z" />
+                  <path d="M12 14v8.4M9.4 22.8h5.2" />
+                </g>
+                <g transform="rotate(-15 20 22.4)">
+                  <path d="M16 8.4h8l-1.2 5a2.8 2.8 0 0 1-5.6 0z" />
+                  <path d="M20 14v8.4M17.4 22.8h5.2" />
+                </g>
+                <path d="M16 5.6V3.4M12.6 6.2l-1-1.7M19.4 6.2l1-1.7" opacity=".7" />
+              </svg>
+            </span>
+            <p class="event-when">Sunday, 20 December 2026</p>
+            <h3 class="event-name">Reception</h3>
+            <p class="event-time">5:00 PM – 9:00 PM</p>
+            <p class="event-desc">An evening of dinner, music and celebration with the newlyweds.</p>
+            <p class="event-where">Near Pudukad Centre<br />
+              <span>NH 544, Pudukad, Thrissur, Kerala 680301</span></p>
+          </div>
+        </li>
+
+      </ol>
+    </section>
+
+    <!-- ====================== 7. Family details ====================== -->
+    <section id="families" class="section tint-cream" aria-labelledby="families-h">
+      <img class="bloom l b" src="assets/images/bloom.webp" alt="" aria-hidden="true" />
+
+      <div class="shell stack center">
+        <p class="eyebrow reveal">Our families</p>
+        <h2 id="families-h" class="title reveal">The people who made this day</h2>
+
+        <div class="family-grid">
+
+          <article class="card family reveal">
+            <span class="family-sigil" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 27C8 21 5 16 7 12c1.6-3.2 5.6-3 9 1 3.4-4 7.4-4.2 9-1 2 4-1 9-9 15z" />
+              </svg>
+            </span>
+            <h3>Bride&rsquo;s Family</h3>
+            <dl class="kin">
+              <div><dt>Father</dt><dd>Dayal Singh Khyonshali</dd></div>
+              <div><dt>Mother</dt><dd>Hema Devi</dd></div>
+              <div><dt>Sister</dt><dd>Mansi Khyonshali</dd></div>
+              <div><dt>Brother</dt><dd>Priyanshu Khyonshali</dd></div>
+            </dl>
+          </article>
+
+          <article class="card family reveal">
+            <span class="family-sigil" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 27C8 21 5 16 7 12c1.6-3.2 5.6-3 9 1 3.4-4 7.4-4.2 9-1 2 4-1 9-9 15z" />
+              </svg>
+            </span>
+            <h3>Groom&rsquo;s Family</h3>
+            <dl class="kin">
+              <div><dt>Father</dt><dd>C C Somasundaran</dd></div>
+              <div><dt>Mother</dt><dd>Sheeba Soman</dd></div>
+              <div><dt>Sister</dt><dd>Swathy C Sundar</dd></div>
+            </dl>
           </article>
 
         </div>
       </div>
     </section>
 
-    <!-- ========================== Blessing ========================== -->
-    <section id="blessing" class="section tint-forest" aria-label="A blessing">
-      <div class="shell narrow stack center">
-        <svg class="divider reveal" viewBox="0 0 240 22" aria-hidden="true">
-          <path d="M4 11h86M150 11h86" stroke="currentColor" stroke-width="1" stroke-linecap="round" />
-          <path d="M120 3.5 128.5 11 120 18.5 111.5 11z" fill="none" stroke="currentColor" stroke-width="1" />
-          <circle cx="120" cy="11" r="1.9" fill="currentColor" />
-        </svg>
-        <blockquote class="reveal">
-          <p class="quote">Two hearts, one journey — and forever begins.</p>
-        </blockquote>
-        <cite class="reveal">Sangeeta &amp; Syam Sundar</cite>
-      </div>
-    </section>
-
-    <!-- =========================== Events =========================== -->
-    <section id="events" class="section tint-cream" aria-labelledby="events-h">
-      <img class="bloom r t" src="assets/images/bloom.webp" alt="" aria-hidden="true" />
-
-      <div class="shell stack center">
-        <p class="eyebrow reveal">Celebrations</p>
-        <h2 id="events-h" class="title reveal">The order of festivities</h2>
-        <p class="lede reveal">From the first touch of mehndi in Nainital to the last toast in
-          Thrissur — we would love to have you with us.</p>
-
-        <ol class="timeline">
-
-          <li class="timeline-item reveal">
-            <article class="card event">
-              <p class="event-when">Thu 10 Dec 2026 · 7:00 PM</p>
-              <h3>Mehndi</h3>
-              <p class="desc">An evening adorned with intricate mehndi art, song and laughter.</p>
-              <p class="where">Khyonshali Nivas, Ramnagar</p>
-            </article>
-          </li>
-
-          <li class="timeline-item reveal">
-            <article class="card event">
-              <p class="event-when">Fri 11 Dec 2026 · 9:00 AM</p>
-              <h3>Haldi</h3>
-              <p class="desc">A golden morning of turmeric, blessings and warmth.</p>
-              <p class="where">Khyonshali Nivas, Ramnagar</p>
-            </article>
-          </li>
-
-          <li class="timeline-item reveal">
-            <article class="card event">
-              <p class="event-when">Fri 11 Dec 2026 · 2:00 PM</p>
-              <h3>Sangeet</h3>
-              <p class="desc">A vibrant afternoon of music, dance and heartfelt melodies.</p>
-              <p class="where">Khyonshali Nivas, Ramnagar</p>
-            </article>
-          </li>
-
-          <li class="timeline-item reveal">
-            <article class="card event">
-              <p class="event-when">Fri 11 Dec 2026 · 8:00 PM</p>
-              <h3>Bhaarath</h3>
-              <p class="desc">A grand procession welcoming the groom, with drums and dancing.</p>
-              <p class="where">Khyonshali Nivas, Ramnagar</p>
-            </article>
-          </li>
-
-          <li class="timeline-item is-main reveal">
-            <article class="card event">
-              <p class="event-when">Sat 19 Dec 2026 · 8:00 AM</p>
-              <h3>Wedding Ceremony</h3>
-              <p class="desc">The Tulasi garland exchange, in the presence of the Lord and
-                of everyone dear to us.</p>
-              <p class="where">Guruvayur Temple, Kerala</p>
-            </article>
-          </li>
-
-          <li class="timeline-item reveal">
-            <article class="card event">
-              <p class="event-when">Sun 20 Dec 2026 · 5:00 – 9:00 PM</p>
-              <h3>Reception</h3>
-              <p class="desc">An evening of dinner and celebration with the newlyweds.</p>
-              <p class="where">NH 544, Pudukad, Thrissur</p>
-            </article>
-          </li>
-
-        </ol>
-      </div>
-    </section>
-
-    <!-- =========================== Venues =========================== -->
+    <!-- ==================== 8. Where We Celebrate ==================== -->
     <section id="venues" class="section" aria-labelledby="venues-h">
       <div class="shell stack center">
-        <p class="eyebrow reveal">Where it happens</p>
-        <h2 id="venues-h" class="title reveal">Venues &amp; directions</h2>
+        <p class="eyebrow reveal">Directions</p>
+        <h2 id="venues-h" class="title reveal">Where We Celebrate</h2>
 
         <div class="venue-grid">
 
@@ -316,9 +738,9 @@
                 <path d="M3 11 12 3l9 8" /><path d="M5.5 9.5V20h13V9.5" /><path d="M10 20v-5h4v5" />
               </svg>
             </span>
-            <p class="for">Mehndi · Haldi · Sangeet · Bhaarath</p>
+            <p class="for">Mehndi &middot; Haldi &middot; Sangeet &middot; Bhaarath</p>
             <h3>Khyonshali Nivas</h3>
-            <p class="when">10 – 11 December 2026</p>
+            <p class="when">10 &ndash; 11 December 2026</p>
             <address>
               Royal Enclave Colony, Chorpani<br />
               Ramnagar, Nainital<br />
@@ -326,7 +748,7 @@
             </address>
             <a class="btn ghost" href="https://maps.app.goo.gl/agNspCSS8CFG3q3FA?g_st=ic"
               target="_blank" rel="noopener noreferrer">
-              <span>Open in Maps</span>
+              <span>Get Directions</span>
             </a>
           </article>
 
@@ -338,17 +760,17 @@
                 <path d="M5 12.5V21h14v-8.5" /><path d="M10 21v-5.5h4V21" />
               </svg>
             </span>
-            <p class="for">Wedding Ceremony</p>
+            <p class="for">Tulasi Garland Exchange</p>
             <h3>Guruvayur Temple</h3>
-            <p class="when">19 December 2026 · 8:00 AM</p>
+            <p class="when">19 December 2026 &middot; 8:00 AM</p>
             <address>
               East Nada, Guruvayur<br />
               Thrissur District<br />
-              Kerala
+              Kerala 680101
             </address>
             <a class="btn ghost" href="https://maps.app.goo.gl/SX9ev9vMwUZ3cNFq5?g_st=ic"
               target="_blank" rel="noopener noreferrer">
-              <span>Open in Maps</span>
+              <span>Get Directions</span>
             </a>
           </article>
 
@@ -360,16 +782,16 @@
               </svg>
             </span>
             <p class="for">Reception</p>
-            <h3>Reception Hall</h3>
-            <p class="when">20 December 2026 · 5:00 – 9:00 PM</p>
+            <h3>Near Pudukad Centre</h3>
+            <p class="when">20 December 2026 &middot; 5:00 &ndash; 9:00 PM</p>
             <address>
-              NH 544, near Pudukad Centre<br />
+              NH 544, Pudukad<br />
               Thrissur<br />
-              Kerala
+              Kerala 680301
             </address>
             <a class="btn ghost" href="https://share.google/cwLOlrzxC4ProMag7"
               target="_blank" rel="noopener noreferrer">
-              <span>Open in Maps</span>
+              <span>Get Directions</span>
             </a>
           </article>
 
@@ -377,49 +799,90 @@
       </div>
     </section>
 
-    <!-- =========================== Closing ========================== -->
-    <section id="closing" class="section tint-sand" aria-labelledby="closing-h">
-      <img class="bloom l b" src="assets/images/bloom.webp" alt="" aria-hidden="true" />
-
+    <!-- =========================== 9. RSVP =========================== -->
+    <section id="rsvp" class="section tint-forest" aria-labelledby="rsvp-h">
       <div class="shell narrow stack center">
-        <p class="eyebrow reveal">With gratitude</p>
-        <h2 id="closing-h" class="title reveal">Thank you</h2>
+        <p class="eyebrow reveal">RSVP</p>
+        <h2 id="rsvp-h" class="title reveal">Awaiting Your Noble Presence</h2>
+        <p class="lede reveal">Two families, two hometowns, and one long-awaited December.
+          Tell us you&rsquo;re coming, and we&rsquo;ll keep a seat warm for you — in the hills
+          and by the sea.</p>
 
-        <p class="lede reveal">Your presence is the greatest blessing we could ask for.
-          We cannot wait to celebrate this day with you.</p>
+        <form id="rsvpForm" class="rsvp-form reveal" novalidate>
+          <div class="field">
+            <label for="rsvpName">Your name</label>
+            <input id="rsvpName" name="name" type="text" autocomplete="name" required
+              placeholder="Name as you'd like it on the seating card" />
+          </div>
 
-        <svg class="divider reveal" viewBox="0 0 240 22" aria-hidden="true">
-          <path d="M4 11h86M150 11h86" stroke="currentColor" stroke-width="1" stroke-linecap="round" />
-          <path d="M120 3.5 128.5 11 120 18.5 111.5 11z" fill="none" stroke="currentColor" stroke-width="1" />
-          <circle cx="120" cy="11" r="1.9" fill="currentColor" />
-          <path d="M104 11c-4-4.2-9.5-4.2-13.5 0 4 4.2 9.5 4.2 13.5 0z" fill="currentColor" opacity=".55" />
-          <path d="M136 11c4-4.2 9.5-4.2 13.5 0-4 4.2-9.5 4.2-13.5 0z" fill="currentColor" opacity=".55" />
-        </svg>
+          <div class="field">
+            <label for="rsvpGuests">Number of guests</label>
+            <input id="rsvpGuests" name="guests" type="number" min="1" max="20" step="1"
+              inputmode="numeric" value="1" required />
+          </div>
 
-        <p class="names closing-names reveal">
-          Sangeeta
-          <span class="amp" aria-hidden="true">&amp;</span>
-          Syam Sundar
+          <fieldset class="field">
+            <legend>Which functions will you join?</legend>
+            <ul class="checks">
+              <li><label><input type="checkbox" name="fn" value="Mehndi" /><span>Mehndi &middot; 10 Dec</span></label></li>
+              <li><label><input type="checkbox" name="fn" value="Haldi" /><span>Haldi &middot; 11 Dec</span></label></li>
+              <li><label><input type="checkbox" name="fn" value="Sangeet" /><span>Sangeet &middot; 11 Dec</span></label></li>
+              <li><label><input type="checkbox" name="fn" value="Bhaarath" /><span>Bhaarath &middot; 11 Dec</span></label></li>
+              <li><label><input type="checkbox" name="fn" value="Tulasi Garland Exchange" /><span>Tulasi Garland Exchange &middot; 19 Dec</span></label></li>
+              <li><label><input type="checkbox" name="fn" value="Reception" /><span>Reception &middot; 20 Dec</span></label></li>
+            </ul>
+          </fieldset>
+
+          <div class="field">
+            <label for="rsvpMsg">A message for the couple <span class="opt">(optional)</span></label>
+            <textarea id="rsvpMsg" name="message" rows="3"
+              placeholder="A blessing, a memory, or just a hello"></textarea>
+          </div>
+
+          <p class="form-error" id="rsvpError" role="alert" hidden></p>
+
+          <div class="btn-row">
+            <button type="submit" class="btn gold"><span>Send RSVP</span></button>
+            <button type="button" id="rsvpCopy" class="btn ghost on-dark">
+              <span>Copy instead</span>
+            </button>
+          </div>
+
+          <p class="form-note">Sending opens WhatsApp with your reply ready to go.</p>
+        </form>
+
+        <p class="rsvp-done" id="rsvpDone" hidden role="status">
+          Thank you — we can&rsquo;t wait to see you there.
         </p>
 
         <div class="btn-row reveal">
-          <a id="calBtn" class="btn gold" href="#" download="sangeeta-syam-wedding.ics">
+          <a id="calBtn" class="btn ghost on-dark" href="#" download="sangeeta-syam-wedding.ics">
             <span>Add to calendar</span>
           </a>
-          <button id="shareBtn" class="btn ghost" type="button" hidden>
+          <button id="shareBtn" class="btn ghost on-dark" type="button" hidden>
             <span>Share invitation</span>
           </button>
         </div>
+
+        <p class="sign-off reveal">With love,<br /><em>The Families</em></p>
       </div>
     </section>
 
   </main>
 
+  <!-- ========================== 10. Footer ========================== -->
   <footer class="footer">
-    <p>Designed &amp; developed by
+    <p class="footer-credit">Designed &amp; developed by
       <a href="https://rs.lokaai.in/" target="_blank" rel="noopener noreferrer">Roshni Stephen</a>
+      &middot; Powered by <a href="https://lokaai.in/" target="_blank" rel="noopener noreferrer">Loka AI</a>
+      <span class="credit-music">Music:
+        <a href="https://commons.wikimedia.org/wiki/File:Indian_Folk_Classical_Flute_Music_(1).wav"
+          target="_blank" rel="noopener noreferrer">&ldquo;Indian Folk Classical Flute Music&rdquo;</a>
+        by MayankSingh33 &middot;
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/"
+          target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>
+      </span>
     </p>
-    <p>Powered by <a href="https://lokaai.in/" target="_blank" rel="noopener noreferrer">Loka AI</a></p>
   </footer>
 
   <script src="script.js"></script>
