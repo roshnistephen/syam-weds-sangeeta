@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 132" width="300" height="132">
+  <!-- Toran: the marigold-and-mango-leaf hanging strung above a doorway.
+       Tiles horizontally — the string meets both edges at y=16, so
+       `background-repeat: repeat-x` reads as one long garland. -->
+  <title>Marigold and mango-leaf toran</title>
+
+  <!-- the string -->
+  <path d="M0 16 Q150 52 300 16" fill="none" stroke="#c99a3e" stroke-width="2" stroke-linecap="round" />
+
+  <!-- mango leaves, hung at the shallow ends -->
+  <g>
+    <g transform="translate(30 22.5)">
+      <path d="M0 0 v7" stroke="#8d5f10" stroke-width="1.3" />
+      <path d="M0 7 C-10 17 -10 34 0 45 C10 34 10 17 0 7 Z" fill="#7fa088" />
+      <path d="M0 10 V41" stroke="#4a6b58" stroke-width="1" />
+    </g>
+    <g transform="translate(270 22.5)">
+      <path d="M0 0 v7" stroke="#8d5f10" stroke-width="1.3" />
+      <path d="M0 7 C-10 17 -10 34 0 45 C10 34 10 17 0 7 Z" fill="#7fa088" />
+      <path d="M0 10 V41" stroke="#4a6b58" stroke-width="1" />
+    </g>
+    <g transform="translate(105 31.5)">
+      <path d="M0 0 v6" stroke="#8d5f10" stroke-width="1.3" />
+      <path d="M0 6 C-9 15 -9 30 0 40 C9 30 9 15 0 6 Z" fill="#6f8d78" />
+      <path d="M0 9 V36" stroke="#4a6b58" stroke-width="1" />
+    </g>
+    <g transform="translate(195 31.5)">
+      <path d="M0 0 v6" stroke="#8d5f10" stroke-width="1.3" />
+      <path d="M0 6 C-9 15 -9 30 0 40 C9 30 9 15 0 6 Z" fill="#6f8d78" />
+      <path d="M0 9 V36" stroke="#4a6b58" stroke-width="1" />
+    </g>
+  </g>
+
+  <!-- marigolds -->
+  <g>
+    <g transform="translate(67.5 27.5)">
+      <path d="M0 0 v11" stroke="#8d5f10" stroke-width="1.4" />
+      <g transform="translate(0 22)">
+        <g fill="#e8b761">
+          <circle cx="0" cy="-10.5" r="3.4" /><circle cx="7.4" cy="-7.4" r="3.4" />
+          <circle cx="10.5" cy="0" r="3.4" /><circle cx="7.4" cy="7.4" r="3.4" />
+          <circle cx="0" cy="10.5" r="3.4" /><circle cx="-7.4" cy="7.4" r="3.4" />
+          <circle cx="-10.5" cy="0" r="3.4" /><circle cx="-7.4" cy="-7.4" r="3.4" />
+        </g>
+        <circle r="9.4" fill="#e0a84a" />
+        <circle r="5.8" fill="#d8912f" />
+        <circle r="2.4" fill="#b5651d" />
+      </g>
+    </g>
+    <g transform="translate(232.5 27.5)">
+      <path d="M0 0 v11" stroke="#8d5f10" stroke-width="1.4" />
+      <g transform="translate(0 22)">
+        <g fill="#e8b761">
+          <circle cx="0" cy="-10.5" r="3.4" /><circle cx="7.4" cy="-7.4" r="3.4" />
+          <circle cx="10.5" cy="0" r="3.4" /><circle cx="7.4" cy="7.4" r="3.4" />
+          <circle cx="0" cy="10.5" r="3.4" /><circle cx="-7.4" cy="7.4" r="3.4" />
+          <circle cx="-10.5" cy="0" r="3.4" /><circle cx="-7.4" cy="-7.4" r="3.4" />
+        </g>
+        <circle r="9.4" fill="#e0a84a" />
+        <circle r="5.8" fill="#d8912f" />
+        <circle r="2.4" fill="#b5651d" />
+      </g>
+    </g>
+
+    <!-- the deepest point of the sag carries a bell -->
+    <g transform="translate(150 34)">
+      <path d="M0 0 v9" stroke="#8d5f10" stroke-width="1.4" />
+      <path d="M0 9 C-9 13 -11 26 -12 31 h24 c-1-5-3-18-12-22 z" fill="#d8ab52" />
+      <path d="M-12 31 h24" stroke="#b5651d" stroke-width="1.6" />
+      <circle cx="0" cy="35" r="2.8" fill="#b5651d" />
+    </g>
+  </g>
+</svg>

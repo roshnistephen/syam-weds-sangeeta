@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 200" width="100" height="200">
+  <!-- One carved section of a mandapam pillar. Tiles vertically — the shaft
+       runs edge to edge, so `repeat-y` stacks it into a column as tall as the
+       section needs, a carved ring every 200 units. -->
+  <title>Mandapam pillar</title>
+
+  <defs>
+    <linearGradient id="shaft" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#f0dcb8" />
+      <stop offset="26%"  stop-color="#fbf2e1" />
+      <stop offset="62%"  stop-color="#f3e4c8" />
+      <stop offset="100%" stop-color="#e4cda2" />
+    </linearGradient>
+  </defs>
+
+  <!-- the shaft -->
+  <rect x="18" y="0" width="64" height="200" fill="url(#shaft)" />
+  <g stroke="#c99a3e" stroke-width="1.6">
+    <path d="M18.8 0 V200" /><path d="M81.2 0 V200" />
+  </g>
+  <!-- fluting -->
+  <g stroke="#d9be8b" stroke-width="1" opacity=".8">
+    <path d="M34 0 V200" /><path d="M50 0 V200" /><path d="M66 0 V200" />
+  </g>
+
+  <!-- carved ring -->
+  <g>
+    <rect x="13" y="86" width="74" height="28" fill="#f6e8cd" />
+    <g stroke="#c99a3e" stroke-width="1.6">
+      <path d="M13 86.8 H87" /><path d="M13 113.2 H87" />
+      <path d="M13.8 86 V114" /><path d="M86.2 86 V114" />
+    </g>
+    <!-- lotus boss -->
+    <g fill="none" stroke="#c99a3e" stroke-width="1.3">
+      <path d="M50 92 C58 97 58 103 50 108 C42 103 42 97 50 92 Z" />
+      <path d="M39 100 C44 96 47 98 50 100 C47 102 44 104 39 100 Z" opacity=".8" />
+      <path d="M61 100 C56 96 53 98 50 100 C53 102 56 104 61 100 Z" opacity=".8" />
+    </g>
+    <circle cx="50" cy="100" r="1.8" fill="#c99a3e" />
+  </g>
+
+  <!-- a lighter band halfway between the rings, to break the run -->
+  <g stroke="#d9be8b" stroke-width="1.2" opacity=".9">
+    <path d="M18 196 H82" /><path d="M18 4 H82" />
+  </g>
+  <g fill="#e0a84a" opacity=".75">
+    <circle cx="50" cy="200" r="3.4" />
+    <circle cx="50" cy="0" r="3.4" />
+  </g>
+</svg>

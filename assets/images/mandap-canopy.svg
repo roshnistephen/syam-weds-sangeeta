@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 140" width="400" height="140">
+  <!-- The scalloped valance of a mandapam — the draped cloth slung between
+       the pillars, with tassels at every scallop. Tiles horizontally: the
+       drape meets both edges at y=52, so `repeat-x` reads as one long swag. -->
+  <title>Mandapam canopy valance</title>
+
+  <defs>
+    <linearGradient id="cloth" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#fbeed3" />
+      <stop offset="62%"  stop-color="#f0dbb0" />
+      <stop offset="100%" stop-color="#e6ca97" />
+    </linearGradient>
+  </defs>
+
+  <!-- the rail the cloth hangs from -->
+  <rect x="0" y="5" width="400" height="8" rx="4" fill="#d8ab52" />
+  <rect x="0" y="5" width="400" height="3" rx="1.5" fill="#e8c079" />
+
+  <!-- the drape -->
+  <path fill="url(#cloth)"
+    d="M0 13 H400 V52 Q350 92 300 52 Q250 92 200 52 Q150 92 100 52 Q50 92 0 52 Z" />
+
+  <!-- pleats -->
+  <g stroke="#d9be8b" stroke-width="1" opacity=".7">
+    <path d="M25 14 V60" /><path d="M50 14 V70" /><path d="M75 14 V60" />
+    <path d="M125 14 V60" /><path d="M150 14 V70" /><path d="M175 14 V60" />
+    <path d="M225 14 V60" /><path d="M250 14 V70" /><path d="M275 14 V60" />
+    <path d="M325 14 V60" /><path d="M350 14 V70" /><path d="M375 14 V60" />
+  </g>
+
+  <!-- gold hem along the scallops -->
+  <path fill="none" stroke="#c99a3e" stroke-width="2.2"
+    d="M0 52 Q50 92 100 52 Q150 92 200 52 Q250 92 300 52 Q350 92 400 52" />
+
+  <!-- tassels at the low point of each scallop -->
+  <g>
+    <g transform="translate(50 72)">
+      <path d="M0 0 v7" stroke="#c99a3e" stroke-width="1.4" />
+      <path d="M-5 7 h10 l-2.5 12 h-5 z" fill="#e0a84a" />
+      <g stroke="#d8ab52" stroke-width="1" opacity=".85">
+        <path d="M-2.5 19 v9" /><path d="M0 19 v11" /><path d="M2.5 19 v9" />
+      </g>
+    </g>
+    <g transform="translate(150 72)">
+      <path d="M0 0 v7" stroke="#c99a3e" stroke-width="1.4" />
+      <path d="M-5 7 h10 l-2.5 12 h-5 z" fill="#e0a84a" />
+      <g stroke="#d8ab52" stroke-width="1" opacity=".85">
+        <path d="M-2.5 19 v9" /><path d="M0 19 v11" /><path d="M2.5 19 v9" />
+      </g>
+    </g>
+    <g transform="translate(250 72)">
+      <path d="M0 0 v7" stroke="#c99a3e" stroke-width="1.4" />
+      <path d="M-5 7 h10 l-2.5 12 h-5 z" fill="#e0a84a" />
+      <g stroke="#d8ab52" stroke-width="1" opacity=".85">
+        <path d="M-2.5 19 v9" /><path d="M0 19 v11" /><path d="M2.5 19 v9" />
+      </g>
+    </g>
+    <g transform="translate(350 72)">
+      <path d="M0 0 v7" stroke="#c99a3e" stroke-width="1.4" />
+      <path d="M-5 7 h10 l-2.5 12 h-5 z" fill="#e0a84a" />
+      <g stroke="#d8ab52" stroke-width="1" opacity=".85">
+        <path d="M-2.5 19 v9" /><path d="M0 19 v11" /><path d="M2.5 19 v9" />
+      </g>
+    </g>
+  </g>
+
+  <!-- a marigold at every scallop junction, where the cloth is gathered -->
+  <g>
+    <g transform="translate(100 52)">
+      <circle r="8" fill="#e0a84a" /><circle r="4.8" fill="#d8912f" /><circle r="2" fill="#b5651d" />
+    </g>
+    <g transform="translate(200 52)">
+      <circle r="8" fill="#e0a84a" /><circle r="4.8" fill="#d8912f" /><circle r="2" fill="#b5651d" />
+    </g>
+    <g transform="translate(300 52)">
+      <circle r="8" fill="#e0a84a" /><circle r="4.8" fill="#d8912f" /><circle r="2" fill="#b5651d" />
+    </g>
+    <g transform="translate(0 52)">
+      <circle r="8" fill="#e0a84a" /><circle r="4.8" fill="#d8912f" /><circle r="2" fill="#b5651d" />
+    </g>
+    <g transform="translate(400 52)">
+      <circle r="8" fill="#e0a84a" /><circle r="4.8" fill="#d8912f" /><circle r="2" fill="#b5651d" />
+    </g>
+  </g>
+</svg>

@@ -351,38 +351,121 @@ body::before {
 /* ---------------------------------------------------------------
    9. Loader
 --------------------------------------------------------------- */
+/* The two curtain halves are the loader's ground — nothing behind them —
+   so drawing them apart reveals the envelope directly. */
 #loader {
   position: fixed;
   inset: 0;
   z-index: 100;
   display: grid;
   place-items: center;
-  background: var(--ivory);
-  transition: opacity .7s var(--ease), visibility .7s;
 }
-#loader.done { opacity: 0; visibility: hidden; }
+#loader.done { pointer-events: none; }
 
-.loader-mark { display: grid; justify-items: center; gap: 1.15rem; }
+.curtain {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: calc(50% + 1px);          /* the +1px keeps the seam from hairlining */
+  /* The floral tile sits under a near-opaque wash, so it reads as woven
+     texture in the cloth rather than as wallpaper. */
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .06), transparent 42%),
+    linear-gradient(160deg, rgba(45, 94, 66, .94) 0%, rgba(30, 77, 52, .955) 60%, rgba(18, 48, 34, .97) 100%),
+    url("assets/images/pattern.webp") repeat,
+    var(--forest);
+  background-size: auto, auto, 320px, auto;
+  transition: transform 1s cubic-bezier(.72, 0, .22, 1);
+}
+.curtain.l { left: 0;  box-shadow: inset -1px 0 0 rgba(230, 201, 138, .55); }
+.curtain.r { right: 0; box-shadow: inset  1px 0 0 rgba(230, 201, 138, .55); }
+
+/* the toran travels in from its own side to meet in the middle */
+.curtain-toran {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: clamp(74px, 15vw, 118px);
+  background: url("assets/images/toran.svg") repeat-x top center;
+  background-size: auto 100%;
+  opacity: .95;
+}
+.curtain.l .curtain-toran { animation: toranInLeft  1.15s cubic-bezier(.2, .8, .25, 1) .1s both; }
+.curtain.r .curtain-toran { animation: toranInRight 1.15s cubic-bezier(.2, .8, .25, 1) .1s both; }
+@keyframes toranInLeft  { from { opacity: 0; transform: translateX(-100%); } }
+@keyframes toranInRight { from { opacity: 0; transform: translateX(100%); } }
+
+/* curtains draw apart */
+#loader.done .curtain.l { transform: translateX(-100.5%); }
+#loader.done .curtain.r { transform: translateX(100.5%); }
+
+.loader-mark {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  gap: 1.15rem;
+  transition: opacity .4s var(--ease), transform .5s var(--ease);
+}
+#loader.done .loader-mark { opacity: 0; transform: scale(.94); }
+
+/* rangoli medallion, turning slowly behind the monogram */
+.loader-rangoli {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(210px, 62vw, 320px);
+  aspect-ratio: 1;
+  margin: -1.9rem 0 0 0;
+  translate: -50% -50%;
+  background: url("assets/images/rangoli.svg") no-repeat center / contain;
+  opacity: .34;
+  pointer-events: none;
+  animation: rangoliIn 1.4s cubic-bezier(.2, .8, .25, 1) both,
+             rangoliTurn 64s linear 1.4s infinite;
+}
+@keyframes rangoliIn   { from { opacity: 0; transform: scale(.72) rotate(-22deg); } }
+@keyframes rangoliTurn { to { transform: rotate(360deg); } }
+
+/* the monogram arrives from both sides at once */
 .loader-mark .monogram {
+  display: flex;
+  align-items: baseline;
+  gap: .18em;
   font-family: var(--script);
   font-size: clamp(3rem, 12vw, 4.4rem);
-  color: var(--forest);
+  color: #fdf6ea;
   line-height: 1;
+  text-shadow: 0 2px 18px rgba(10, 28, 18, .45);
 }
-.loader-mark .eyebrow { color: var(--ink-mute); }
+.monogram .mg-s,
+.monogram .mg-amp { display: block; font-weight: 400; font-style: normal; }
+.monogram .mg-amp { color: var(--gold-soft); font-size: .8em; }
+.monogram .mg-s:first-child { animation: fromLeft  .95s cubic-bezier(.2, .9, .25, 1) both .18s; }
+.monogram .mg-s:last-child  { animation: fromRight .95s cubic-bezier(.2, .9, .25, 1) both .18s; }
+.monogram .mg-amp           { animation: mgPop     .8s  cubic-bezier(.34, 1.56, .64, 1) both .62s; }
+@keyframes fromLeft  { from { opacity: 0; transform: translateX(-46vw) rotate(-8deg); } }
+@keyframes fromRight { from { opacity: 0; transform: translateX(46vw)  rotate(8deg); } }
+@keyframes mgPop     { from { opacity: 0; transform: scale(.3); } }
+
+.loader-mark .eyebrow {
+  color: var(--gold-soft);
+  animation: markRise .8s var(--ease) both .9s;
+}
 .loader-bar {
   width: min(180px, 46vw);
   height: 1.5px;
-  background: rgba(201, 154, 62, .3);
+  background: rgba(230, 201, 138, .28);
   overflow: hidden;
+  animation: markRise .8s var(--ease) both 1s;
 }
 .loader-bar i {
   display: block;
   height: 100%;
   width: 40%;
-  background: var(--gold-line);
+  background: var(--gold-soft);
   animation: sweep 1.15s var(--ease) infinite;
 }
+@keyframes markRise { from { opacity: 0; transform: translateY(10px); } }
 @keyframes sweep {
   0%   { transform: translateX(-100%); }
   100% { transform: translateX(350%); }
@@ -412,6 +495,25 @@ body::before {
 }
 #envelope.gone { opacity: 0; visibility: hidden; }
 #envelope[hidden] { display: none; }
+
+/* The toran carries over from the curtains, and sways as if in a doorway */
+.env-toran {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: clamp(62px, 12vw, 96px);
+  background: url("assets/images/toran.svg") repeat-x top center;
+  background-size: auto 100%;
+  opacity: .8;
+  transform-origin: 50% 0;
+  animation: toranSway 7s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+@keyframes toranSway {
+  0%, 100% { transform: rotate(-.5deg); }
+  50%      { transform: rotate(.5deg); }
+}
+#envelope.opening .env-toran { opacity: 0; transition: opacity .6s var(--ease); }
 
 /* Corner line-art florals */
 .env-corner {
@@ -645,11 +747,61 @@ body::before {
    11. Blessing header
 --------------------------------------------------------------- */
 #blessing {
+  /* the extra top padding is the mandapam's headroom */
+  padding-top: calc(var(--section) + clamp(1.6rem, 5vw, 3rem));
   padding-bottom: 0;
   background:
     radial-gradient(90% 60% at 50% 0%, #fffdf8, transparent 70%),
     var(--ivory);
 }
+
+/* ---------------------------------------------------------------
+   11b. The mandapam — the landing section's stage
+   Canopy, pillars and the two families' names, all sequenced from
+   script.js §6c once the card is open.
+--------------------------------------------------------------- */
+.mandap {
+  position: relative;
+  /* one pair of numbers drives the whole stage: the canopy hangs this far
+     above the copy, and the pillars pick up exactly where it ends */
+  --canopy-h: clamp(52px, 9vw, 92px);
+  --canopy-lift: clamp(3.2rem, 8.5vw, 5.6rem);
+}
+
+/* Both pieces are pinned to the viewport edges, not to the shell, so the
+   stage spans the full width however wide the screen is. */
+.mandap-canopy {
+  position: absolute;
+  top: calc(-1 * var(--canopy-lift));
+  left: calc(50% - 50vw);
+  width: 100vw;
+  height: var(--canopy-h);
+  background: url("assets/images/mandap-canopy.svg") repeat-x top center;
+  background-size: auto 100%;
+  opacity: .85;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.mandap-pillar {
+  position: absolute;
+  top: calc(var(--canopy-h) - var(--canopy-lift));
+  bottom: -1rem;
+  width: clamp(22px, 5.2vw, 62px);
+  background: url("assets/images/mandap-pillar.svg") repeat-y top center;
+  background-size: 100% auto;
+  opacity: .7;
+  pointer-events: none;
+  z-index: 0;
+  /* no plinth to draw: the column dissolves into the page instead */
+  -webkit-mask-image: linear-gradient(180deg, #000 58%, transparent 97%);
+          mask-image: linear-gradient(180deg, #000 58%, transparent 97%);
+}
+.mandap-pillar.l { left:  calc(50% - 50vw); }
+.mandap-pillar.r { right: calc(50% - 50vw); scale: -1 1; }
+
+/* The copy has to clear the stage dressing */
+.mandap > :not(.mandap-canopy):not(.mandap-pillar) { position: relative; z-index: 1; }
 
 .parents-grid {
   display: grid;
@@ -702,8 +854,8 @@ body::before {
 }
 
 /* Full-width illustrated scene */
-/* Full-bleed via margins, not transform: this element also carries .reveal,
-   whose transform would override a translateX centring trick. */
+/* Full-bleed via margins, not transform: a transform here would be overridden
+   by the assemble animation below. */
 .scene {
   position: relative;
   width: 100vw;
@@ -727,9 +879,217 @@ body::before {
   z-index: 1;
 }
 
+/* Border ornaments, laid over the artwork */
+.scene-orn {
+  position: absolute;
+  top: clamp(.4rem, 1.6vw, 1.1rem);
+  width: clamp(64px, 9vw, 108px);
+  height: auto;
+  /* faded through the colour, not `opacity` — the assemble animation owns
+     opacity and has to be able to finish at 1 */
+  color: rgba(201, 154, 62, .5);
+  pointer-events: none;
+  z-index: 2;
+}
+.scene-orn.tl { left:  clamp(.4rem, 2vw, 1.6rem); }
+.scene-orn.tr { right: clamp(.4rem, 2vw, 1.6rem); scale: -1 1; }
+
+/* Names and dates, sitting in the sky above the procession */
+.scene-caption {
+  position: absolute;
+  inset: clamp(.7rem, 2.6vw, 1.7rem) var(--gutter) auto;
+  z-index: 2;
+  display: grid;
+  gap: .35em;
+  justify-items: center;
+  text-align: center;
+  line-height: 1.1;
+  pointer-events: none;
+}
+.scene-names {
+  font-family: var(--script);
+  font-size: clamp(1.5rem, .9rem + 2.6vw, 2.7rem);
+  color: var(--forest);
+}
+.scene-names em { font-style: normal; color: var(--gold); }
+.scene-date {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: clamp(.5rem, .46rem + .2vw, .66rem);
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-inline-start: .3em;
+}
+
+/* ---------------------------------------------------------------
+   11c. The mandapam raising itself
+
+   Same shape as the hero assemble below: the layers wait at their start
+   pose, script.js §6c hands each a `--d` and adds `.play`. The canopy
+   opens from the centre outwards, everything else travels in from its
+   own side to meet in the middle.
+--------------------------------------------------------------- */
+.mandap.assemble :is(.mandap-canopy, .mandap-pillar,
+                     .from-left, .from-right, .pop-in) {
+  opacity: 0;
+}
+
+.mandap.assemble.play :is(.mandap-canopy, .mandap-pillar,
+                          .from-left, .from-right, .pop-in) {
+  will-change: opacity, transform;
+}
+
+/* centre → sides */
+.mandap.assemble.play .mandap-canopy {
+  transform-origin: 50% 0;
+  animation: canopyOpen .85s var(--d, 0s) cubic-bezier(.22, .9, .3, 1) both;
+}
+
+/* sides → centre */
+.mandap.assemble.play .mandap-pillar.l,
+.mandap.assemble.play .from-left {
+  animation: sideInLeft .8s var(--d, 0s) cubic-bezier(.2, .9, .25, 1) both;
+}
+.mandap.assemble.play .mandap-pillar.r,
+.mandap.assemble.play .from-right {
+  animation: sideInRight .8s var(--d, 0s) cubic-bezier(.2, .9, .25, 1) both;
+}
+.mandap.assemble.play .pop-in {
+  animation: knotPop .6s var(--d, 0s) cubic-bezier(.34, 1.56, .64, 1) both;
+}
+
+@keyframes canopyOpen {
+  from { opacity: 0; transform: scaleX(.04); }
+  to   { opacity: .85; transform: none; }
+}
+@keyframes sideInLeft {
+  from { opacity: 0; transform: translateX(-64px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes sideInRight {
+  from { opacity: 0; transform: translateX(64px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes knotPop {
+  from { opacity: 0; transform: scale(.4); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* The pillars fade to their resting .7, and the right one keeps its mirror */
+.mandap.assemble.play .mandap-pillar.l { animation-name: pillarInLeft; }
+.mandap.assemble.play .mandap-pillar.r { animation-name: pillarInRight; }
+@keyframes pillarInLeft {
+  from { opacity: 0; transform: translateX(-100%); }
+  to   { opacity: .7; transform: none; }
+}
+@keyframes pillarInRight {
+  from { opacity: 0; transform: translateX(100%); }
+  to   { opacity: .7; transform: none; }
+}
+
+/* ---------------------------------------------------------------
+   11a. Hero scene — the staggered assemble
+   Every layer waits at its start pose until script.js §6a hands it a
+   `--d` delay and adds `.play`. The whole sequence runs in ~1.75s.
+--------------------------------------------------------------- */
+.scene.assemble :is(.sc-sky, .sc-hills, .sc-ground, .sc-arch,
+                    .sc-couple, .sc-figure, .sc-deco, .scene-caption) {
+  opacity: 0;
+}
+
+.scene.assemble.play :is(.sc-sky, .sc-hills, .sc-ground, .sc-arch,
+                         .sc-couple, .sc-figure, .sc-deco, .scene-caption) {
+  /* SVG groups scale about their own centre, not the viewBox origin */
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  will-change: opacity, transform;
+}
+
+/* Every layer below carries its delay (`--d`, set in script.js) and `both`
+   inside the shorthand — a bare `animation:` would reset them. */
+
+/* sky first, then the land it sits on */
+.scene.assemble.play .sc-sky    { animation: scFade .34s var(--d, 0s) ease-out both; }
+.scene.assemble.play .sc-hills  { animation: scLift .52s var(--d, 0s) ease-out both; }
+.scene.assemble.play .sc-ground { animation: scLift .52s var(--d, 0s) ease-out both; }
+
+/* the arch rises out of the ground */
+.scene.assemble.play .sc-arch {
+  animation: scGrow .58s var(--d, 0s) cubic-bezier(.34, 1.56, .64, 1) both;
+}
+
+/* the couple, centre stage */
+.scene.assemble.play .sc-couple {
+  animation: scCouple .4s var(--d, 0s) cubic-bezier(.34, 1.56, .64, 1) both;
+}
+
+/* the guests pop in one after another, left to right */
+.scene.assemble.play .sc-figure {
+  animation: scPop .38s var(--d, 0s) cubic-bezier(.34, 1.56, .64, 1) both;
+}
+
+/* trees, florals, umbrellas and flourishes bounce in last */
+.scene.assemble.play .sc-deco {
+  animation: scBounce .42s var(--d, 0s) cubic-bezier(.34, 1.56, .64, 1) both;
+}
+
+/* and finally the names */
+.scene.assemble.play .scene-caption {
+  animation: scRise .55s var(--d, 0s) cubic-bezier(.22, .9, .3, 1) both;
+  transform-origin: 50% 50%;
+}
+
+/* Both ends are written out: an implicit `to` would resolve to the hidden
+   start pose these layers rest at, and nothing would ever appear. */
+@keyframes scFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes scLift {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes scGrow {
+  from { opacity: 0; transform: scaleY(.9); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes scCouple {
+  from { opacity: 0; transform: scale(.8); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes scPop {
+  from { opacity: 0; transform: translateY(10px) scale(.9); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes scBounce {
+  from { opacity: 0; transform: scale(.72); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes scRise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
 /* ---------------------------------------------------------------
    12. Couple names
 --------------------------------------------------------------- */
+/* The same rangoli from the loading curtain, turning slowly behind the
+   names — the medallion the whole page is built around. */
+.couple-rangoli {
+  position: absolute;
+  top: clamp(4.5rem, 17vw, 9rem);
+  left: 50%;
+  width: clamp(280px, 52vw, 520px);
+  aspect-ratio: 1;
+  translate: -50% 0;
+  background: url("assets/images/rangoli.svg") no-repeat center / contain;
+  opacity: .16;
+  pointer-events: none;
+  z-index: 0;
+  animation: rangoliTurn 110s linear infinite;
+}
+
 .couple-names {
   font-family: var(--script);
   font-weight: 400;
@@ -1109,13 +1469,17 @@ body::before {
   border-width: 1.5px;
   box-shadow: var(--shadow-md);
 }
+/* The reception used to be a second dark green, near-identical to the
+   Bhaarath card two rows up. Deep wine and rose-gold instead: still an
+   evening card, but unmistakably its own — and it picks up the rose
+   already in the palette. Every value below clears 6:1 on this ground. */
 .mood-reception {
-  --e-bg: #1e3b30; --e-bg2: #14291f;
-  --e-ink: #f7ecd5; --e-soft: #ded2b8; --e-mute: #b3a88e;
-  --e-accent: #e6c98a; --e-art: #d8b46a;
-  --e-edge: rgba(230, 201, 138, .3);
-  --e-scrim: rgba(24, 47, 37, .86);
-  --e-sigil: rgba(230, 201, 138, .13);
+  --e-bg: #3d222b; --e-bg2: #26141a;
+  --e-ink: #fbeadb; --e-soft: #e8d3c6; --e-mute: #c1a698;
+  --e-accent: #f0c8a2; --e-art: #d98f74;
+  --e-edge: rgba(240, 200, 162, .32);
+  --e-scrim: rgba(52, 28, 36, .86);
+  --e-sigil: rgba(240, 200, 162, .14);
 }
 .mood-reception .event-art { opacity: .34; }
 
@@ -1271,125 +1635,8 @@ body::before {
 .venue .btn { margin-top: .8rem; min-height: 46px; padding: .6rem 1.4rem; }
 
 /* ---------------------------------------------------------------
-   18. RSVP
+   18. Closing panel
 --------------------------------------------------------------- */
-.rsvp-form {
-  display: grid;
-  gap: clamp(1rem, 3vw, 1.4rem);
-  width: min(560px, 100%);
-  margin-top: clamp(.8rem, 2.6vw, 1.4rem);
-  text-align: left;
-}
-
-.field { display: grid; gap: .4rem; }
-
-/* Direct children only — the checkbox labels inside .checks style themselves */
-.field > label,
-.field > legend {
-  font-family: var(--sans);
-  font-weight: 500;
-  font-size: clamp(.6rem, .57rem + .16vw, .68rem);
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--gold-soft);
-}
-.field .opt {
-  letter-spacing: .06em;
-  text-transform: none;
-  color: #b3a88e;
-  font-weight: 400;
-}
-
-.field input[type="text"],
-.field input[type="number"],
-.field textarea {
-  width: 100%;
-  padding: .78rem .95rem;
-  font-family: var(--serif);
-  font-size: 1.02rem;
-  line-height: 1.5;
-  color: #fdf6ea;
-  background: rgba(255, 252, 246, .07);
-  border: 1px solid rgba(230, 201, 138, .38);
-  border-radius: 12px;
-  transition: border-color .3s, background-color .3s;
-}
-.field textarea { resize: vertical; min-height: 5.5rem; }
-.field input::placeholder,
-.field textarea::placeholder { color: rgba(244, 236, 224, .45); font-style: italic; }
-.field input:focus,
-.field textarea:focus {
-  outline: none;
-  border-color: var(--gold-soft);
-  background: rgba(255, 252, 246, .12);
-}
-.field input:focus-visible,
-.field textarea:focus-visible { outline: 2px solid var(--gold-soft); outline-offset: 1px; }
-.field input[aria-invalid="true"],
-.field textarea[aria-invalid="true"] { border-color: #e8a08c; }
-
-/* function checkboxes */
-.checks {
-  display: grid;
-  gap: .5rem;
-  margin-top: .2rem;
-}
-@media (min-width: 520px) { .checks { grid-template-columns: repeat(2, 1fr); } }
-
-.checks label {
-  display: flex;
-  align-items: center;
-  gap: .65rem;
-  padding: .6rem .8rem;
-  border: 1px solid rgba(230, 201, 138, .28);
-  border-radius: 12px;
-  cursor: pointer;
-  transition: border-color .25s, background-color .25s;
-}
-.checks label:hover { border-color: rgba(230, 201, 138, .6); background: rgba(255, 252, 246, .06); }
-.checks label:has(input:checked) {
-  border-color: var(--gold-soft);
-  background: rgba(230, 201, 138, .14);
-}
-.checks input {
-  flex: none;
-  width: 18px;
-  height: 18px;
-  accent-color: var(--gold-line);
-  cursor: pointer;
-}
-.checks span {
-  font-family: var(--serif);
-  font-size: 1rem;
-  line-height: 1.35;
-  color: #f0e6d6;
-}
-
-.form-error {
-  font-family: var(--sans);
-  font-size: .78rem;
-  letter-spacing: .04em;
-  color: #f3b7a4;
-}
-.form-error[hidden] { display: none; }
-
-.form-note {
-  font-family: var(--sans);
-  font-size: .68rem;
-  letter-spacing: .1em;
-  color: #b3a88e;
-  text-align: center;
-}
-
-.rsvp-done {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: clamp(1.3rem, 1.05rem + 1.2vw, 1.8rem);
-  color: var(--gold-soft);
-  text-wrap: balance;
-}
-.rsvp-done[hidden] { display: none; }
-
 .sign-off {
   margin-top: clamp(.6rem, 2.4vw, 1.2rem);
   font-family: var(--serif);
@@ -1432,9 +1679,11 @@ body::before {
   text-wrap: balance;
 }
 
-/* Attribution the audio licence requires. Deliberately fine print — smaller,
-   dimmer and lighter than the credit above it — but held at 4.7:1 contrast so
-   it stays readable. Below that it stops counting as attribution at all. */
+/* Attribution for the audio, if the track needs one. Unused since the music
+   changed — kept ready, because the markup only has to come back.
+   Deliberately fine print — smaller, dimmer and lighter than the credit above
+   it — but held at 4.7:1 contrast so it stays readable. Below that it stops
+   counting as attribution at all. */
 .credit-music {
   display: block;
   margin-top: .6rem;
@@ -1485,7 +1734,91 @@ body::before {
 .reveal.in { opacity: 1; transform: none; will-change: auto; }
 
 /* ---------------------------------------------------------------
-   21. Motion & print
+   21. Touch & small screens
+--------------------------------------------------------------- */
+
+/* No double-tap delay on iOS, and a soft tap flash instead of the
+   default blue block. */
+a, button, label, summary,
+input, select, textarea { touch-action: manipulation; }
+
+* { -webkit-tap-highlight-color: rgba(30, 77, 52, .1); }
+
+/* A finger has no hover. Without this, tapping a button on a phone leaves
+   it stuck in its hover pose until you tap somewhere else. */
+@media (hover: none) {
+  .btn:hover {
+    background: var(--btn-bg);
+    transform: none;
+    box-shadow: var(--shadow-md);
+  }
+  .btn.ghost:hover { background: transparent; box-shadow: none; }
+  .btn.gold:hover  { background: var(--gold); }
+  .btn.ghost.on-dark:hover { background: transparent; }
+  .card:hover, .event-card:hover { transform: none; }
+  #musicBtn:hover { background: var(--ivory); color: var(--forest); }
+
+  /* the press itself is the feedback */
+  .btn:active        { transform: scale(.97); }
+  #musicBtn:active   { transform: scale(.93); }
+}
+
+/* Scroll cue — points the way down once the invitation is open */
+.scroll-cue {
+  position: fixed;
+  left: 50%;
+  bottom: max(1.1rem, env(safe-area-inset-bottom));
+  z-index: 54;
+  width: 46px;
+  height: 46px;
+  margin-left: -23px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--forest);
+  background: rgba(253, 248, 238, .82);
+  border: 1px solid rgba(201, 154, 62, .45);
+  box-shadow: var(--shadow-sm);
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity .5s var(--ease), transform .5s var(--ease);
+}
+.scroll-cue.ready { opacity: 1; transform: none; pointer-events: auto; }
+.scroll-cue.gone  { opacity: 0; transform: translateY(12px); pointer-events: none; }
+.scroll-cue svg   { width: 22px; height: 22px; animation: cueNudge 1.9s ease-in-out infinite; }
+@keyframes cueNudge {
+  0%, 100% { transform: translateY(-2px); }
+  50%      { transform: translateY(3px); }
+}
+
+@media (max-width: 560px) {
+  /* The illustration carries the page — give it more of the screen than
+     the desktop ratio would, and let the `slice` crop zoom it in. */
+  .scene-svg { height: clamp(230px, 58vw, 300px); }
+
+  /* One full-width button per line beats two cramped ones. The width is
+     needed because .stack centres its grid items on their own width. */
+  .btn-row { flex-direction: column; align-items: stretch; width: 100%; }
+  .btn-row > .btn { width: 100%; }
+
+  /* Long addresses and URLs can never widen the layout */
+  address, .event-where, .footer-credit, .venue h3 { overflow-wrap: anywhere; }
+
+  /* Keep the fixed controls clear of each other */
+  #musicBtn { width: 48px; height: 48px; }
+}
+
+/* Landscape phones: short and wide, so trade height for content */
+@media (max-height: 520px) and (orientation: landscape) {
+  .scene-svg { height: 56vh; }
+  .scroll-cue { display: none; }
+}
+
+/* ---------------------------------------------------------------
+   22. Motion & print
 --------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -1496,6 +1829,23 @@ body::before {
   }
   .reveal { opacity: 1; transform: none; }
   .env-stage > * { opacity: 1; transform: none; }
+  /* The curtains still part — that one is a transition, and it is how the
+     invitation opens. Everything else simply is, at its resting pose. */
+  .curtain-toran, .loader-rangoli, .couple-rangoli, .env-toran,
+  .monogram .mg-s, .monogram .mg-amp,
+  .loader-mark .eyebrow, .loader-bar, .loader-bar i,
+  .mandap-canopy, .mandap-pillar, .from-left, .from-right, .pop-in {
+    animation: none !important;
+    transform: none;
+  }
+  .from-left, .from-right, .pop-in { opacity: 1; }
+  /* the hero scene is shown whole, no assemble */
+  .scene :is(.sc-sky, .sc-hills, .sc-ground, .sc-arch,
+             .sc-couple, .sc-figure, .sc-deco, .scene-caption) {
+    opacity: 1;
+    transform: none;
+    animation: none !important;
+  }
   #petals { display: none; }
   .scratch-hint span {
     animation: none;
@@ -1508,7 +1858,7 @@ body::before {
 
 @media print {
   #loader, #envelope, #petals, #musicBtn, #progress, .bloom,
-  #scratchCanvas, .scratch-hint, #scratchReveal, .rsvp-form { display: none !important; }
+  #scratchCanvas, .scratch-hint, #scratchReveal { display: none !important; }
   body::before { display: none; }
   body { background: #fff; color: #000; }
   .section { padding: 1.5rem 0; break-inside: avoid; }

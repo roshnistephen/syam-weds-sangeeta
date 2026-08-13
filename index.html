@@ -20,6 +20,10 @@
   <!-- Inline favicon: an ivory monogram roundel (also stops the 404) -->
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='31' fill='%231e4d34'/%3E%3Ccircle cx='32' cy='32' r='26' fill='none' stroke='%23e6c98a' stroke-width='1.5'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='28' fill='%23faf3e6'%3ES%3C/text%3E%3C/svg%3E" />
 
+  <!-- Both are on the loading curtain, so they must not arrive late -->
+  <link rel="preload" as="image" href="assets/images/toran.svg" />
+  <link rel="preload" as="image" href="assets/images/rangoli.svg" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -31,10 +35,19 @@
 
 <body class="is-locked">
 
-  <!-- ============================ Loader ============================ -->
+  <!-- ============================ Loader ============================
+       Two curtain halves cover the screen from the first paint. The toran
+       and the monogram travel in from their own side to meet in the middle,
+       then the curtains draw apart to reveal the envelope. -->
   <div id="loader" role="status" aria-live="polite">
+    <div class="curtain l" aria-hidden="true"><span class="curtain-toran"></span></div>
+    <div class="curtain r" aria-hidden="true"><span class="curtain-toran"></span></div>
+
     <div class="loader-mark">
-      <span class="monogram" aria-hidden="true">S &amp; S</span>
+      <span class="loader-rangoli" aria-hidden="true"></span>
+      <span class="monogram" aria-hidden="true">
+        <b class="mg-s">S</b><i class="mg-amp">&amp;</i><b class="mg-s">S</b>
+      </span>
       <p class="eyebrow">Sangeeta &amp; Syam Sundar</p>
       <div class="loader-bar" aria-hidden="true"><i></i></div>
       <span class="sr-only">Loading the invitation</span>
@@ -43,6 +56,9 @@
 
   <!-- ======================= 1. Envelope intro ====================== -->
   <section id="envelope" aria-label="Invitation envelope">
+
+    <!-- The toran the curtains were carrying, now hanging over the envelope -->
+    <span class="env-toran" aria-hidden="true"></span>
 
     <!-- Fine line-art florals on the soft ground, corner-pinned -->
     <svg class="env-corner tl" viewBox="0 0 160 160" aria-hidden="true">
@@ -99,11 +115,12 @@
   <div id="progress" aria-hidden="true"></div>
   <canvas id="petals" aria-hidden="true"></canvas>
 
-  <!-- "Indian Folk Classical Flute Music" by MayankSingh33 (Wikimedia Commons),
-       CC BY-SA 4.0 — normalised, faded at both ends so the loop doesn't click.
-       Credited in the footer, as the licence requires. -->
+  <!-- Same track twice: a 1.9 MB AAC that every current browser picks, and
+       the original 4.8 MB MP3 as the fallback. Nothing downloads until a
+       guest opens the envelope (preload="none"), which matters on mobile data. -->
   <audio id="music" loop preload="none">
-    <source src="assets/music/wedding.m4a" type="audio/mp4" />
+    <source src="assets/music/music.m4a"  type="audio/mp4" />
+    <source src="assets/music/music.mpeg" type="audio/mpeg" />
   </audio>
 
   <button id="musicBtn" type="button" aria-label="Play music" aria-pressed="false">
@@ -117,21 +134,36 @@
     </svg>
   </button>
 
+  <button id="scrollCue" class="scroll-cue" type="button" aria-label="Scroll down to the invitation">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M6 9.5 12 15.5 18 9.5" stroke="currentColor" stroke-width="1.7"
+        stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </button>
+
   <main id="main">
 
     <!-- ====================== 2. Blessing header ===================== -->
     <section id="blessing" class="section" aria-labelledby="blessing-h">
-      <div class="shell stack center">
+      <!-- The mandapam the guest walks into once the card is open: the canopy
+           unfurls from the centre outwards, the pillars come in from either
+           side, and the two families' names arrive from their own side to meet
+           at the knot. Sequenced in script.js §6c. -->
+      <div class="shell stack center mandap">
+        <span class="mandap-canopy" aria-hidden="true"></span>
+        <span class="mandap-pillar l" aria-hidden="true"></span>
+        <span class="mandap-pillar r" aria-hidden="true"></span>
+
         <p class="eyebrow reveal">Together in celebration</p>
         <h1 id="blessing-h" class="title reveal">With the blessings of both families</h1>
 
         <div class="parents-grid">
-          <article class="parents-card reveal">
+          <article class="parents-card from-left">
             <p class="side">Bride&rsquo;s Parents</p>
             <p class="pair">Mr. Dayal Singh Khyonshali<br />&amp; Mrs. Hema Devi</p>
           </article>
 
-          <div class="parents-knot reveal" aria-hidden="true">
+          <div class="parents-knot pop-in" aria-hidden="true">
             <svg viewBox="0 0 40 64" fill="none">
               <path d="M20 4v56" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".5" />
               <path d="M20 26c-7-5-7-13 0-15 7 2 7 10 0 15z" stroke="currentColor" stroke-width="1.3" />
@@ -140,7 +172,7 @@
             </svg>
           </div>
 
-          <article class="parents-card reveal">
+          <article class="parents-card from-right">
             <p class="side">Groom&rsquo;s Parents</p>
             <p class="pair">Mr. C C Somasundaran<br />&amp; Mrs. Sheeba Soman</p>
           </article>
@@ -150,9 +182,20 @@
           their daughter and son</p>
       </div>
 
-      <!-- Full-width illustrated scene: Kumaoni hills blending into a temple arch.
-           PLACEHOLDER — swap this whole <figure> for commissioned artwork. -->
-      <figure class="scene reveal" aria-label="Illustration of Kumaoni hills and pine trees blending into a temple arch">
+      <!-- Full-width illustrated scene: a wedding procession under a temple
+           arch, in the Kumaoni hills.
+
+           Every part of the picture is its own layer (sc-sky, sc-hills,
+           sc-ground, sc-arch, sc-couple, sc-crowd, sc-deco) so the scene can
+           assemble itself piece by piece once the envelope is open — the
+           easing and hold-times live in style.css §11a, the running order in
+           script.js §6a. Keep those class names on the equivalent layers and
+           the sequence keeps working.
+
+           PLACEHOLDER — swap the artwork for a commissioned illustration. -->
+      <figure class="scene" id="heroScene"
+        aria-label="Illustration of a wedding procession beneath a temple arch in the Kumaoni hills">
+
         <svg class="scene-svg" viewBox="0 0 1200 380" preserveAspectRatio="xMidYMax slice" role="img">
           <defs>
             <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
@@ -172,78 +215,264 @@
             <linearGradient id="archG" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stop-color="#d8ab52" /><stop offset="100%" stop-color="#b8863a" />
             </linearGradient>
+
+            <!-- one pine, reused at several sizes -->
+            <g id="pine">
+              <path d="M-1.8 44 h3.6 v-15 h-3.6 z M-13 31 L0 -2 L13 31 Z M-10 44 L0 15 L10 44 Z" />
+            </g>
           </defs>
 
-          <rect width="1200" height="380" fill="url(#sky)" />
+          <!-- ---------- 1. sky ---------- -->
+          <g class="sc-sky">
+            <rect width="1200" height="380" fill="url(#sky)" />
+            <circle cx="600" cy="150" r="52" fill="#f2d9a4" opacity=".55" />
+            <circle cx="600" cy="150" r="52" fill="none" stroke="#c99a3e" stroke-width="1" opacity=".5" />
+          </g>
 
-          <!-- sun -->
-          <circle cx="600" cy="150" r="52" fill="#f2d9a4" opacity=".55" />
-          <circle cx="600" cy="150" r="52" fill="none" stroke="#c99a3e" stroke-width="1" opacity=".5" />
+          <!-- ---------- 2. hills ---------- -->
+          <g class="sc-hills">
+            <path fill="url(#farHill)" opacity=".85"
+              d="M0 214 L118 150 L196 196 L286 128 L392 200 L470 162 L556 214 L640 168 L724 210 L812 150 L906 202 L1000 154 L1090 200 L1200 158 L1200 380 L0 380 Z" />
+            <path fill="url(#midHill)" opacity=".92"
+              d="M0 258 L96 206 L184 250 L272 194 L368 252 L462 214 L548 262 L648 212 L740 258 L840 206 L936 254 L1040 208 L1136 252 L1200 222 L1200 380 L0 380 Z" />
+            <path fill="url(#nearHill)"
+              d="M0 306 L110 262 L212 300 L318 254 L430 304 L536 268 L640 308 L752 264 L858 302 L968 260 L1076 300 L1200 268 L1200 380 L0 380 Z" />
+          </g>
 
-          <!-- far range -->
-          <path fill="url(#farHill)" opacity=".85"
-            d="M0 214 L118 150 L196 196 L286 128 L392 200 L470 162 L556 214 L640 168 L724 210 L812 150 L906 202 L1000 154 L1090 200 L1200 158 L1200 380 L0 380 Z" />
-          <!-- mid range -->
-          <path fill="url(#midHill)" opacity=".92"
-            d="M0 258 L96 206 L184 250 L272 194 L368 252 L462 214 L548 262 L648 212 L740 258 L840 206 L936 254 L1040 208 L1136 252 L1200 222 L1200 380 L0 380 Z" />
-          <!-- near range -->
-          <path fill="url(#nearHill)"
-            d="M0 306 L110 262 L212 300 L318 254 L430 304 L536 268 L640 308 L752 264 L858 302 L968 260 L1076 300 L1200 268 L1200 380 L0 380 Z" />
-
-          <!-- Pines. Kept within roughly x=210–990 so they survive the
-               `slice` crop on a narrow phone, where only the middle of the
-               viewBox is visible. -->
+          <!-- ---------- 3. pines ----------
+               Kept roughly within x=210–990 so they survive the `slice` crop on
+               a narrow phone, where only the middle of the viewBox is visible. -->
           <g fill="#24402f">
-            <!-- left cluster -->
-            <g transform="translate(258 262)">
-              <path d="M0 44 L0 30 M-13 30 L0 -2 L13 30 Z M-10 40 L0 16 L10 40 Z" />
+            <g class="sc-deco"><use href="#pine" transform="translate(246 262)" /></g>
+            <g class="sc-deco"><use href="#pine" transform="translate(298 278) scale(.8)" /></g>
+            <g class="sc-deco"><use href="#pine" transform="translate(212 288) scale(.66)" /></g>
+            <g class="sc-deco"><use href="#pine" transform="translate(906 268) scale(.92)" /></g>
+            <g class="sc-deco"><use href="#pine" transform="translate(958 284) scale(.72)" /></g>
+            <g class="sc-deco"><use href="#pine" transform="translate(1004 274) scale(.8)" /></g>
+          </g>
+
+          <!-- ---------- 4. ground & the aisle ---------- -->
+          <g class="sc-ground">
+            <path fill="#2a4a39" d="M0 336 Q220 322 440 331 T880 331 Q1040 337 1200 329 L1200 380 L0 380 Z" />
+            <path fill="#a8452c" opacity=".5" d="M552 380 L578 331 L622 331 L648 380 Z" />
+            <g fill="none" stroke="#e6c98a" stroke-width="1.2" opacity=".45">
+              <path d="M566 366 h68" /><path d="M574 350 h52" />
             </g>
-            <g transform="translate(310 278) scale(.8)">
-              <path d="M0 44 L0 30 M-13 30 L0 -2 L13 30 Z M-10 40 L0 16 L10 40 Z" />
-            </g>
-            <g transform="translate(216 288) scale(.66)">
-              <path d="M0 44 L0 30 M-13 30 L0 -2 L13 30 Z M-10 40 L0 16 L10 40 Z" />
-            </g>
-            <g transform="translate(362 270) scale(.9)">
-              <path d="M0 44 L0 30 M-13 30 L0 -2 L13 30 Z M-10 40 L0 16 L10 40 Z" />
-            </g>
-            <!-- right cluster -->
-            <g transform="translate(848 270) scale(.9)">
-              <path d="M0 44 L0 30 M-13 30 L0 -2 L13 30 Z M-10 40 L0 16 L10 40 Z" />
-            </g>
-            <g transform="translate(902 286) scale(.72)">
-              <path d="M0 44 L0 30 M-13 30 L0 -2 L13 30 Z M-10 40 L0 16 L10 40 Z" />
-            </g>
-            <g transform="translate(956 276) scale(.8)">
-              <path d="M0 44 L0 30 M-13 30 L0 -2 L13 30 Z M-10 40 L0 16 L10 40 Z" />
+            <g fill="#e0a84a" opacity=".45">
+              <circle cx="498" cy="358" r="2.6" /><circle cx="528" cy="370" r="2" />
+              <circle cx="676" cy="356" r="2.4" /><circle cx="706" cy="368" r="2.8" />
+              <circle cx="452" cy="372" r="2.2" /><circle cx="742" cy="374" r="2" />
             </g>
           </g>
 
-          <!-- temple arch motif, centred where the two regions meet -->
-          <g stroke="url(#archG)" fill="none" stroke-width="2.4" stroke-linecap="round">
-            <path d="M474 380 L474 250 A126 126 0 0 1 726 250 L726 380" />
-            <path d="M492 380 L492 254 A108 108 0 0 1 708 254 L708 380" stroke-width="1.2" opacity=".7" />
-            <path d="M600 124 L600 100" stroke-width="1.6" />
-            <path d="M586 148 h28" stroke-width="1.6" />
+          <!-- ---------- 5. temple arch ---------- -->
+          <g class="sc-arch">
+            <g stroke="url(#archG)" fill="none" stroke-width="2.4" stroke-linecap="round">
+              <path d="M474 380 L474 250 A126 126 0 0 1 726 250 L726 380" />
+              <path d="M492 380 L492 254 A108 108 0 0 1 708 254 L708 380" stroke-width="1.2" opacity=".7" />
+              <path d="M600 124 L600 100" stroke-width="1.6" />
+              <path d="M586 148 h28" stroke-width="1.6" />
+            </g>
+            <!-- kalash finial -->
+            <g fill="#c99a3e" opacity=".95">
+              <circle cx="600" cy="94" r="7" />
+              <path d="M593 100 h14 l-3 12 h-8 z" />
+            </g>
+            <!-- hanging lamps -->
+            <g fill="#c99a3e" opacity=".8">
+              <circle cx="510" cy="262" r="4" /><path d="M510 240 v18" stroke="#c99a3e" stroke-width="1" />
+              <circle cx="690" cy="262" r="4" /><path d="M690 240 v18" stroke="#c99a3e" stroke-width="1" />
+            </g>
           </g>
-          <!-- kalash finial -->
-          <g fill="#c99a3e" opacity=".95">
-            <circle cx="600" cy="94" r="7" />
-            <path d="M593 100 h14 l-3 12 h-8 z" />
+
+          <!-- ---------- 6. the couple ---------- -->
+          <g class="sc-couple">
+            <g transform="translate(600 350) scale(1.15)">
+              <!-- groom -->
+              <g transform="translate(-21 0)">
+                <path d="M-11 0 L-8 -30 Q0 -35 8 -30 L11 0 Z" fill="#f3e6cd" />
+                <path d="M-11 -2 h22" stroke="#c99a3e" stroke-width="2.4" />
+                <path d="M-8 -30 Q0 -35 8 -30 L7 -15 Q0 -12 -7 -15 Z" fill="#e8d2a6" />
+                <path d="M-7 -33 q7 21 14 0" fill="none" stroke="#e0a84a" stroke-width="2.2" />
+                <circle cx="0" cy="-42" r="7" fill="#dcae7e" />
+                <path d="M-8 -45 q8 -12 16 0 q-8 -5 -16 0 z" fill="#c99a3e" />
+              </g>
+              <!-- bride -->
+              <g transform="translate(20 0)">
+                <path d="M-14 0 L-6 -30 Q0 -34 6 -30 L14 0 Z" fill="#a8452c" />
+                <path d="M-14 -2 h28" stroke="#e6c98a" stroke-width="2.4" />
+                <circle cx="0" cy="-40" r="6.6" fill="#dcae7e" />
+                <path d="M-9 -43 q9 -11 18 0 q-1 24 -7 32 q-4 -17 -11 -32 z" fill="#b45566" />
+                <path d="M-8 -30 q8 4 16 0" fill="none" stroke="#e6c98a" stroke-width="1.6" />
+              </g>
+              <!-- joined hands -->
+              <path d="M-7 -18 h14" stroke="#dcae7e" stroke-width="3.2" stroke-linecap="round" />
+            </g>
           </g>
-          <!-- hanging lamps -->
-          <g fill="#c99a3e" opacity=".8">
-            <circle cx="510" cy="262" r="4" /><path d="M510 240 v18" stroke="#c99a3e" stroke-width="1" />
-            <circle cx="690" cy="262" r="4" /><path d="M690 240 v18" stroke="#c99a3e" stroke-width="1" />
+
+          <!-- ---------- 7. the guests, left to right ---------- -->
+          <g class="sc-crowd">
+            <g class="sc-figure"><g transform="translate(330 350) scale(.9)">
+              <path d="M-10 0 L-7 -27 Q0 -32 7 -27 L10 0 Z" fill="#6f8d78" />
+              <path d="M-10 -2 h20" stroke="#e6c98a" stroke-width="2" />
+              <circle cx="0" cy="-37" r="6.2" fill="#dcae7e" />
+              <path d="M-7 -39 q7 -9 14 0 q-4 20 -8 26 q-3 -15 -6 -26 z" fill="#4f6b58" />
+              <path d="M8 -24 q9 -6 10 -14" fill="none" stroke="#dcae7e" stroke-width="3" stroke-linecap="round" />
+            </g></g>
+            <g class="sc-figure"><g transform="translate(386 352) scale(.95)">
+              <path d="M-11 0 L-7 -28 Q0 -33 7 -28 L11 0 Z" fill="#b45566" />
+              <path d="M-11 -2 h22" stroke="#e6c98a" stroke-width="2" />
+              <circle cx="0" cy="-38" r="6.4" fill="#dcae7e" />
+              <path d="M-7 -40 q7 -10 14 0 q-2 21 -7 28 q-3 -16 -7 -28 z" fill="#8e3f4c" />
+              <path d="M-8 -25 q-9 -5 -11 -13" fill="none" stroke="#dcae7e" stroke-width="3" stroke-linecap="round" />
+            </g></g>
+            <!-- dhol player -->
+            <g class="sc-figure"><g transform="translate(442 350) scale(.92)">
+              <path d="M-10 0 L-7 -28 Q0 -33 7 -28 L10 0 Z" fill="#c47a4a" />
+              <path d="M-10 -2 h20" stroke="#e6c98a" stroke-width="2" />
+              <circle cx="0" cy="-38" r="6.2" fill="#dcae7e" />
+              <path d="M-7 -41 q7 -10 14 0 q-7 -4 -14 0 z" fill="#3a2a20" />
+              <ellipse cx="0" cy="-16" rx="12" ry="7" fill="#f3e6cd" stroke="#a8452c" stroke-width="1.6" />
+              <path d="M-12 -22 q12 -7 24 0" fill="none" stroke="#a8452c" stroke-width="1.2" />
+              <path d="M-11 -30 q-7 6 -6 12" fill="none" stroke="#dcae7e" stroke-width="3" stroke-linecap="round" />
+              <path d="M11 -30 q7 6 6 12" fill="none" stroke="#dcae7e" stroke-width="3" stroke-linecap="round" />
+            </g></g>
+            <!-- a child, running ahead -->
+            <g class="sc-figure"><g transform="translate(492 352) scale(.62)">
+              <path d="M-10 0 L-7 -26 Q0 -31 7 -26 L10 0 Z" fill="#d8ab52" />
+              <circle cx="0" cy="-36" r="6.4" fill="#dcae7e" />
+              <path d="M-7 -38 q7 -10 14 0 q-7 -4 -14 0 z" fill="#3a2a20" />
+              <path d="M8 -23 q10 -4 12 -12" fill="none" stroke="#dcae7e" stroke-width="3.4" stroke-linecap="round" />
+            </g></g>
+            <g class="sc-figure"><g transform="translate(716 352) scale(.66)">
+              <path d="M-10 0 L-7 -26 Q0 -31 7 -26 L10 0 Z" fill="#e8d2a6" />
+              <circle cx="0" cy="-36" r="6.4" fill="#dcae7e" />
+              <path d="M-7 -39 q7 -9 14 0 q-3 18 -7 24 q-3 -14 -7 -24 z" fill="#8e3f4c" />
+              <path d="M-8 -23 q-10 -4 -12 -12" fill="none" stroke="#dcae7e" stroke-width="3.4" stroke-linecap="round" />
+            </g></g>
+            <g class="sc-figure"><g transform="translate(762 350) scale(.94)">
+              <path d="M-11 0 L-7 -28 Q0 -33 7 -28 L11 0 Z" fill="#f3e6cd" />
+              <path d="M-11 -2 h22" stroke="#c99a3e" stroke-width="2" />
+              <circle cx="0" cy="-38" r="6.4" fill="#dcae7e" />
+              <path d="M-8 -41 q8 -11 16 0 q-8 -5 -16 0 z" fill="#a8452c" />
+              <path d="M9 -26 q9 -5 10 -13" fill="none" stroke="#dcae7e" stroke-width="3" stroke-linecap="round" />
+            </g></g>
+            <g class="sc-figure"><g transform="translate(818 352) scale(.9)">
+              <path d="M-11 0 L-7 -27 Q0 -32 7 -27 L11 0 Z" fill="#a8452c" />
+              <path d="M-11 -2 h22" stroke="#e6c98a" stroke-width="2" />
+              <circle cx="0" cy="-37" r="6.2" fill="#dcae7e" />
+              <path d="M-7 -39 q7 -10 14 0 q-2 20 -7 27 q-3 -15 -7 -27 z" fill="#6f8d78" />
+              <path d="M-8 -24 q-9 -6 -10 -14" fill="none" stroke="#dcae7e" stroke-width="3" stroke-linecap="round" />
+            </g></g>
+            <g class="sc-figure"><g transform="translate(872 350) scale(.86)">
+              <path d="M-10 0 L-7 -27 Q0 -32 7 -27 L10 0 Z" fill="#c47a4a" />
+              <path d="M-10 -2 h20" stroke="#e6c98a" stroke-width="2" />
+              <circle cx="0" cy="-37" r="6.2" fill="#dcae7e" />
+              <path d="M-7 -40 q7 -10 14 0 q-7 -4 -14 0 z" fill="#3a2a20" />
+              <path d="M8 -25 q9 -5 10 -13" fill="none" stroke="#dcae7e" stroke-width="3" stroke-linecap="round" />
+            </g></g>
+          </g>
+
+          <!-- ---------- 8. flourishes: garland, umbrellas, pots, lamps ---------- -->
+          <!-- marigold garland strung across the arch -->
+          <g class="sc-deco">
+            <g>
+              <path d="M474 250 Q600 282 726 250" fill="none" stroke="#c99a3e" stroke-width="1.4" opacity=".75" />
+              <g fill="#e0a84a">
+                <circle cx="506" cy="259" r="4" /><circle cx="540" cy="266" r="4.4" />
+                <circle cx="574" cy="270" r="4.6" /><circle cx="600" cy="271" r="4.8" />
+                <circle cx="626" cy="270" r="4.6" /><circle cx="660" cy="266" r="4.4" />
+                <circle cx="694" cy="259" r="4" />
+              </g>
+            </g>
+          </g>
+          <!-- ceremonial umbrella over the left of the procession -->
+          <g class="sc-deco">
+            <g>
+              <path d="M330 300 v-22" stroke="#8d5f10" stroke-width="1.6" />
+              <path d="M308 282 a22 16 0 0 1 44 0 z" fill="#a8452c" />
+              <path d="M308 282 h44" stroke="#e6c98a" stroke-width="1.4" />
+              <circle cx="330" cy="276" r="2.6" fill="#e6c98a" />
+              <g fill="#e6c98a"><circle cx="313" cy="286" r="1.8" /><circle cx="330" cy="288" r="1.8" /><circle cx="347" cy="286" r="1.8" /></g>
+            </g>
+          </g>
+          <!-- and one on the right -->
+          <g class="sc-deco">
+            <g>
+              <path d="M818 302 v-20" stroke="#8d5f10" stroke-width="1.6" />
+              <path d="M798 286 a20 15 0 0 1 40 0 z" fill="#d8ab52" />
+              <path d="M798 286 h40" stroke="#e6c98a" stroke-width="1.4" />
+              <circle cx="818" cy="280" r="2.4" fill="#e6c98a" />
+            </g>
+          </g>
+          <!-- flowering pots flanking the aisle -->
+          <g class="sc-deco">
+            <g transform="translate(500 356)">
+              <path d="M-11 0 L-8 -13 h16 L11 0 Z" fill="#8d5f10" />
+              <path d="M-11 -13 h22" stroke="#e6c98a" stroke-width="1.6" />
+              <g fill="none" stroke="#3f6350" stroke-width="1.4">
+                <path d="M0 -13 v-14" /><path d="M0 -20 q-9 -3 -11 -11" /><path d="M0 -23 q9 -3 11 -11" />
+              </g>
+              <g fill="#e0a84a"><circle cx="-11" cy="-31" r="3.6" /><circle cx="11" cy="-34" r="3.6" /><circle cx="0" cy="-30" r="3" /></g>
+            </g>
+          </g>
+          <g class="sc-deco">
+            <g transform="translate(700 356)">
+              <path d="M-11 0 L-8 -13 h16 L11 0 Z" fill="#8d5f10" />
+              <path d="M-11 -13 h22" stroke="#e6c98a" stroke-width="1.6" />
+              <g fill="none" stroke="#3f6350" stroke-width="1.4">
+                <path d="M0 -13 v-14" /><path d="M0 -20 q9 -3 11 -11" /><path d="M0 -23 q-9 -3 -11 -11" />
+              </g>
+              <g fill="#b45566"><circle cx="11" cy="-31" r="3.6" /><circle cx="-11" cy="-34" r="3.6" /><circle cx="0" cy="-30" r="3" /></g>
+            </g>
+          </g>
+          <!-- a pair of lit diyas on the aisle -->
+          <g class="sc-deco">
+            <g>
+              <path d="M540 372 q10 8 20 0 z" fill="#8d5f10" />
+              <path d="M550 366 q4 -6 0 -10 q-4 4 0 10 z" fill="#e0a84a" />
+            </g>
+          </g>
+          <g class="sc-deco">
+            <g>
+              <path d="M640 372 q10 8 20 0 z" fill="#8d5f10" />
+              <path d="M650 366 q4 -6 0 -10 q-4 4 0 10 z" fill="#e0a84a" />
+            </g>
           </g>
         </svg>
+
+        <!-- Border ornaments: fine line-art corners over the artwork -->
+        <svg class="scene-orn tl sc-deco" viewBox="0 0 160 160" aria-hidden="true">
+          <g fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round">
+            <path d="M4 76c26-4 44-22 48-48" />
+            <path d="M52 28c8-6 17-5 22 3-8 6-17 5-22-3z" />
+            <path d="M52 28c-6-8-5-17 3-22 6 8 5 17-3 22z" />
+            <path d="M30 54c9-3 17 1 19 10-9 3-17-1-19-10z" opacity=".75" />
+            <circle cx="74" cy="26" r="2.4" fill="currentColor" stroke="none" />
+          </g>
+        </svg>
+        <svg class="scene-orn tr sc-deco" viewBox="0 0 160 160" aria-hidden="true">
+          <g fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round">
+            <path d="M4 76c26-4 44-22 48-48" />
+            <path d="M52 28c8-6 17-5 22 3-8 6-17 5-22-3z" />
+            <path d="M52 28c-6-8-5-17 3-22 6 8 5 17-3 22z" />
+            <path d="M30 54c9-3 17 1 19 10-9 3-17-1-19-10z" opacity=".75" />
+            <circle cx="74" cy="26" r="2.4" fill="currentColor" stroke="none" />
+          </g>
+        </svg>
+
+        <figcaption class="scene-caption">
+          <span class="scene-names">Sangeeta <em>&amp;</em> Syam</span>
+          <span class="scene-date">10 &middot; 19 &middot; 20 December 2026</span>
+        </figcaption>
       </figure>
     </section>
 
     <!-- ======================== 3. Couple names ====================== -->
     <section id="couple" class="section tint-cream" aria-labelledby="couple-h">
-      <img class="bloom l t" src="assets/images/bloom.webp" alt="" aria-hidden="true" />
-      <img class="bloom r b" src="assets/images/bloom.webp" alt="" aria-hidden="true" />
+      <img loading="lazy" decoding="async" class="bloom l t" src="assets/images/bloom.webp" alt="" aria-hidden="true" />
+      <img loading="lazy" decoding="async" class="bloom r b" src="assets/images/bloom.webp" alt="" aria-hidden="true" />
+      <span class="couple-rangoli" aria-hidden="true"></span>
 
       <div class="shell stack center">
         <p class="eyebrow reveal">With immense joy and love</p>
@@ -267,7 +496,7 @@
 
         <!-- PLACEHOLDER — commissioned couple portrait drops in here -->
         <figure class="portrait reveal">
-          <img src="assets/images/couple.webp" width="1100" height="1070"
+          <img loading="lazy" decoding="async" src="assets/images/couple.webp" width="1100" height="1070"
             alt="Watercolour illustration of a bride and groom in traditional Indian wedding attire, seated together." />
         </figure>
       </div>
@@ -282,7 +511,8 @@
         <div class="scratch-card reveal" id="scratchCard">
           <!-- What sits underneath the foil -->
           <div class="scratch-under">
-            <img src="assets/images/couple.webp" alt="" aria-hidden="true" />
+            <img loading="lazy" decoding="async" src="assets/images/couple.webp"
+              width="1100" height="1070" alt="" aria-hidden="true" />
             <p class="scratch-script">See you there</p>
             <p class="scratch-date">19 December 2026</p>
           </div>
@@ -302,7 +532,7 @@
 
     <!-- ========================= 5. Countdown ======================== -->
     <section id="countdown" class="section tint-sand" aria-labelledby="countdown-h">
-      <img class="bloom r t" src="assets/images/bloom.webp" alt="" aria-hidden="true" />
+      <img loading="lazy" decoding="async" class="bloom r t" src="assets/images/bloom.webp" alt="" aria-hidden="true" />
 
       <div class="shell narrow stack center">
         <p class="eyebrow reveal">Counting down to the first function</p>
@@ -670,7 +900,7 @@
             <h3 class="event-name">Reception</h3>
             <p class="event-time">5:00 PM – 9:00 PM</p>
             <p class="event-desc">An evening of dinner, music and celebration with the newlyweds.</p>
-            <p class="event-where">Near Pudukad Centre<br />
+            <p class="event-where">The Theatre by CG<br />
               <span>NH 544, Pudukad, Thrissur, Kerala 680301</span></p>
           </div>
         </li>
@@ -680,7 +910,7 @@
 
     <!-- ====================== 7. Family details ====================== -->
     <section id="families" class="section tint-cream" aria-labelledby="families-h">
-      <img class="bloom l b" src="assets/images/bloom.webp" alt="" aria-hidden="true" />
+      <img loading="lazy" decoding="async" class="bloom l b" src="assets/images/bloom.webp" alt="" aria-hidden="true" />
 
       <div class="shell stack center">
         <p class="eyebrow reveal">Our families</p>
@@ -782,7 +1012,7 @@
               </svg>
             </span>
             <p class="for">Reception</p>
-            <h3>Near Pudukad Centre</h3>
+            <h3>The Theatre by CG</h3>
             <p class="when">20 December 2026 &middot; 5:00 &ndash; 9:00 PM</p>
             <address>
               NH 544, Pudukad<br />
@@ -799,61 +1029,13 @@
       </div>
     </section>
 
-    <!-- =========================== 9. RSVP =========================== -->
-    <section id="rsvp" class="section tint-forest" aria-labelledby="rsvp-h">
+    <!-- ========================= 9. Closing ========================== -->
+    <section id="closing" class="section tint-forest" aria-labelledby="closing-h">
       <div class="shell narrow stack center">
-        <p class="eyebrow reveal">RSVP</p>
-        <h2 id="rsvp-h" class="title reveal">Awaiting Your Noble Presence</h2>
+        <p class="eyebrow reveal">December 2026</p>
+        <h2 id="closing-h" class="title reveal">Awaiting Your Noble Presence</h2>
         <p class="lede reveal">Two families, two hometowns, and one long-awaited December.
-          Tell us you&rsquo;re coming, and we&rsquo;ll keep a seat warm for you — in the hills
-          and by the sea.</p>
-
-        <form id="rsvpForm" class="rsvp-form reveal" novalidate>
-          <div class="field">
-            <label for="rsvpName">Your name</label>
-            <input id="rsvpName" name="name" type="text" autocomplete="name" required
-              placeholder="Name as you'd like it on the seating card" />
-          </div>
-
-          <div class="field">
-            <label for="rsvpGuests">Number of guests</label>
-            <input id="rsvpGuests" name="guests" type="number" min="1" max="20" step="1"
-              inputmode="numeric" value="1" required />
-          </div>
-
-          <fieldset class="field">
-            <legend>Which functions will you join?</legend>
-            <ul class="checks">
-              <li><label><input type="checkbox" name="fn" value="Mehndi" /><span>Mehndi &middot; 10 Dec</span></label></li>
-              <li><label><input type="checkbox" name="fn" value="Haldi" /><span>Haldi &middot; 11 Dec</span></label></li>
-              <li><label><input type="checkbox" name="fn" value="Sangeet" /><span>Sangeet &middot; 11 Dec</span></label></li>
-              <li><label><input type="checkbox" name="fn" value="Bhaarath" /><span>Bhaarath &middot; 11 Dec</span></label></li>
-              <li><label><input type="checkbox" name="fn" value="Tulasi Garland Exchange" /><span>Tulasi Garland Exchange &middot; 19 Dec</span></label></li>
-              <li><label><input type="checkbox" name="fn" value="Reception" /><span>Reception &middot; 20 Dec</span></label></li>
-            </ul>
-          </fieldset>
-
-          <div class="field">
-            <label for="rsvpMsg">A message for the couple <span class="opt">(optional)</span></label>
-            <textarea id="rsvpMsg" name="message" rows="3"
-              placeholder="A blessing, a memory, or just a hello"></textarea>
-          </div>
-
-          <p class="form-error" id="rsvpError" role="alert" hidden></p>
-
-          <div class="btn-row">
-            <button type="submit" class="btn gold"><span>Send RSVP</span></button>
-            <button type="button" id="rsvpCopy" class="btn ghost on-dark">
-              <span>Copy instead</span>
-            </button>
-          </div>
-
-          <p class="form-note">Sending opens WhatsApp with your reply ready to go.</p>
-        </form>
-
-        <p class="rsvp-done" id="rsvpDone" hidden role="status">
-          Thank you — we can&rsquo;t wait to see you there.
-        </p>
+          We&rsquo;ll keep a seat warm for you — in the hills and by the sea.</p>
 
         <div class="btn-row reveal">
           <a id="calBtn" class="btn ghost on-dark" href="#" download="sangeeta-syam-wedding.ics">
@@ -875,13 +1057,9 @@
     <p class="footer-credit">Designed &amp; developed by
       <a href="https://rs.lokaai.in/" target="_blank" rel="noopener noreferrer">Roshni Stephen</a>
       &middot; Powered by <a href="https://lokaai.in/" target="_blank" rel="noopener noreferrer">Loka AI</a>
-      <span class="credit-music">Music:
-        <a href="https://commons.wikimedia.org/wiki/File:Indian_Folk_Classical_Flute_Music_(1).wav"
-          target="_blank" rel="noopener noreferrer">&ldquo;Indian Folk Classical Flute Music&rdquo;</a>
-        by MayankSingh33 &middot;
-        <a href="https://creativecommons.org/licenses/by-sa/4.0/"
-          target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>
-      </span>
+      <!-- The old Wikimedia flute track was replaced by assets/music/music.mpeg,
+           so its CC BY-SA credit no longer applies and has been removed. If the
+           new track needs an attribution, add it back here. -->
     </p>
   </footer>
 

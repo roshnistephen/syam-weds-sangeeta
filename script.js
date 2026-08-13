@@ -13,11 +13,6 @@
      0. Configuration — the only things you should need to edit
   ------------------------------------------------------------- */
 
-  // WhatsApp number that receives RSVPs, international format, digits only
-  // (e.g. '919876543210' for +91 98765 43210). Leave '' and the RSVP button
-  // falls back to copying the reply to the clipboard instead.
-  var RSVP_WHATSAPP = '';
-
   // Every function, pinned to IST so the countdown and the calendar file are
   // right for guests in any timezone. NOTE: the Sangeet and Bhaarath dates are
   // the working assumption of 11 Dec 2026 — change them here if that moves.
@@ -33,7 +28,7 @@
     { key: 'tulasi',    name: 'Tulasi Garland Exchange',  start: '2026-12-19T08:00:00+05:30', hours: 3,
       venue: 'Guruvayur Temple, East Nada, Guruvayur, Kerala 680101' },
     { key: 'reception', name: 'Reception',                start: '2026-12-20T17:00:00+05:30', hours: 4,
-      venue: 'NH 544, near Pudukad Centre, Thrissur, Kerala 680301' }
+      venue: 'The Theatre by CG, NH 544, Pudukad, Thrissur, Kerala 680301' }
   ];
 
   // The countdown runs to the first function.
@@ -44,17 +39,32 @@
   ------------------------------------------------------------- */
   var loader = $('#loader');
 
+  // The curtain sequence — toran in, monogram in, rangoli open — needs about
+  // this long to land. On a fast connection `load` fires well before that, and
+  // drawing the curtains mid-animation looks like a glitch rather than a
+  // flourish, so the reveal never happens earlier than this.
+  var LOADER_MIN_MS  = reduceMotion ? 0 : 1750;
+  var LOADER_MAX_MS  = 3200;   // never hang, however slow the network is
+  var CURTAIN_OUT_MS = 1150;   // matches the .curtain transition in style.css
+
+  var loaderStart = Date.now();
+
   function dismissLoader() {
     if (!loader || loader.classList.contains('done')) return;
     loader.classList.add('done');
-    window.setTimeout(function () { loader.remove(); }, 900);
+    window.setTimeout(function () { loader.remove(); }, reduceMotion ? 0 : CURTAIN_OUT_MS);
   }
 
-  // Hide as soon as the page is usable; never hang if `load` is slow.
-  var loaderTimer = window.setTimeout(dismissLoader, 2600);
+  function dismissWhenReady() {
+    var waited = Date.now() - loaderStart;
+    window.setTimeout(dismissLoader, Math.max(0, LOADER_MIN_MS - waited));
+  }
+
+  // Draw back as soon as the page is usable; never hang if `load` is slow.
+  var loaderTimer = window.setTimeout(dismissLoader, LOADER_MAX_MS);
   window.addEventListener('load', function () {
     window.clearTimeout(loaderTimer);
-    window.setTimeout(dismissLoader, reduceMotion ? 0 : 700);
+    dismissWhenReady();
   });
 
   /* -------------------------------------------------------------
@@ -77,6 +87,9 @@
     // Music is a user-gesture-initiated play, so it is allowed here.
     playMusic();
 
+    // A shower of petals off the seal (§8).
+    window.setTimeout(burstPetals, reduceMotion ? 0 : 180);
+
     var flapMs = reduceMotion ? 0 : 620;
     var liftMs = reduceMotion ? 0 : 1180;
 
@@ -88,6 +101,12 @@
       document.body.classList.remove('is-locked');
       $('#progress').classList.add('on');
       musicBtn.classList.add('ready');
+
+      // The envelope is fading out over the invitation now; let it clear,
+      // then raise the mandapam (§6c) and arm the illustrated scene (§6a).
+      window.setTimeout(playMandap, reduceMotion ? 0 : 240);
+      window.setTimeout(armScene, reduceMotion ? 0 : 260);
+      window.setTimeout(showScrollCue, reduceMotion ? 0 : 1400);
 
       window.setTimeout(function () {
         envSection.setAttribute('hidden', '');
@@ -368,6 +387,198 @@
   }
 
   /* -------------------------------------------------------------
+     6a. Hero scene — the staggered assemble
+
+     The scene is drawn as separate layers (see the <figure id="heroScene">
+     markup). Rather than fading in as one block, each layer is handed a
+     start time through a `--d` custom property and the CSS in §11a of
+     style.css does the rest — one timeline, all in one place, no library.
+
+     It runs once the envelope is out of the way AND the scene is actually
+     on screen, so nobody misses it by opening the invitation on a phone
+     where the artwork sits below the fold.
+  ------------------------------------------------------------- */
+  var scene = $('#heroScene');
+
+  // Layers that land at a fixed moment, in seconds.
+  var SCENE_CUES = [
+    ['.sc-sky',    0.00],
+    ['.sc-hills',  0.12],
+    ['.sc-ground', 0.20],
+    ['.sc-couple', 0.20],
+    ['.sc-arch',   0.30]
+  ];
+
+  // Groups that cascade left to right: selector, first delay, step, window.
+  // The step shrinks if a group grows, so a group always finishes inside
+  // its window and the whole sequence stays under two seconds.
+  var SCENE_GROUPS = [
+    ['.sc-figure', 0.50, 0.08, 0.52],
+    ['.sc-deco',   0.62, 0.08, 0.58]
+  ];
+
+  var SCENE_CAPTION = 1.24;  // names and date, after the picture settles
+  var SCENE_TOTAL   = 1900;  // ms — past the end of the last animation
+
+  var scenePlayed = false;
+
+  if (scene && !reduceMotion) {
+    // Parked at its start pose from the first paint. The scene sits behind
+    // the envelope, so nothing flashes even if this lands a frame late.
+    scene.classList.add('assemble');
+  }
+
+  function playScene() {
+    if (!scene || scenePlayed || reduceMotion) return;
+    scenePlayed = true;
+
+    function cue(el, seconds) {
+      if (el) el.style.setProperty('--d', seconds.toFixed(3) + 's');
+    }
+
+    SCENE_CUES.forEach(function (c) { cue($(c[0], scene), c[1]); });
+
+    SCENE_GROUPS.forEach(function (g) {
+      var els = $$(g[0], scene);
+      if (!els.length) return;
+
+      // Sorted by position, not by markup order, so the wave always
+      // sweeps left to right however the artwork is authored.
+      els.sort(function (a, b) {
+        return a.getBoundingClientRect().left - b.getBoundingClientRect().left;
+      });
+
+      var step = els.length > 1 ? Math.min(g[2], g[3] / (els.length - 1)) : 0;
+      els.forEach(function (el, i) { cue(el, g[1] + i * step); });
+    });
+
+    cue($('.scene-caption', scene), SCENE_CAPTION);
+
+    scene.classList.add('play');
+
+    // Once it has run, drop the animation state so nothing keeps holding a
+    // compositor layer for the rest of the visit.
+    window.setTimeout(function () {
+      scene.classList.remove('assemble', 'play');
+    }, SCENE_TOTAL);
+  }
+
+  // Called by the envelope once the invitation is on show (see §2).
+  var armScene = function () {};
+
+  (function () {
+    if (!scene || reduceMotion) return;
+
+    var armed = false;  // the envelope has lifted away
+    var seen  = false;  // the artwork is on screen
+
+    function maybePlay() { if (armed && seen) playScene(); }
+
+    armScene = function () { armed = true; maybePlay(); };
+
+    if (!('IntersectionObserver' in window)) {
+      seen = true;
+      return;
+    }
+
+    var sceneIO = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      seen = true;
+      sceneIO.disconnect();
+      maybePlay();
+    }, { threshold: 0.25 });
+
+    sceneIO.observe(scene);
+  }());
+
+  /* -------------------------------------------------------------
+     6c. The mandapam — the landing section raising itself
+
+     The first thing behind the envelope. The canopy opens from the centre
+     outwards, then the pillars and the two families arrive from their own
+     sides and meet in the middle. Runs once, right after the card opens.
+  ------------------------------------------------------------- */
+  var mandap = $('.mandap');
+
+  var MANDAP_CUES = [
+    ['.mandap-canopy',   0.00],
+    ['.mandap-pillar.l', 0.22],
+    ['.mandap-pillar.r', 0.22],
+    ['.from-left',       0.50],
+    ['.from-right',      0.50],
+    ['.pop-in',          0.78]
+  ];
+  var MANDAP_TOTAL = 1750;  // ms, past the end of the last animation
+
+  if (mandap && !reduceMotion) mandap.classList.add('assemble');
+
+  function playMandap() {
+    if (!mandap || reduceMotion || mandap.classList.contains('play')) return;
+
+    MANDAP_CUES.forEach(function (cue) {
+      $$(cue[0], mandap).forEach(function (el) {
+        el.style.setProperty('--d', cue[1].toFixed(2) + 's');
+      });
+    });
+
+    mandap.classList.add('play');
+
+    window.setTimeout(function () {
+      mandap.classList.remove('assemble', 'play');
+    }, MANDAP_TOTAL);
+  }
+
+  /* -------------------------------------------------------------
+     6b. Scroll cue
+
+     On a phone the invitation opens to a screenful of header with no
+     obvious "there is more below", so point the way — and get out of the
+     way the moment the guest starts scrolling.
+  ------------------------------------------------------------- */
+  var scrollCue = $('#scrollCue');
+
+  // Called by the envelope once the invitation is on show (see §2).
+  var showScrollCue = function () {};
+
+  (function () {
+    if (!scrollCue) return;
+
+    var dismissed = false;
+
+    function dismiss() {
+      if (dismissed) return;
+      dismissed = true;
+      scrollCue.classList.add('gone');
+      window.removeEventListener('scroll', onFirstScroll);
+      window.setTimeout(function () { scrollCue.hidden = true; }, 600);
+    }
+
+    function onFirstScroll() {
+      if (window.scrollY > 40) dismiss();
+    }
+
+    scrollCue.addEventListener('click', function () {
+      var target = $('#couple') || $('#blessing');
+      if (target) {
+        target.scrollIntoView({
+          behavior: reduceMotion ? 'auto' : 'smooth',
+          block: 'start'
+        });
+      }
+      dismiss();
+    });
+
+    window.addEventListener('scroll', onFirstScroll, { passive: true });
+
+    showScrollCue = function () {
+      if (dismissed) return;
+      scrollCue.classList.add('ready');
+      // Never let it linger if the guest is simply reading.
+      window.setTimeout(dismiss, 9000);
+    };
+  }());
+
+  /* -------------------------------------------------------------
      7. Scroll progress
   ------------------------------------------------------------- */
   var progress = $('#progress');
@@ -391,6 +602,9 @@
      8. Falling petals
   ------------------------------------------------------------- */
   var canvas = $('#petals');
+
+  // Called by the envelope the moment the seal is broken (see §2).
+  var burstPetals = function () {};
 
   if (!reduceMotion && canvas.getContext) {
     (function () {
@@ -427,8 +641,37 @@
           vy: 0.28 + Math.random() * 0.55,
           sway: 0.4 + Math.random() * 1.1,
           phase: Math.random() * Math.PI * 2,
-          color: COLORS[(Math.random() * COLORS.length) | 0]
+          color: COLORS[(Math.random() * COLORS.length) | 0],
+          // kick: an outward shove that dies away, leaving the petal to
+          // drift down like all the others. Only burst petals get one.
+          kx: 0,
+          ky: 0,
+          extra: false
         };
+      }
+
+      // A shower thrown from the middle of the screen — the envelope opening
+      // is the one moment on the page that deserves confetti.
+      function burst() {
+        var n = Math.round(Math.min(34, Math.max(16, w / 26)));
+        var cx = w / 2;
+        var cy = h * 0.42;
+
+        for (var i = 0; i < n; i++) {
+          var p = make(true);
+          var angle = Math.random() * Math.PI * 2;
+          var speed = 3.2 + Math.random() * 6.5;
+
+          p.x = cx + Math.cos(angle) * 12;
+          p.y = cy + Math.sin(angle) * 12;
+          p.kx = Math.cos(angle) * speed;
+          p.ky = Math.sin(angle) * speed * 0.72;
+          p.spin = (Math.random() - 0.5) * 0.12;
+          p.rx *= 1.15;
+          p.extra = true;   // retired once it falls off the bottom
+          petals.push(p);
+        }
+        start();
       }
 
       function populate() {
@@ -453,12 +696,23 @@
           ctx.fill();
           ctx.restore();
 
-          p.y += p.vy;
+          p.y += p.vy + p.ky;
           p.phase += 0.011;
-          p.x += Math.sin(p.phase) * p.sway * 0.32;
+          p.x += Math.sin(p.phase) * p.sway * 0.32 + p.kx;
           p.rot += p.spin;
 
-          if (p.y > h + 24) petals[i] = make(false);
+          // the shove fades over roughly a second
+          if (p.kx || p.ky) {
+            p.kx *= 0.94;
+            p.ky *= 0.94;
+            if (Math.abs(p.kx) < 0.02) p.kx = 0;
+            if (Math.abs(p.ky) < 0.02) p.ky = 0;
+          }
+
+          if (p.y > h + 24) {
+            if (p.extra) { petals.splice(i, 1); i--; continue; }
+            petals[i] = make(false);
+          }
           if (p.x < -30) p.x = w + 25;
           else if (p.x > w + 30) p.x = -25;
         }
@@ -483,6 +737,8 @@
       document.addEventListener('visibilitychange', function () {
         if (document.hidden) stop(); else start();
       });
+
+      burstPetals = burst;
     }());
   }
 
@@ -552,118 +808,5 @@
     });
   }());
 
-  /* -------------------------------------------------------------
-     11. RSVP
-  ------------------------------------------------------------- */
-  (function () {
-    var form = $('#rsvpForm');
-    if (!form) return;
-
-    var nameEl  = $('#rsvpName');
-    var guestEl = $('#rsvpGuests');
-    var msgEl   = $('#rsvpMsg');
-    var errEl   = $('#rsvpError');
-    var doneEl  = $('#rsvpDone');
-    var copyBtn = $('#rsvpCopy');
-
-    function fail(message, field) {
-      errEl.textContent = message;
-      errEl.hidden = false;
-      if (field) {
-        field.setAttribute('aria-invalid', 'true');
-        field.focus();
-      }
-      return null;
-    }
-
-    function clearErrors() {
-      errEl.hidden = true;
-      [nameEl, guestEl].forEach(function (el) { el.removeAttribute('aria-invalid'); });
-    }
-
-    // Returns the composed reply, or null when the form isn't valid yet.
-    function compose() {
-      clearErrors();
-
-      var name = nameEl.value.trim();
-      if (!name) return fail('Please add your name so we know who to expect.', nameEl);
-
-      var guests = parseInt(guestEl.value, 10);
-      if (!guests || guests < 1) return fail('How many of you are coming?', guestEl);
-
-      var picked = $$('input[name="fn"]:checked', form).map(function (el) { return el.value; });
-      if (!picked.length) return fail('Please choose at least one function you can join.');
-
-      var note = msgEl.value.trim();
-
-      var text = 'RSVP — Sangeeta & Syam Sundar\n' +
-        'Name: ' + name + '\n' +
-        'Guests: ' + guests + '\n' +
-        'Attending: ' + picked.join(', ');
-      if (note) text += '\nMessage: ' + note;
-
-      return text;
-    }
-
-    function copyText(text) {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        return navigator.clipboard.writeText(text);
-      }
-      // Older Safari / non-secure contexts
-      return new Promise(function (resolve, reject) {
-        var ta = document.createElement('textarea');
-        ta.value = text;
-        ta.setAttribute('readonly', '');
-        ta.style.position = 'fixed';
-        ta.style.opacity = '0';
-        document.body.appendChild(ta);
-        ta.select();
-        var ok = false;
-        try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
-        document.body.removeChild(ta);
-        ok ? resolve() : reject();
-      });
-    }
-
-    function finish(message) {
-      doneEl.textContent = message;
-      doneEl.hidden = false;
-      form.hidden = true;
-    }
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var text = compose();
-      if (text === null) return;
-
-      if (RSVP_WHATSAPP) {
-        window.open('https://wa.me/' + RSVP_WHATSAPP + '?text=' + encodeURIComponent(text),
-                    '_blank', 'noopener');
-        finish('Thank you — we can’t wait to see you there.');
-      } else {
-        // No number configured yet: hand the guest their reply to send on.
-        copyText(text).then(function () {
-          finish('Your RSVP is copied — please send it to the family on WhatsApp.');
-        }).catch(function () {
-          errEl.textContent = 'Couldn’t copy automatically. Please message the family directly.';
-          errEl.hidden = false;
-        });
-      }
-    });
-
-    copyBtn.addEventListener('click', function () {
-      var text = compose();
-      if (text === null) return;
-      copyText(text).then(function () {
-        copyBtn.querySelector('span').textContent = 'Copied';
-        window.setTimeout(function () {
-          copyBtn.querySelector('span').textContent = 'Copy instead';
-        }, 2200);
-      }).catch(function () {
-        errEl.textContent = 'Couldn’t copy automatically — please select the text manually.';
-        errEl.hidden = false;
-      });
-    });
-  }());
 
 }());
