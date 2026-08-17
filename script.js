@@ -1,5 +1,5 @@
 /* =====================================================================
-   Sangeeta & Syam Sundar — Wedding Invitation
+   Syam Sundar & Sangeeta — Wedding Invitation
    ===================================================================== */
 (function () {
   'use strict';
@@ -761,7 +761,7 @@
       'PRODID:-//syam-weds-sangeeta//Wedding Invitation//EN',
       'CALSCALE:GREGORIAN',
       'METHOD:PUBLISH',
-      'X-WR-CALNAME:Sangeeta & Syam Sundar — Wedding'
+      'X-WR-CALNAME:Syam Sundar & Sangeeta — Wedding'
     ];
 
     EVENTS.forEach(function (ev) {
@@ -774,9 +774,9 @@
         'DTSTAMP:' + stamp,
         'DTSTART:' + utc(start),
         'DTEND:' + utc(end),
-        'SUMMARY:' + esc(ev.name + ' — Sangeeta & Syam Sundar'),
+        'SUMMARY:' + esc(ev.name + ' — Syam Sundar & Sangeeta'),
         'LOCATION:' + esc(ev.venue),
-        'DESCRIPTION:' + esc('Wedding celebrations of Sangeeta Khyonshali and Syam Sundar.'),
+        'DESCRIPTION:' + esc('Wedding celebrations of Syam Sundar and Sangeeta Khyonshali.'),
         'BEGIN:VALARM',
         'TRIGGER:-P1D',
         'ACTION:DISPLAY',
@@ -801,7 +801,7 @@
     btn.hidden = false;
     btn.addEventListener('click', function () {
       navigator.share({
-        title: 'Sangeeta & Syam Sundar — Wedding Invitation',
+        title: 'Syam Sundar & Sangeeta — Wedding Invitation',
         text: 'With the blessings of both families — December 2026, Ramnagar & Guruvayur.',
         url: window.location.href
       }).catch(function () { /* dismissed */ });

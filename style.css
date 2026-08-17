@@ -1,5 +1,5 @@
 /* =====================================================================
-   Sangeeta & Syam Sundar — Wedding Invitation
+   Syam Sundar & Sangeeta — Wedding Invitation
 
    Two regions, two moods. The Uttarakhand functions (Mehndi, Haldi,
    Sangeet, Bhaarath) sit in earthy sage / terracotta / marigold; the
@@ -894,7 +894,7 @@ body::before {
 .scene-orn.tl { left:  clamp(.4rem, 2vw, 1.6rem); }
 .scene-orn.tr { right: clamp(.4rem, 2vw, 1.6rem); scale: -1 1; }
 
-/* Names and dates, sitting in the sky above the procession */
+/* Names, sitting in the sky above the procession */
 .scene-caption {
   position: absolute;
   inset: clamp(.7rem, 2.6vw, 1.7rem) var(--gutter) auto;
@@ -912,15 +912,6 @@ body::before {
   color: var(--forest);
 }
 .scene-names em { font-style: normal; color: var(--gold); }
-.scene-date {
-  font-family: var(--sans);
-  font-weight: 500;
-  font-size: clamp(.5rem, .46rem + .2vw, .66rem);
-  letter-spacing: .3em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-inline-start: .3em;
-}
 
 /* ---------------------------------------------------------------
    11c. The mandapam raising itself
